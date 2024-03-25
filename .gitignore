@@ -1,6 +1,6 @@
 .pylintrc
 __pycache__/
-.vscode
+.vscodel
 .idea
 db.sqlite3
 media/

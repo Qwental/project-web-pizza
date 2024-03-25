@@ -1,11 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'main/base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <p>TEST</p>
-</body>
+<!DOCTYPE html>
+<html>
+  <body class="root">
+    <!-- TODO: починить шрифт Italiano в header -->
+    <!-- HEADER(шапка) -->
+    {% block header %}
+    {% endblock %}
+
+
+    {% block content %}
+      <div class="block content-advantages">content_advantages</div>
+      <!-- TODO: убрать "декор" у блоков a -->
+      <!-- nav bar для меню(мини-шапка) -->
+      <nav class="block minibar">
+        <a href="#water">Water</a>&nbsp;<a href="#pizza">Pizza</a>&nbsp;<a href="#sushi">Sushi</a>&nbsp;
+        <!-- TODO: кнопка корзины уродлива. ПЕРЕДЕЛАТЬ -->
+        <button class="cart" id="cart">
+          <!-- <img class="cart__image" src="./images/cart.png" alt="Cart" /> -->
+          <div class="cart_content">Cart</div>
+          <div class="cart__num" id="cart_num">0</div>
+        </button>
+      </nav>
+
+      <!-- TODO: изменить? -->
+      <!-- КОРЗИНА -->
+      {% include "main/components/cart.html" %}
+
+      <!-- TODO: починить скроллинг (не видно названий категорий в меню) -->
+      <!-- МЕНЮ -->
+      <div class="block menu">
+        <article id="water" class="menu__section menu__section_water">
+          <div class="menu__section-content">
+            <h5>Water</h5>
+            <div class="menu__section-content-cards">
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div id="pizza" class="menu__section menu__section_pizza">
+          <h5>Pizza</h5>
+          <div class="menu__section-content">
+            <div class="menu__section-content-cards">
+              <!-- TODO: цикл карточек; данные подтягиваются с бэка -->
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="sushi" class="menu__section menu__section_sushi">
+          <h5>Sushi</h5>
+          <div class="menu__section-content">
+            <div class="menu__section-content-cards">
+              <div class="card menu__section-content-card">
+                <div class="menu__section-content-card-content">
+                  <div class="menu__section-content-card-content-img">pic</div>
+                  <div class="menu__section-content-card-content-title">PIZZA</div>
+                  <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
+                  <div class="menu__section-content-card-content-cost">1000</div>
+                  <div class="menu__section-content-card-content-addBtn">
+                    <button onclick="alert('Added to cart')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+  </body>
+</html>

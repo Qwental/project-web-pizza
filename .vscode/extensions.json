@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "junstyle.vscode-django-support",
+        "gruntfuggly.todo-tree",
+        "esbenp.prettier-vscode",
+        "alefragnani.bookmarks",
+        "pranaygp.vscode-css-peek",
+        "tonybaloney.vscode-pets"
+    ]
+}
