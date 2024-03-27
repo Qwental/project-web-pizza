@@ -3,14 +3,14 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-
     <title>qwertyu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet" />
     <link href="{% static 'styles/style.css' %}" rel="stylesheet" />
     {% block css %}
-
+    {% endblock %}
+    {% block js_head %}
     {% endblock %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
@@ -19,7 +19,7 @@
     <div class="block header">
       <div class="header__content">
         <div class="header__logo">
-          <div class="header__logo-img"></div>
+          <div class="header__logo-img">{# ТУТ КАРТИНКА #}</div>
           <div class="header__logo-title">
             <strong>Pizza House</strong>
           </div>
@@ -39,17 +39,19 @@
         <div class="header__account">
           <div class="header__account-img"></div>
           <div class="header__account-title">
-            <strong>X</strong>
+            <a href="/login"><strong>ВОЙТИ</strong></a>
           </div>
         </div>
       </div>
     </div>
 
     {% block content %}
-
+    {# сюда вставиться то, что будет в таком же блоке, но другом .html #}
     {% endblock %}
 
     <div class="block footer">footer</div>
     <script src="{% static 'scripts/cart.js' %}"></script>
+    {% block js_footer %}
+    {% endblock %}
   </body>
 </html>

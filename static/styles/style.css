@@ -51,7 +51,7 @@ body {
     font-size: 12pt;
 }
 
-.header__logo {
+.header__logo-title {
     border: 5px dashed blue;
     border-radius: 10px;
     font-size: 25px;
