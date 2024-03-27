@@ -4,23 +4,24 @@
 <!DOCTYPE html>
 <html>
   <body class="root">
-    {# TODO: починить шрифт Italiano в header #} 
-    {# HEADER(шапка) #} 
+    {# TODO: починить шрифт Italiano в header #}
+    {# HEADER(шапка) #}
     {% block header %}
+
     {% endblock %}
 
     {% block content %}
       <div class="block content-specialOffers">СКИДЫЩКИ</div>
-      {# TODO: убрать "декор" у блоков a #} 
-      {# nav bar для меню(мини-шапка) #} 
+      {# TODO: убрать "декор" у блоков a #}
+      {# nav bar для меню(мини-шапка) #}
       {% include 'main/components/menu_navbar.html' %}
 
-      {# TODO: изменить? #} 
-      {# КОРЗИНА #} 
+      {# TODO: изменить? #}
+      {# КОРЗИНА #}
       {% include 'main/components/cart.html' %}
 
-      {# TODO: починить скроллинг (не видно названий категорий в меню) #} 
-      {# МЕНЮ #} 
+      {# TODO: починить скроллинг (не видно названий категорий в меню) #}
+      {# МЕНЮ #}
       <div class="block menu">
         <article id="water" class="menu__section menu__section_water">
           <div class="menu__section-content">
@@ -33,7 +34,7 @@
                   <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
                   <div class="menu__section-content-card-content-cost">1000</div>
                   <div class="menu__section-content-card-content-addBtn">
-                    <button onclick="alert('Added to cart')">Add to cart</button>
+                    <button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
                   </div>
                 </div>
               </div>
@@ -44,7 +45,7 @@
           <h5>Pizza</h5>
           <div class="menu__section-content">
             <div class="menu__section-content-cards">
-              {# TODO: цикл карточек; данные подтягиваются с бэка #} 
+              {# TODO: цикл карточек; данные подтягиваются с бэка #}
               {% for i in test_range %}
                 <div class="card menu__section-content-card">
                   <div class="menu__section-content-card-content">
@@ -53,7 +54,7 @@
                     <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
                     <div class="menu__section-content-card-content-cost">1000</div>
                     <div class="menu__section-content-card-content-addBtn">
-                      <button onclick="alert('Added to cart')">Add to cart</button>
+                      <button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
                     </div>
                   </div>
                 </div>
@@ -72,7 +73,7 @@
                   <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
                   <div class="menu__section-content-card-content-cost">1000</div>
                   <div class="menu__section-content-card-content-addBtn">
-                    <button onclick="alert('Added to cart')">Add to cart</button>
+                    <button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
                   </div>
                 </div>
               </div>
@@ -83,6 +84,7 @@
     {% endblock %}
 
     {% block footer %}
+
     {% endblock %}
   </body>
 </html>
