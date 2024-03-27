@@ -59,6 +59,7 @@ body {
 
 .minibar {
     display: flex;
+    gap: 15px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -70,46 +71,17 @@ body {
 }
 
 .cart {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background-color: #364364;
-    transition: 0.1s;
-    cursor: pointer;
-    position: fixed;
-    top: 50px;
-    right: 50px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    object-fit: contain;
-    padding: 15px;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.cart:hover {
-    transform: scale(1.1);
-}
-
-.cart__num {
-    position: absolute;
-    background-color: #d62240;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
+    background: var(--secondary-color);
+    border-radius: 15px;
+    width: 125px;
+    height: 45px;
     font-size: 18px;
-    font-weight: 500;
-    top: -5px;
-    right: -5px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }
 
-.cart_content {
-    font-size: medium;
-}
 
 .popup {
     position: fixed;
