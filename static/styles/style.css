@@ -231,8 +231,23 @@ body {
     margin-bottom: 60px;
     cursor: pointer;
 }
-
+/* TODO: обязательно починить размеры картинок (они сжаты на некоторых экранах) */
+/* 2,25800711744 - коэфициент изменения размера*/
+/* Для карточек 600*400 добиться 1,5 */
 .card {
     border: 2px dashed seagreen;
     border-radius: 25px;
+    width: 35vw;
+    height: 40vh;
 }
+
+.menu__section-content-card-content-img{
+    max-width: 50rem;
+    width: 100%;
+    height: auto;
+    max-height: 15.5vw;
+    border-radius: 25px;
+}
+/* .fakeId{
+    padding-top: 10px;
+} */
