@@ -46,13 +46,18 @@
           <div class="menu__section-content">
             <div class="menu__section-content-cards">
               {# TODO: цикл карточек; данные подтягиваются с бэка #}
-              {% for i in test_range %}
+              {% for product in products %}
                 <div class="card menu__section-content-card">
                   <div class="menu__section-content-card-content">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="menu__section-content-card-content-img" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{% static "" %}" class="menu__section-content-card-content-img" alt="Not found image">
+                    {% endif %}
                     <div class="menu__section-content-card-content-img">pic</div>
-                    <div class="menu__section-content-card-content-title">PIZZA</div>
-                    <div class="menu__section-content-card-content-description">Blablablablalbablb</div>
-                    <div class="menu__section-content-card-content-cost">1000</div>
+                    <div class="menu__section-content-card-content-title">{{ product.name }}</div>
+                    <div class="menu__section-content-card-content-description">{{ product.description|truncatechars:35 }}</div>
+                    <div class="menu__section-content-card-content-cost">{{ product.sell_price }}</div>
                     <div class="menu__section-content-card-content-addBtn">
                       <button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
                     </div>
