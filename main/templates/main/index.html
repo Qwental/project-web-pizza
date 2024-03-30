@@ -40,21 +40,21 @@
               </div>
             </div>
           </div>
-        </article>
-        <div id="pizza" class="menu__section menu__section_pizza">
+        </article> 
+        <div  class="menu__section menu__section_pizza">
+          <section class="fakeId" id="pizza"><br></section> 
           <h5>Pizza</h5>
           <div class="menu__section-content">
             <div class="menu__section-content-cards">
               {# TODO: цикл карточек; данные подтягиваются с бэка #}
               {% for product in products %}
-                <div class="card menu__section-content-card">
+                <div id="{{product.id}}" class="card menu__section-content-card">
                   <div class="menu__section-content-card-content">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="menu__section-content-card-content-img" alt="{{ product.name }}">
                     {% else %}
-                        <img src="{% static "" %}" class="menu__section-content-card-content-img" alt="Not found image">
+                        <img src="https://placehold.co/600x400@2x.png" class="menu__section-content-card-content-img" alt="Not found image">
                     {% endif %}
-                    <div class="menu__section-content-card-content-img">pic</div>
                     <div class="menu__section-content-card-content-title">{{ product.name }}</div>
                     <div class="menu__section-content-card-content-description">{{ product.description|truncatechars:35 }}</div>
                     <div class="menu__section-content-card-content-cost">{{ product.sell_price }}</div>
@@ -67,7 +67,7 @@
             </div>
           </div>
         </div>
-        <div id="sushi" class="menu__section menu__section_sushi">
+        {% comment %} <div id="sushi" class="menu__section menu__section_sushi">
           <h5>Sushi</h5>
           <div class="menu__section-content">
             <div class="menu__section-content-cards">
@@ -84,12 +84,17 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
       </div>
     {% endblock %}
 
     {% block footer %}
 
+    {% endblock %}
+
+    {# Корзина отображается только на главной странице, ей не обязательно быть в base.html #}
+    {% block js_foot %}
+      <script src="{% static 'scripts/cart.js' %}"></script>
     {% endblock %}
   </body>
 </html>
