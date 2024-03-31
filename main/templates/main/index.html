@@ -37,7 +37,7 @@
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="menu__section-content-card-content-img" alt="{{ product.name }}">
                     {% else %}
-                        <img src="{% static "" %}" class="menu__section-content-card-content-img" alt="Not found image">
+                        <img src="https://placehold.co/600x400@2x.png" class="menu__section-content-card-content-img" alt="Not found image">
                     {% endif %}
                     <div class="menu__section-content-card-content-title">{{ product.name }}</div>
                     <div class="menu__section-content-card-content-description">{{ product.description|truncatechars:35 }}</div>
@@ -57,6 +57,11 @@
 
     {% block footer %}
 
+    {% endblock %}
+
+    {# Корзина отображается только на главной странице, ей не обязательно быть в base.html #}
+    {% block js_foot %}
+      <script src="{% static 'scripts/cart.js' %}"></script>
     {% endblock %}
   </body>
 </html>
