@@ -15,6 +15,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def get_products(self):
+        """
+        Возвращает список всех товаров данной категории.
+        Используется для заполнения товаров по категориям в меню.
+        """
+        return Products.objects.filter(category=self.id)
 
 
 class Products(models.Model):
@@ -41,5 +49,8 @@ class Products(models.Model):
 
     def sell_price(self):
         if self.discount:
+            """
+            Возвращает итоговую цену товара с подсчётом скидки.
+            """
             return round(self.price - self.price * self.discount / 100, 2)
         return self.price

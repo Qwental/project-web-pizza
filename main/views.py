@@ -1,12 +1,13 @@
+from unicodedata import category
 from django.shortcuts import render
 
-from main.models import Products
+from main.models import Category
 
 
 def index(request):
-    products = Products.objects.filter()
+    categories = Category.objects.all()
 
     context = {
-        'products': products,
+        'categories': categories,
     }
     return render(request, 'main/index.html', context=context)
