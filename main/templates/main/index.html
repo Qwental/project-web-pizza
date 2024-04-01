@@ -11,8 +11,7 @@
     {% endblock %}
 
     {% block content %}
-      <div class="block content-specialOffers">СКИДЫЩКИ</div>
-      {# TODO: убрать "декор" у блоков a #}
+      {% include 'main/components/special_offers.html' %}
       {# nav bar для меню(мини-шапка) #}
       {% include 'main/components/menu_navbar.html' %}
 
@@ -60,7 +59,7 @@
     {% endblock %}
 
     {# Корзина отображается только на главной странице, ей не обязательно быть в base.html #}
-    {% block js_foot %}
+    {% block js_footer %}
       <script src="{% static 'scripts/cart.js' %}"></script>
     {% endblock %}
   </body>
