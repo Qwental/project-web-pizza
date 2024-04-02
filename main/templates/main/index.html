@@ -3,64 +3,78 @@
 
 <!DOCTYPE html>
 <html>
-  <body class="root">
-    {# TODO: починить шрифт Italiano в header #}
-    {# HEADER(шапка) #}
-    {% block header %}
 
-    {% endblock %}
+<body class="root">
+	{# TODO: починить шрифт Italiano в header #}
+	{# HEADER(шапка) #}
+	{% block header %}
 
-    {% block content %}
-      {% include 'main/components/special_offers.html' %}
-      {# nav bar для меню(мини-шапка) #}
-      {% include 'main/components/menu_navbar.html' %}
+	{% endblock %}
 
-      {# TODO: изменить? #}
-      {# КОРЗИНА #}
-      {% include 'main/components/cart.html' %}
+	{% block content %}
+	{% include 'main/components/special_offers.html' %}
+	{# nav bar для меню(мини-шапка) #}
+	{% include 'main/components/menu_navbar.html' %}
 
-      {# TODO: починить скроллинг (не видно названий категорий в меню) #}
-      {# МЕНЮ #}
-      <div class="block menu">
-        {# Заполнение товаров по категориям (сделал как это примерно должно работать) #}
-        {% for category in categories %}
-        <div id="{{ category.name }}" class="menu__section menu__section_{{ category.name }}">
-          <h5>{{ category.name }}</h5>
-          <div class="menu__section-content">
-            <div class="menu__section-content-cards">
-              
-              {# TODO: цикл карточек; данные подтягиваются с бэка #}
-              {% for product in category.get_products %}
-                <div class="card menu__section-content-card">
-                  <div class="menu__section-content-card-content">
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" class="menu__section-content-card-content-img" alt="{{ product.name }}">
-                    {% else %}
-                        <img src="https://placehold.co/600x400@2x.png" class="menu__section-content-card-content-img" alt="Not found image">
-                    {% endif %}
-                    <div class="menu__section-content-card-content-title">{{ product.name }}</div>
-                    <div class="menu__section-content-card-content-description">{{ product.description|truncatechars:35 }}</div>
-                    <div class="menu__section-content-card-content-cost">{{ product.sell_price }}</div>
-                    <div class="menu__section-content-card-content-addBtn">
-                      <button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
+	{# TODO: изменить? #}
+	{# КОРЗИНА #}
+	{% include 'main/components/cart.html' %}
 
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-    {% endblock %}
+	{# TODO: починить скроллинг (не видно названий категорий в меню) #}
+	{# МЕНЮ #}
+	<div class="block menu">
+		{# Заполнение товаров по категориям (сделал как это примерно должно работать) #}
+		{% for category in categories %}
+		<div id="{{ category.name }}" class="menu__section menu__section_{{ category.name }}">
+			<h5>{{ category.name }}</h5>
+			<div class="menu__section-content">
+				<div class="menu__section-content-cards">
 
-    {% block footer %}
+					{# TODO: цикл карточек; данные подтягиваются с бэка #}
+					{% for product in category.get_products %}
+					<div class="card menu__section-content-card">
+						<div class="menu__section-content-card-content">
+							{% if product.image %}
+							<img src="{{ product.image.url }}" class="menu__section-content-card-content-img"
+								alt="{{ product.name }}">
+							{% else %}
+							<img src="https://placehold.co/600x400@2x.png" class="menu__section-content-card-content-img"
+								alt="Not found image">
+							{% endif %}
+							<div class="menu__section-content-card-content-title">{{ product.name }}</div>
+							<div class="menu__section-content-card-content-description">{{
+								product.description|truncatechars:35 }}
+							</div>
+							{% if product.discount == 0 %}
+							<div class="menu__section-content-card-content-cost">{{ product.price }}</div>
+							{% else %}
+							{# цена без скидки должна быть в красном (желтом/оранжевом) квадратике и зачеркнута [зачеркивание сделал] #}
+							<div class="menu__section-content-card-content-cost-withoutDiscount">{{ product.price }}
+							</div>
+							<div class="menu__section-content-card-content-cost-withDiscount">{{ product.sell_price }}
+							</div>
+							{% endif %}
+							<div class="menu__section-content-card-content-addBtn">
+								<button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
 
-    {% endblock %}
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		{% endblock %}
 
-    {# Корзина отображается только на главной странице, ей не обязательно быть в base.html #}
-    {% block js_footer %}
-      <script src="{% static 'scripts/cart.js' %}"></script>
-    {% endblock %}
-  </body>
+		{% block footer %}
+
+		{% endblock %}
+
+		{# Корзина отображается только на главной странице, ей не обязательно быть в base.html #}
+		{% block js_footer %}
+		<script src="{% static 'scripts/cart.js' %}"></script>
+		{% endblock %}
+</body>
+
 </html>

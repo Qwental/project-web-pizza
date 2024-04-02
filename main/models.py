@@ -19,7 +19,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @property
     def get_products(self):
         """
@@ -51,6 +51,7 @@ class Products(models.Model):
     image = models.ImageField(
         upload_to="product_images", blank=True, null=True, verbose_name="Изображение"
     )
+    # Вань, так как это всё на фронт передовать будем? Шаблон для выбора параметра товара, получается, разный 🤔
     options = models.CharField(
         max_length=1000, blank=True
     )  # для записи параметров товара, например (('размер',('S','M','L')), ('тесто',('тонкое','толстое')))
@@ -67,9 +68,9 @@ class Products(models.Model):
         return f"{self.name}"
 
     def sell_price(self):
+        """
+        Возвращает итоговую цену товара с подсчётом скидки.
+        """
         if self.discount:
-            """
-            Возвращает итоговую цену товара с подсчётом скидки.
-            """
             return round(self.price - self.price * self.discount / 100, 2)
         return self.price

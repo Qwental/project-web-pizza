@@ -26,7 +26,7 @@
   ```json
   {
     "files.encoding": "utf8",
-    "editor.tabSize": 4,
+    "editor.tabSize": 2,
     "files.autoSave": "afterDelay",
     "editor.formatOnSave": false,
   }
