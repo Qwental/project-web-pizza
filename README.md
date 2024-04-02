@@ -39,6 +39,6 @@ WEB-приложение для доставки пиццы
 ####  Для PyCharm [Официальная документация](https://www.jetbrains.com/help/pycharm/sync-with-a-remote-repository.html?ysclid=luie4yjgys843871173#pull)
 1. Перейди в окно "Commit" (alt/кракозябра с мака+0)
 2. В окне "Changes" поставь галочку, ниже в поле "Commit Message" напиши комментарий для коммита
-3. Если это не единиственный коммит, нажми на кнопку "Commit" 
+3. Если это не единиственный коммит, нажми на кнопку "Commit", а затем продолжи работу ИЛИ если этот коммит последний, нажми на кнопку "Commit and Push" 
 ####  Для VSCode
 [Шпаргалка по Github](https://training.github.com/downloads/ru/github-git-cheat-sheet/)
