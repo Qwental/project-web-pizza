@@ -8,4 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('pizza-details', views.test_pizza_ajax, name='pizza-details'),
+    path('product/<slug:product_slug>/', views.product, name='product'),
+    path('about', views.about, name='about'),
 ]
