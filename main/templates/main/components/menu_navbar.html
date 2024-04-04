@@ -1,4 +1,4 @@
-<nav class="block minibar">
+<!-- <nav class="block minibar">
   {% for category in categories %}
     <a href="#{{ category.name }}">{{ category.name }}</a>&nbsp;
   {% endfor %}
@@ -8,4 +8,13 @@
       <p>Корзина</p>&nbsp;<div id="counter">0</div>
     </div>
   </button>
-</nav>
+</nav> -->
+<section class="section1">
+  <div class="divider">
+    {% for category in categories %}
+    <button class="button2">
+      <div class="inner"></div>
+      <div class="div4">{{ category.name }}</div>
+    </button>
+    {% endfor %}
+</section>
