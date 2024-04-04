@@ -8,6 +8,7 @@
     font-weight: 400;
     font-style: normal;
 }
+
 /* TODO: перевести размеры на em */
 
 html {
@@ -74,12 +75,23 @@ body {
     display: flex;
     background: var(--secondary-color);
     border-radius: 15px;
-    width: 125px;
+    width: 135px;
     height: 45px;
     font-size: 18px;
     align-items: center;
     justify-content: center;
     align-content: center;
+}
+
+.cart_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;  
+}
+
+#counter{
+    color: red;
 }
 
 
@@ -231,6 +243,7 @@ body {
     margin-bottom: 60px;
     cursor: pointer;
 }
+
 /* TODO: обязательно починить размеры картинок (они сжаты на некоторых экранах) */
 /* 2,25800711744 - коэфициент изменения размера*/
 /* Для карточек 600*400 добиться 1,5 */
@@ -241,17 +254,18 @@ body {
     height: 40vh;
 }
 
-.menu__section-content-card-content-img{
+.menu__section-content-card-content-img {
     max-width: 50rem;
     width: 100%;
     height: auto;
     max-height: 15.5vw;
     border-radius: 25px;
 }
+
 /* .fakeId{
     padding-top: 10px;
 } */
 
-.menu__section-content-card-content-cost-withoutDiscount{
+.menu__section-content-card-content-cost-withoutDiscount {
     text-decoration: line-through;
 }

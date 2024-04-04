@@ -38,13 +38,13 @@
 							<img src="{{ product.image.url }}" class="menu__section-content-card-content-img"
 								alt="{{ product.name }}">
 							{% else %}
-							<img src="https://placehold.co/600x400@2x.png" class="menu__section-content-card-content-img"
-								alt="Not found image">
+							<img src="https://placehold.co/600x400@2x.png"
+								class="menu__section-content-card-content-img" alt="Not found image">
 							{% endif %}
 							<div class="menu__section-content-card-content-title">{{ product.name }}</div>
 							<div class="menu__section-content-card-content-description">{{ product.description|truncatechars:100 }}
 							</div>
-							{% if product.discount == 0 %}
+							{% if product.discount == 0 %}	
 							<div class="menu__section-content-card-content-cost">{{ product.price }}</div>
 							{% else %}
 							{# цена без скидки должна быть в красном (желтом/оранжевом) квадратике и зачеркнута [зачеркивание сделал] #}
@@ -54,7 +54,7 @@
 							</div>
 							{% endif %}
 							<div class="menu__section-content-card-content-addBtn">
-								<button onclick="alert('Added to cart')"><span class="material-symbols-outlined">add</span></button>
+								<button onclick="addToCart({{product.id}})"><span id="toggle{{product.id}}" class="material-symbols-outlined">add</span></button>
 							</div>
 						</div>
 					</div>

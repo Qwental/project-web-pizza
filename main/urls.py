@@ -7,4 +7,5 @@ app_name = 'main'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('pizza-details', views.test_pizza_ajax, name='pizza-details'),
 ]
