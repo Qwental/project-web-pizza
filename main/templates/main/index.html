@@ -20,6 +20,9 @@
 	{# КОРЗИНА #}
 	{% include 'main/components/cart.html' %}
 
+
+	{% include 'main/components/product_options_menu.html' %}
+
 	{# TODO: починить скроллинг (не видно названий категорий в меню) #}
 	{# МЕНЮ #}
 	<div class="block menu">
@@ -52,7 +55,7 @@
 								</div>
 								<div class="wrapper-wrapper">
 									<div class="wrapper-">
-										<button onclick="addToCart({{product.id}})"><span id="toggle{{product.id}}"
+										<button onclick="addToCartp({{product.id}})"><span id="toggle{{product.id}}"
 												class="material-symbols-outlined">add</span></button>	
 									</div>
 								</div>
