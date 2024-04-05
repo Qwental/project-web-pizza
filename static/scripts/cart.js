@@ -240,3 +240,11 @@ function addToCartp(id) {
         });
     });
 }
+const productOptions_close = document.querySelector("#productOptions_close");
+
+productOptions_close.addEventListener("click", (e) => {
+  e.preventDefault();
+  var element = document.getElementById("productOptions");
+  element.classList.remove("show");
+  element.classList.add("hide");
+});
