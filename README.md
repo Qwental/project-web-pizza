@@ -11,6 +11,7 @@
 1. [Ты уже установил python] Установи зависимости: ```pip install -r requirements.txt```  
 2. Выполни миграцию для БД - ```python manage.py migrate```
 3. Создай админ-аккаунт (с ним ты войдешь в админку Django) - ```python manage.py createsuperuser```
+   * Чтобы перейти в админку, дважды кликни на кнопку ""Войти
 4. Заполни БД тестовыми данными - ```python manage.py loaddata fixtures/main/category.json fixtures/main/products.json```
 5. <u>Запуск приложения производиться всегда этой командой</u>  ```python manage.py runserver``` и перейди на http://127.0.0.1:8000/
 В vscode можно настроить запуск с помощью ```ctrl/control + f5```, в PyCharm это работает по умолчанию (делать ничего не нужно)

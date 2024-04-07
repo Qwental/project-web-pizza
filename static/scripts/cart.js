@@ -147,13 +147,13 @@ function displayData(data, options) {
 
   logDiv.innerHTML = htmlContent;
 
-  document.querySelectorAll('.remove-item').forEach(button => {
-    button.addEventListener('click', function() {
-      const index = this.getAttribute('data-index');
+  document.querySelectorAll(".remove-item").forEach((button) => {
+    button.addEventListener("click", function () {
+      const index = this.getAttribute("data-index");
       requstDataAll.splice(index, 1);
       this.parentElement.remove();
     });
- });
+  });
 }
 
 // получаем csrftoken
@@ -247,4 +247,19 @@ productOptions_close.addEventListener("click", (e) => {
   var element = document.getElementById("productOptions");
   element.classList.remove("show");
   element.classList.add("hide");
+});
+
+const loginBtn = document.querySelector("#loginBtn");
+
+loginBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    window.location.href += "/login";
+  }, 500);
+});
+
+loginBtn.addEventListener("dblclick", (e) => {
+  e.preventDefault();
+  window.location.href += "/admin";
+  return false;
 });
