@@ -3161,3 +3161,7 @@ body {
 .hide{
   display: none;
 }
+
+#title{
+  cursor: pointer;
+}

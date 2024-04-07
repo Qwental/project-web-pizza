@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 
 <head>
   <meta charset="UTF-8" />
@@ -16,6 +16,8 @@
   {% block js_head %}
   {% endblock %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
 </head>
 
 <body>
@@ -50,7 +52,7 @@
     </div>
   </div> -->
   <header class="header">
-    <div class="list-item">
+    <div class="list-item" id="title">
       <img class="icon" alt="Pizza logo" src="{%static 'img/Logo-pizza.png' %}" />
 
       <div class="skibidi-pizza">Skibidi Pizza</div>

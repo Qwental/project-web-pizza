@@ -1,4 +1,10 @@
-<div id="productOptions" class="hide">
+{% load static%}
+{% block js_head %}
+<script src="{% static 'scripts/cart.ng.js' %}"></script>
+{% endblock %}
+
+<!-- class="hide" -->
+<div id="productOptions" ng-class="{'show': cartCtrl.productOptionsVisible, 'hide': !cartCtrl.productOptionsVisible}">
   <button id="productOptions_close">X</button>
   <form id="dynamic-form">
   </form>

@@ -283,7 +283,6 @@ function addToCartp(id) {
     formContainer.appendChild(form);
   }
 
-
   // Выполнение GET запроса
   fetch(`api/?id=${id}`)
     .then((response) => response.json())
@@ -367,14 +366,22 @@ const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", (e) => {
   e.preventDefault();
   setTimeout(() => {
-    window.location.href += "/login";
+    window.location.href = "/login";
   }, 500);
 });
 
 loginBtn.addEventListener("dblclick", (e) => {
   e.preventDefault();
-  window.location.href += "/admin";
+  window.location.href = "/admin";
   return false;
+});
+
+const title = document.querySelector("#title");
+title.addEventListener("click", (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 500);
 });
 
 function formToJson(formId) {
@@ -401,3 +408,6 @@ function formToJson(formId) {
   // Convert the JavaScript object to a JSON string
   return JSON.stringify(formDataObj);
 }
+
+
+// TODO: мувнуть это все нахуй на нормальный фреймворк
