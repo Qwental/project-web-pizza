@@ -2,3 +2,4 @@ Django==4.2.11
 ipython==8.22.2
 django-debug-toolbar==4.3.0
 pillow==10.2.0
+django-jsonform==2.22.0

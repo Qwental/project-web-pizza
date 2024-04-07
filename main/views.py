@@ -18,10 +18,7 @@ def index(request):
     return render(request, "main/index.html", context=context)
 
 
-def product(request, product_slug):
-    """
-    Контроллер, отвечающий за страницу товара.
-    """
+"""def product(request, product_slug):
 
     product = Products.objects.get(slug=product_slug)
 
@@ -36,6 +33,7 @@ def product(request, product_slug):
         "options": options_json,
     }
     return render(request, "main/product.html", context=context)
+    """
 
 
 def about(request):
@@ -108,3 +106,19 @@ def your_view_name(request) -> JsonResponse:
             response_creator.append(responseCreatorElem)
 
         return JsonResponse(response_creator, safe=False)
+    
+
+def product(request):
+    if request.method == 'GET':
+        product_id = request.GET.get('id')
+
+        cur_product = Products.objects.get(id=product_id)
+        context = {
+            'name': cur_product.name,
+            'price': cur_product.sell_price(),
+            'options': cur_product.options,
+        }
+
+        return JsonResponse(context, safe=False, json_dumps_params={'ensure_ascii': False}, content_type='application/json; charset=utf-8')
+    
+

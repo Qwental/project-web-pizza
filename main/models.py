@@ -1,5 +1,5 @@
 from django.db import models
-
+from django_jsonform.models.fields import JSONField
 
 class Category(models.Model):
     name = models.CharField(
@@ -29,6 +29,42 @@ class Category(models.Model):
         return Products.objects.filter(category=self.id)
 
 
+def OPTIONS_SCHEMA():
+    schema = {
+        "type": "dict",
+        "title": "Дополнительные характеристики",
+        "keys": {
+            "adds":{
+            "type": "array",
+            "title": "Добавки",
+            "items": {
+                "type": "string",
+                "choices": [{"title": x.name, "value": f'{x.name}:{x.price}'} for x in Addition.objects.all()],
+            "widget": "multiselect"
+            }
+            }
+        },
+        "additionalProperties": {
+            "type": "array",
+            "items": {
+            "type": "dict",
+            "keys": {
+                "value": {
+                "title": "Значение",
+                "type": "string"
+                },
+                "price":{
+                "title": "Цена",
+                "type": "number",
+                "default": 1
+                }
+            }
+            }
+        }
+    }
+    return schema
+
+
 class Products(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name="Название")
     slug = models.SlugField(
@@ -52,9 +88,7 @@ class Products(models.Model):
         upload_to="product_images", blank=True, null=True, verbose_name="Изображение"
     )
     # Вань, так как это всё на фронт передовать будем? Шаблон для выбора параметра товара, получается, разный 🤔
-    options = models.CharField(
-        max_length=1000, blank=True
-    )  # для записи параметров товара, например (('размер',('S','M','L')), ('тесто',('тонкое','толстое')))
+    options = JSONField(schema=OPTIONS_SCHEMA)  # для записи параметров товара, например (('размер',('S','M','L')), ('тесто',('тонкое','толстое')))
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -74,3 +108,22 @@ class Products(models.Model):
         if self.discount:
             return round(self.price - self.price * self.discount / 100, 2)
         return self.price
+
+
+
+class Addition(models.Model):
+    name = models.CharField(max_length=150, unique=True, verbose_name="Название")
+    slug = models.SlugField(
+        max_length=200, unique=True, blank=True, null=True, verbose_name="URL"
+    )
+    price = models.DecimalField(
+        default=0.00, max_digits=7, decimal_places=2, verbose_name="Цена"
+    )
+    image = models.ImageField(
+        upload_to="product_images", blank=True, null=True, verbose_name="Изображение"
+    )
+
+    class Meta:
+        db_table = "addition"
+        verbose_name = "Добавку"
+        verbose_name_plural = "Добавки"

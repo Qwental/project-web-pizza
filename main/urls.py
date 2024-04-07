@@ -12,4 +12,5 @@ urlpatterns = [
     path("product/<slug:product_slug>/", views.product, name="product"),
     path("about", views.about, name="about"),
     path('your-endpoint-url/', views.your_view_name, name='your_view_name'),
+    path('api/', views.product, name='api')
 ]
