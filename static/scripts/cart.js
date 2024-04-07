@@ -128,6 +128,12 @@ var selectedPizzas = [];
 //   });
 //   document.getElementById("popup_cost").innerHTML = totalPrice;
 // }
+
+/**
+ *
+ * @param data
+ * @param options
+ */
 function displayData(data, options) {
   const logDiv = document.getElementById("log");
   let htmlContent = "";
@@ -181,63 +187,170 @@ function addToCartp(id) {
   element.setAttribute("data-product-id-menu", id);
   const csrftoken = getCookie("csrftoken");
 
+  function createFormElement(type, name, value) {
+    const element = document.createElement(type);
+    element.name = name;
+    element.innerHTML = value;
+    return element;
+  }
+
+  function createCheckboxElement(name, value) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = name;
+    checkbox.value = value;
+    checkbox.id = `${name}-${value}`;
+
+    const label = document.createElement("label");
+    label.htmlFor = checkbox.id;
+    label.textContent = value + " рубликов\n";
+    return { checkbox, label };
+  }
+
+  /**
+   * Создает элемент-выбор
+   * @param {*} name
+   * @param {*} options
+   * @returns
+   */
+  function createSelectElement(name, options) {
+    const select = document.createElement("select");
+    select.name = name;
+    if (options != null) {
+      options.forEach((option) => {
+        const optionElement = document.createElement("option");
+        if (option.value != null) {
+          optionElement.value = option.value;
+          optionElement.textContent = option.value;
+          select.appendChild(optionElement);
+        }
+      });
+    }
+    return select;
+  }
+  // const form = document.createElement("form");
+  // form.id = "dynamic-form";
+
+  const form = document.getElementById("dynamic-form");
+
+  function createForm(data) {
+    const formContainer = document.getElementById("productOptions");
+    form.textContent = "";
+    // formContainer.textContent = "";
+
+    form.setAttribute("data-optins-for", id);
+
+    // название и цена выводится всегда
+    const nameInput = createFormElement("p", "name", data.name);
+    const priceInput = createFormElement("small", "price", data.price);
+    form.appendChild(nameInput);
+    form.appendChild(priceInput);
+
+    // Проверяем наличие добавок и создаем элементы формы, если они есть
+    if (data.options.adds) {
+      var addsLabel = document.createElement("p");
+      addsLabel.innerText = "Добавки:";
+      form.appendChild(addsLabel);
+
+      data.options.adds.forEach((add) => {
+        const { checkbox, label } = createCheckboxElement("add", add);
+        form.appendChild(checkbox);
+        form.appendChild(label);
+      });
+    }
+
+    for (const optionName in data.options) {
+      // убираем добавки, ведь они уже были выше
+      if (data.options.hasOwnProperty(optionName) && optionName !== "adds") {
+        const options = data.options[optionName];
+        if (options && options.length > 0 && optionName !== "adds") {
+          const select = createSelectElement(optionName, options);
+          var label = document.createElement("p");
+          label.innerText = optionName + ":"; // Используем имя как лэйбл
+          form.appendChild(label);
+          form.appendChild(select);
+        }
+      }
+    }
+
+    // ПАМАГИТЕ!!!!!!!!!!!!!!
+
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Отправить";
+    form.appendChild(submitButton);
+
+    formContainer.appendChild(form);
+  }
+
+
+  // Выполнение GET запроса
+  fetch(`api/?id=${id}`)
+    .then((response) => response.json())
+    .then((data) => createForm(data))
+    .catch((error) => console.error("Ошибка:", error));
+
   // отправка
   +document
-    .getElementById("pizzaForm")
+    .getElementById("dynamic-form")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      event.preventDefault();
 
-      var selectedSize = document.querySelector(
-        'input[name="size"]:checked'
-      ).value;
-
-      var selectedToppings = Array.from(
-        document.querySelectorAll('input[name="topping"]:checked')
+      var selectedAdds = Array.from(
+        document.querySelectorAll('#dynamic-form input[name="add"]:checked')
       ).map(function (checkbox) {
         return checkbox.value;
       });
 
-      console.log("Выбранные размеры:", selectedSize);
-      console.log("Выбранные добавки:", selectedToppings);
 
-      requstDataAll.push({
-        id: id,
-        data: {
-          size: selectedSize,
-          toppings: selectedToppings,
-        },
-      });
+      // Формируем тело запроса
+      const requestBody = {
+        adds: selectedAdds,
+      };
 
-      console.log(requstDataAll);
+      console.log("Выбранные добавки:", requestBody);
+
+      // requstDataAll.push({
+      //   id: id,
+      //   data: {
+      //     toppings: selectedToppings,
+      //   },
+      // });
+      //
+      // console.log(requstDataAll);
+
+      const jsonString = formToJson('dynamic-form');
+      console.log("Пользователь выбрал " + jsonString);
+      // displayData(id, jsonString);
+
 
       // НЕКИЙ ЗАПРОС
       /**
        * отпраялем id и опции, возвращаем -- название, описание, цену
        */
-      fetch("/your-endpoint-url/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrftoken,
-        },
-        body: JSON.stringify({ items: requstDataAll }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Обработка ответа от сервера
-          displayData(data, {
-            data: {
-              size: selectedSize,
-              toppings: selectedToppings,
-            },
-          });
-          console.log(data);
-          // Здесь можно добавить код для обновления интерфейса с полученными данными
-        })
-        .catch((error) => {
-          console.error("Ошибка:", error);
-        });
+      // fetch("/your-endpoint-url/", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "X-CSRFToken": csrftoken,
+      //   },
+      //   body: JSON.stringify({ items: requestBody }),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     // Обработка ответа от сервера
+      //     displayData(data, {
+      //       data: {
+      //         size: selectedSize,
+      //         toppings: selectedToppings,
+      //       },
+      //     });
+      //     console.log(data);
+      //     // Здесь можно добавить код для обновления интерфейса с полученными данными
+      //   })
+      //   .catch((error) => {
+      //     console.error("Ошибка:", error);
+      //   });
     });
 }
 const productOptions_close = document.querySelector("#productOptions_close");
@@ -263,3 +376,28 @@ loginBtn.addEventListener("dblclick", (e) => {
   window.location.href += "/admin";
   return false;
 });
+
+function formToJson(formId) {
+  const form = document.getElementById(formId);
+  const formData = new FormData(form);
+  const formDataObj = {};
+
+  for (let [key, value] of formData.entries()) {
+    if (formDataObj.hasOwnProperty(key)) {
+      if (Array.isArray(formDataObj[key])) {
+        formDataObj[key].push(value);
+      } else {
+        formDataObj[key] = [formDataObj[key], value];
+      }
+    } else {
+      if (key.startsWith('add')) {
+        formDataObj[key] = [value];
+      } else {
+        formDataObj[key] = value;
+      }
+    }
+  }
+
+  // Convert the JavaScript object to a JSON string
+  return JSON.stringify(formDataObj);
+}
