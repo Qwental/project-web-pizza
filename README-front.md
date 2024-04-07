@@ -1,5 +1,7 @@
 # Web-pizza frontend
 
+Работаем над всеми файлами *.html, *.css, *.js
+
 ## Правила написания HTML и CSS [***ОБЯЗАТЕЛЬНО***]
 1. Для неймингов используем BEM, в разработке допускается писать любые названия (потом их удалять)
 2. Сайт должен работать и на Unix, и на Windows : Ира и Амелия на MacOS, поэтому следим внимательно за атрибутами -webkit-*
@@ -24,7 +26,7 @@
   ```json
   {
     "files.encoding": "utf8",
-    "editor.tabSize": 4,
+    "editor.tabSize": 2,
     "files.autoSave": "afterDelay",
     "editor.formatOnSave": false,
   }

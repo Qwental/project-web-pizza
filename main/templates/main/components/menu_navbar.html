@@ -1,10 +1,27 @@
-<nav class="block minibar">
-  <a href="#water">Water</a>&nbsp;<a href="#pizza">Pizza</a>&nbsp;<a href="#sushi">Sushi</a>&nbsp;
-  {# TODO: кнопка корзины уродлива. ПЕРЕДЕЛАТЬ #}
+<!-- <nav class="block minibar">
+  {% for category in categories %}
+    <a href="#{{ category.name }}">{{ category.name }}</a>&nbsp;
+  {% endfor %}
   <button class="cart" id="cart">
     {# <img class="cart__image" src="./images/cart.png" alt="Cart" /> #}
     <div class="cart_content">
-      <p>Корзина</p>
+      <p>Корзина</p>&nbsp;<div id="counter">0</div>
     </div>
   </button>
-</nav>
+</nav> -->
+<section class="section1">
+  <div class="divider">
+    {% for category in categories %}
+    <button class="button2">
+      <div class="inner"></div>
+      <div class="div4">{{ category.name }}</div>
+    </button>
+    {% endfor %}
+    <div class="divider"></div>
+    <button class="cart" id="cart">
+      {# <img class="cart__image" src="./images/cart.png" alt="Cart" /> #}
+      <div class="cart_content">
+        <p>Корзина</p>&nbsp;<div id="counter">0</div>
+      </div>
+    </button>
+</section>
