@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Addition, Category, Products
+from main.models import Addition, Category, Products, SpecialOffers
 
 @admin.register(Category)
 class CategoriesAdmin(admin.ModelAdmin):
@@ -15,3 +15,7 @@ class ProductssAdmin(admin.ModelAdmin):
 class AdditionAdmin(admin.ModelAdmin):
     list_display = ('name',)
     prepopulated_fields = {'slug': ('name', )}
+
+@admin.register(SpecialOffers)
+class SpecialOffersAdmin(admin.ModelAdmin):
+    list_display = ('name','updated')

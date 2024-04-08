@@ -87,8 +87,7 @@ class Products(models.Model):
     image = models.ImageField(
         upload_to="product_images", blank=True, null=True, verbose_name="Изображение"
     )
-    # Вань, так как это всё на фронт передовать будем? Шаблон для выбора параметра товара, получается, разный 🤔
-    options = JSONField(schema=OPTIONS_SCHEMA)  # для записи параметров товара, например (('размер',('S','M','L')), ('тесто',('тонкое','толстое')))
+    options = JSONField(schema=OPTIONS_SCHEMA) 
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -127,3 +126,26 @@ class Addition(models.Model):
         db_table = "addition"
         verbose_name = "Добавку"
         verbose_name_plural = "Добавки"
+
+
+
+class SpecialOffers(models.Model):
+    name = models.CharField(max_length=150, unique=True, verbose_name="Название")
+    image = models.ImageField(
+        upload_to="product_images", blank=True, null=True, verbose_name="Изображение"
+    )
+    product = models.ForeignKey(
+        to=Products,
+        on_delete=models.CASCADE,
+        verbose_name="Продукт",
+    )
+    description = models.TextField(blank=True, null=True, verbose_name="Описание")
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'special_offer'
+        verbose_name = "Специальное предложение"
+        verbose_name = "Специальные предложения"
+
+

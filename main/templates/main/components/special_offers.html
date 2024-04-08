@@ -3,3 +3,16 @@
     <span>Скидка 10% по студенческому билету на пиццу Пепперони</span>
     <button data-cart type="button" class="btn btn-block btn-outline-warning"> заказать </button>
 </div>
+{% for offer in special_offers %}
+    <div class="block specialoffers" style=" background-color: #ff0000">
+        {% if product.image %}
+            <img src="{{ offer.image.url }}" alt="{{ offer.product.name }}">
+		{% else %}
+			<img src="https://placehold.co/600x400@2x.png" class="icon1">
+		{% endif %}
+        
+        <span>{{ offer.description|truncatechars:200 }}</span>
+        <button data-cart type="button" class="btn btn-block btn-outline-warning" onclick=
+        'addToCartp({{ offer.product.id }})'> заказать </button>
+    </div>
+{% endfor %}

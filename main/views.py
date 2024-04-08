@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 import json
-from main.models import Category, Products
+from main.models import Category, Products, SpecialOffers
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -11,29 +11,14 @@ def index(request):
     """
 
     categories = Category.objects.all()
+    special_offers = SpecialOffers.objects.all()
 
     context = {
         "categories": categories,
+        "special_offers": special_offers,
     }
     return render(request, "main/index.html", context=context)
 
-
-"""def product(request, product_slug):
-
-    product = Products.objects.get(slug=product_slug)
-
-    product_options = product.options
-    if product_options != "":
-        options_json = json.loads(product_options)
-    else:
-        options_json = None
-
-    context = {
-        "product": product,
-        "options": options_json,
-    }
-    return render(request, "main/product.html", context=context)
-    """
 
 
 def about(request):
@@ -109,6 +94,9 @@ def your_view_name(request) -> JsonResponse:
     
 
 def product(request):
+    """
+    Возвращает Json с характеристиками товара из бд
+    """
     if request.method == 'GET':
         product_id = request.GET.get('id')
 
