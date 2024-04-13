@@ -282,6 +282,8 @@ function addToCartp(id) {
       const jsonString = formToJson("dynamic-form");
       console.log("Пользователь выбрал " + jsonString);
       // JSON.stringify(selectedAdds) +
+
+      // добавляем в корзину
       fetch("your-endpoint-url/", {
         method: "POST",
         body: jsonString,
@@ -291,6 +293,8 @@ function addToCartp(id) {
         },
       });
     });
+
+
 }
 
 /**
@@ -327,5 +331,15 @@ function formToJson(formId, _name, _id) {
   return JSON.stringify(formDataObj);
 }
 
-// TODO: мувнуть это все нахуй на нормальный фреймворк
-// 13 apr
+// открытие корзинки
+
+const cartBtn = document.getElementById("cart");
+cartBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  // тут получаем корзину
+  fetch();
+
+
+
+  
+})
