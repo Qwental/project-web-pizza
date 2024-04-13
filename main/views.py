@@ -53,9 +53,7 @@ def your_view_name(request) -> JsonResponse:
         # получаем джэйсона из rest-запроса
         data = json.loads(request.body)
         print(data)
-        # делаем из него обычный массив
-        items = data.get("items", [])
-        return JsonResponse({'hello': 'message'}, safe=False)
+        return JsonResponse({'message': 'Пиривет', "data": data}, safe=False)
     
 
 def product(request):
