@@ -8,12 +8,15 @@ const counter = document.getElementById("counter");
 
 const productOptions = document.querySelector("#productOptions");
 
-// открытия корзины
+// открытие корзинки
 cart.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("I am pressed");
   popup.classList.add("popup--open");
   body.classList.add("lock");
+
+  // тут получаем корзину
+  fetch();
 });
 
 // закрытие корзины
@@ -110,7 +113,6 @@ function getCookie(name) {
   return cookieValue;
 }
 
-
 // будет отправлено на бэк
 let requstDataAll = [];
 
@@ -134,7 +136,6 @@ function addToCartp(id) {
       if (value && value.length !== 0) {
         element.src = value;
         element.height = 200;
-
       } else {
         element.src =
           "https://res.cloudinary.com/practicaldev/image/fetch/s--wen7I4iU--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://i.picsum.photos/id/387/200/300.jpg%3Fhmac%3DJlKyfJE4yZ_jxmWXH5sNYl7JdDfP04DOk-hye4p_wtk";
@@ -293,8 +294,6 @@ function addToCartp(id) {
         },
       });
     });
-
-
 }
 
 /**
@@ -330,16 +329,3 @@ function formToJson(formId, _name, _id) {
   }
   return JSON.stringify(formDataObj);
 }
-
-// открытие корзинки
-
-const cartBtn = document.getElementById("cart");
-cartBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  // тут получаем корзину
-  fetch();
-
-
-
-  
-})
