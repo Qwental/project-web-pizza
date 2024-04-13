@@ -12,10 +12,10 @@
 <section class="section1">
   <div class="divider">
     {% for category in categories %}
-    <button class="button2">
+    <a href="#{{ category.name }}" class="button2">
       <div class="inner"></div>
       <div class="div4">{{ category.name }}</div>
-    </button>
+    </a>
     {% endfor %}
     <div class="divider"></div>
     <div class="spacer"></div>
