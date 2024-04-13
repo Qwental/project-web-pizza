@@ -10,6 +10,10 @@
 }
 
 /* TODO: перевести размеры на em */
+.img-popup{
+  width: 100px;
+  height: 100px;
+}
 
 html {
     /* height: 100%; */
@@ -3212,3 +3216,4 @@ body {
   margin: 0;
  }
   */
+

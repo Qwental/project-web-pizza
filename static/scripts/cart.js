@@ -133,6 +133,8 @@ function addToCartp(id) {
     if (type === "img") {
       if (value && value.length !== 0) {
         element.src = value;
+        element.height = 200;
+
       } else {
         element.src =
           "https://res.cloudinary.com/practicaldev/image/fetch/s--wen7I4iU--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://i.picsum.photos/id/387/200/300.jpg%3Fhmac%3DJlKyfJE4yZ_jxmWXH5sNYl7JdDfP04DOk-hye4p_wtk";
@@ -208,7 +210,7 @@ function addToCartp(id) {
     const nameInput = createFormElement("p", "name", data.name);
     nameInput.setAttribute("data-product-name", data.name);
     const priceInput = createFormElement("small", "price", data.price);
-    const imageInput = createFormElement("img", "img", data.img);
+    const imageInput = createFormElement("img", "img-popup", data.img);
     form.appendChild(nameInput);
     const labelForPrice = document.createElement("small");
     labelForPrice.innerText = "Цена: ";

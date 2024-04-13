@@ -67,6 +67,7 @@ def product(request):
         context = {
             'name': cur_product.name,
             'price': cur_product.sell_price(),
+            'img': str(cur_product.image.url),
             'options': cur_product.options,
         }
 
