@@ -52,45 +52,10 @@ def your_view_name(request) -> JsonResponse:
     if request.method == "POST":
         # получаем джэйсона из rest-запроса
         data = json.loads(request.body)
+        print(data)
         # делаем из него обычный массив
         items = data.get("items", [])
-        response_creator = []
-        # для каждого продукта в корзине...
-        for item in items:
-            # получаем id и опции
-            item_id = item.get("id")
-            data_dict = item.get("data")
-
-            # получаем продукт по id (де-факто его название и описание с картинкой)
-            product = Products.objects.get(id=item_id)
-
-            # махинации с ценами
-            price = product.sell_price()
-
-            if data_dict["size"] == "small":
-                price += 0
-            if data_dict["size"] == "medium":
-                price += 100
-            if data_dict["size"] == "large":
-                price += 200
-            if len(data_dict["toppings"]) == 0:
-                price += 0
-            if len(data_dict["toppings"]) == 1:
-                price += 10
-            if len(data_dict["toppings"]) == 2:
-                price += 20
-            if len(data_dict["toppings"]) == 3:
-                price += 30
-
-            # создаем мини-джэйсона для массива, который мы потом вернем
-            responseCreatorElem = {
-                "name": product.name,
-                "price": price,
-                "description": product.description,
-            }
-            response_creator.append(responseCreatorElem)
-
-        return JsonResponse(response_creator, safe=False)
+        return JsonResponse({'hello': 'message'}, safe=False)
     
 
 def product(request):

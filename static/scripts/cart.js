@@ -233,11 +233,23 @@ function addToCartp(id) {
 
   const form = document.getElementById("dynamic-form");
 
+  function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+  }
+
+
+  var token = getCookie('csrftoken');
   function createForm(data) {
     const formContainer = document.getElementById("productOptions");
     form.textContent = "";
     // formContainer.textContent = "";
+    const tokenInput = document.createElement("input");
+    tokenInput.value = token;
+    tokenInput.name = "csrfmiddlewaretoken";
+    tokenInput.type = "hidden";
 
+    form.appendChild(tokenInput);
     form.setAttribute("data-optins-for", id);
 
     // название и цена выводится всегда
@@ -278,9 +290,12 @@ function addToCartp(id) {
     const submitButton = document.createElement("button");
     submitButton.type = "submit";
     submitButton.textContent = "Отправить";
+    submitButton.classList.add("meow");
     form.appendChild(submitButton);
 
     formContainer.appendChild(form);
+
+
   }
 
   // Выполнение GET запроса
@@ -322,7 +337,17 @@ function addToCartp(id) {
       console.log("Пользователь выбрал " + jsonString);
       // displayData(id, jsonString);
 
-
+      fetch(
+        "your-endpoint-url/",
+        {
+          method: 'POST',
+          body: JSON.stringify({ "items": [{ "id": 1, "data": "pook" }] }),
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": token,
+          },
+        }
+      )
       // НЕКИЙ ЗАПРОС
       /**
        * отпраялем id и опции, возвращаем -- название, описание, цену
@@ -353,6 +378,13 @@ function addToCartp(id) {
     });
 }
 const productOptions_close = document.querySelector("#productOptions_close");
+
+const meow = document.getElementsByClassName("meow");
+
+meow.addEventListener("click", (e) => {
+  e.preventDefault();
+
+});
 
 productOptions_close.addEventListener("click", (e) => {
   e.preventDefault();
