@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 import json
+
+from django.templatetags.static import static
 from main.models import Category, Products, SpecialOffers
 from django.views.decorators.csrf import csrf_exempt
 
@@ -67,10 +69,13 @@ def product(request):
         context = {
             'name': cur_product.name,
             'price': cur_product.sell_price(),
-            'img': str(cur_product.image.url),
             'options': cur_product.options,
+            'img':  static('img/600x400.png')
         }
+    
+    if cur_product.image:
+        context['img'] = str(cur_product.image.url)
 
-        return JsonResponse(context, safe=False, json_dumps_params={'ensure_ascii': False}, content_type='application/json; charset=utf-8')
+    return JsonResponse(context, safe=False, json_dumps_params={'ensure_ascii': False}, content_type='application/json; charset=utf-8')
     
 
