@@ -370,5 +370,3 @@ function formToJson(formId, _name, _id) {
   }
   return JSON.stringify(formDataObj);
 }
-
-addToCartp(1);
