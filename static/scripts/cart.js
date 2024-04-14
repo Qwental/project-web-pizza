@@ -153,16 +153,27 @@ function addToCartp(id) {
    * @returns
    */
   function createCheckboxElement(name, value) {
+    // создаем инпут-чексбокс
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = name;
     checkbox.value = value;
     checkbox.id = `${name}-${value}`;
+    checkbox.className = "form-check-input";
 
+    // Создаем label для чекбокса
     const label = document.createElement("label");
     label.htmlFor = checkbox.id;
+    label.className = "form-check-label";
     label.textContent = value + " рубликов";
-    return { checkbox, label };
+
+    // Создаем вспомогательный div для чекбокса и метки
+    const container = document.createElement("div");
+    container.className = "form-check";
+    container.appendChild(checkbox);
+    container.appendChild(label);
+
+    return { container };
   }
 
   /**
@@ -172,19 +183,50 @@ function addToCartp(id) {
    * @returns
    */
   function createSelectElement(name, options) {
-    const select = document.createElement("select");
-    select.name = name;
-    if (options != null) {
-      options.forEach((option) => {
-        const optionElement = document.createElement("option");
+    // cоздаем вспомогательный div
+    const radioGroup = document.createElement("div");
+    radioGroup.className = "btn-group";
+    radioGroup.setAttribute("data-toggle", "buttons");
+    radioGroup.setAttribute("data-options", options);
+
+    options.forEach((option, index) => {
+        const radioButton = document.createElement("label");
+        radioButton.className = "btn btn-secondary";
+
+        // создаем вариант
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = name;
+        input.id = `${name}-${index}`;
+        input.className = "btn-check";
+        input.autocomplete = "off";
+
+        // проверка нулевого дня
         if (option.value != null) {
-          optionElement.value = option.value;
-          optionElement.textContent = option.value;
-          select.appendChild(optionElement);
+            input.value = option.value;
         }
-      });
-    }
-    return select;
+
+        radioButton.appendChild(input);
+
+        const span = document.createElement("span");
+        span.textContent = option.value;
+        radioButton.appendChild(span);
+
+        radioGroup.appendChild(radioButton);
+    });
+
+    // делаем логику клику
+    radioGroup.addEventListener('click', function(event) {
+      if (event.target.tagName === 'LABEL') {
+          this.querySelectorAll('.btn.active').forEach(function(activeBtn) {
+              activeBtn.classList.remove('active');
+          });
+          event.target.classList.add('active');
+      }
+
+  });
+
+    return radioGroup;
   }
 
   function createCsrfInput(token) {
@@ -227,9 +269,8 @@ function addToCartp(id) {
       form.appendChild(addsLabel);
 
       data.options.adds.forEach((add) => {
-        const { checkbox, label } = createCheckboxElement("add", add);
-        form.appendChild(checkbox);
-        form.appendChild(label);
+        const { container } = createCheckboxElement("add", add);
+        form.appendChild(container);
         form.appendChild(document.createElement("br"));
       });
     }
@@ -242,7 +283,7 @@ function addToCartp(id) {
           const select = createSelectElement(optionName, options);
           var label = document.createElement("p");
 
-          label.innerText = optionName + ":"; // Используем имя как лэйбл
+          label.innerText = optionName + ":";
           form.appendChild(document.createElement("hr"));
           form.appendChild(label);
           form.appendChild(select);
@@ -329,3 +370,5 @@ function formToJson(formId, _name, _id) {
   }
   return JSON.stringify(formDataObj);
 }
+
+addToCartp(1);
