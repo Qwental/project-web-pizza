@@ -26,17 +26,6 @@ popupClose.addEventListener("click", (e) => {
   body.classList.remove("lock");
 });
 
-const productOptions_close = document.querySelector(
-  '[data-jsaction="productOptions_close"]'
-);
-
-productOptions_close.addEventListener("click", (e) => {
-  e.preventDefault();
-  var element = document.getElementById("productOptions");
-  element.classList.remove("show");
-  element.classList.add("hide");
-});
-
 const loginBtn = document.querySelector("#loginBtn");
 
 loginBtn.addEventListener("click", (e) => {
@@ -240,9 +229,21 @@ function addToCartp(id) {
 
   const form = document.getElementById("dynamic-form");
 
+  const productOptions_close = document.querySelector(
+    '[data-jsaction="productOptions_close"]'
+  );
+  
+  productOptions_close.addEventListener("click", (e) => {
+    e.preventDefault();
+    var element = document.getElementById("productOptions");
+    element.classList.remove("show");
+    element.classList.add("hide");
+    form.textContent = "";
+  });
+
   function createForm(data) {
     const formContainer = document.getElementById("productOptions_form");
-    form.textContent = "";
+    
     var token = getCookie("csrftoken");
     const tokenInput = createCsrfInput(token);
 
