@@ -1,0 +1,111 @@
+{% extends 'main/base_for_about_page.html' %}
+
+
+{% load static %}
+{% block css_additionl %}
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/global.css' %}"/>
+        <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}"/>
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400&display=swap"
+        />
+    </head>
+{% endblock %}
+
+{% block content %}
+
+    <body>
+    <div class="div">
+        <div class="div1">
+            <div class="div2">
+{#                <div class="child"></div>#}
+{#                <button class="div3"> Вернуться на главную страницу#}
+{#                </button>#}
+
+               <a href="http://127.0.0.1:8000/"> <button type="button" class="btn btn-light btn-lg">Вернуться на главную страницу</button> </a>
+            </div>
+        </div>
+        <div class="icon">
+            <script type="text/javascript" charset="utf-8" async
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A481b285872e44f909f96dfe10a4ef1041bbcf62def9c8d8142df6b437052bc24&amp;width=100%25&amp;height=428&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+        {#        <img class="icon" alt="" src="{% static 'shopapp/img/icon.png' %}"/>#}
+
+        <div class="div4">
+            <div class="div5">
+                <p class="p">О компании</p>
+                <p class="email">
+                    Компания "Скибиди пицца" имеет многолетний опыт работы и знает, что
+                    нужно именно вам! Мы бесконечно развиваемся и каждый новый сегмент в
+                    нашей системе позволяет стать еще интереснее и полезнее для
+                    вас. Доставка пиццы и готовых блюд — это удобный сервис, дающий
+                    возможность быстро и вкусно пообедать, провести вечер в кругу семьи,
+                    угостить друзей и просто расслабиться после работы! 
+                </p>
+                <p class="email">
+                    Мы учитываем каждый момент и всегда стараемся быть лучше!
+                </p>
+            </div>
+        </div>
+        <div class="div6">
+            <div class="email-skibidi-pizzarambler">
+                <p class="p">Контакты</p>
+                <p class="email">
+                    Если у вас возникнут вопросы или пожелания, вы можете связаться с
+                    нами любым удобным способом:
+                </p>
+                <p class="email">Телефон: </p>
+                <p class="email">+7 (133) 713-37-13</p>
+                <p class="email">Email: </p>
+                <p class="email">skibidi-pizza@rambler.ru</p>
+            </div>
+        </div>
+        <div class="div7">
+            <div class="div8">
+                <p class="p">Реквизиты</p>
+                <p class="email">Юридическое лицо: ООО "Скибиди Доп Доп Йес Йес"</p>
+                <p class="email">ИНН:13371337</p>
+                <p class="email">КПП:1337228</p>
+                <p class="email">ОГРН:133713371337</p>
+            </div>
+        </div>
+        <div class="div9">
+            <div class="div10">
+                <p class="skibidi-pizza">
+
+                        <span>
+
+                    <link rel="stylesheet"
+                          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+                    <span class="material-symbols-outlined">favorite</span>
+                    </span>
+
+                    График работы
+                </p>
+                <p class="skibidi-pizza">Будни: 9:00 - 22:00</p>
+                <p class="skibidi-pizza">Выходные: 9:00 - 23:00</p>
+            </div>
+            <div class="skibidi-pizza-container">
+
+                <p class="skibidi-pizza">
+                    <span>
+
+                    <link rel="stylesheet"
+                          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+                    <span class="material-symbols-outlined">favorite</span>
+                    </span>
+                    Адрес пиццерии “Skibidi Pizza”:
+                </p>
+                <p class="skibidi-pizza">Дубосековская улица, 4с1, Москва, 125080</p>
+            </div>
+        </div>
+    </div>
+    </body>
+
+{% endblock %}
+
+

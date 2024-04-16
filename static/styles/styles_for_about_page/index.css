@@ -1,0 +1,159 @@
+.child {
+    top: calc(50% - 28.5px);
+    left: calc(50% - 243.5px);
+    border-radius: 15px;
+    background-color: #f2f3f3;
+    height: 57px;
+  }
+  .child,
+  .div2,
+  .div3 {
+    position: absolute;
+    width: 487px;
+  }
+
+  .div3 {
+    top: calc(50% - 17.5px);
+    left: calc(50% - 243.5px);
+    letter-spacing: 0.03em;
+    line-height: 144.69%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+  }
+
+  .div2 {
+    top: calc(50% - 28px);
+    left: calc(50% - 242.5px);
+    height: 57px;
+  }
+  .div1,
+  .icon {
+    position: absolute;
+    left: calc(50% - 428px);
+    width: 855px;
+  }
+  .div1 {
+    top: 0;
+    background-color: var(--color-white);
+    height: 100px;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--font-size-5xl);
+    color: #2f2f2f;
+  }
+  .icon {
+    top: calc(50% - 381px);
+    border-radius: 40px;
+    height: 422px;
+    object-fit: cover;
+  }
+  .p {
+    margin: 0;
+    font-size: var(--font-size-5xl);
+  }
+  .div4,
+  .div5 {
+    position: absolute;
+    width: 855px;
+    height: 198px;
+  }
+  .div5 {
+    top: calc(50% - 99px);
+    left: calc(50% - 427.5px);
+    line-height: 144.69%;
+    display: inline-block;
+  }
+  .div4 {
+    top: calc(50% + 61px);
+    left: calc(50% - 428px);
+    background-color: var(--color-white);
+    overflow: hidden;
+  }
+  .email {
+    margin: 0;
+    font-weight: 300;
+  }
+  .email-skibidi-pizzarambler {
+    position: absolute;
+    top: 0;
+    left: 1px;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 855px;
+    height: 198px;
+  }
+  .div6 {
+    position: absolute;
+    top: calc(50% + 279px);
+    left: calc(50% - 428px);
+    background-color: var(--color-white);
+    width: 855px;
+    height: 176px;
+    overflow: hidden;
+  }
+  .div8 {
+    top: 0;
+    left: 0;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 855px;
+    height: 154px;
+  }
+  .div10,
+  .div7,
+  .div8 {
+    position: absolute;
+  }
+  .div7 {
+    top: calc(50% + 475px);
+    left: calc(50% - 427px);
+    background-color: var(--color-white);
+    width: 855px;
+    height: 154px;
+    overflow: hidden;
+  }
+  .div10 {
+    top: 25px;
+    left: 431px;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 427px;
+    height: 104px;
+  }
+  .skibidi-pizza {
+    margin: 0;
+  }
+  .skibidi-pizza-container {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 427px;
+    height: 104px;
+  }
+  .div,
+  .div9 {
+    background-color: var(--color-white);
+    overflow: hidden;
+  }
+  .div9 {
+    position: absolute;
+    top: calc(50% - 606px);
+    left: calc(50% - 428px);
+    width: 855px;
+    height: 198px;
+    text-align: center;
+    font-size: var(--font-size-5xl);
+  }
+  .div {
+    width: 100%;
+    position: relative;
+    height: 1430px;
+    text-align: left;
+    font-size: var(--font-size-lg);
+    color: var(--color-black);
+    font-family: var(--font-helvetica);
+  }

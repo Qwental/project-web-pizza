@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    line-height: normal;
+  }
+
+  :root {
+    /* fonts */
+    --font-helvetica: Helvetica;
+
+    /* font sizes */
+    --font-size-5xl: 24px;
+    --font-size-lg: 18px;
+
+    /* Colors */
+    --color-white: #fff;
+    --color-black: #000;
+  }
+  
