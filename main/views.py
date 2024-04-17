@@ -26,6 +26,15 @@ def index(request):
 def about(request):
     pass
 
+def cart(request):
+    """
+    Контроллер, отвечающий за страницу с корзиной.
+    ПОКА ТУТ НИЧЕ НЕ РОБИТ, скоро сделаю
+    """
+    context = {
+    }
+    return render(request, "main/cart_test.html", context=context)
+
 
 def test_pizza_ajax(request):
     product_id = request.GET.get("id")

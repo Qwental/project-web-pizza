@@ -11,6 +11,7 @@ urlpatterns = [
     path("pizza-details", views.test_pizza_ajax, name="pizza-details"),
     path("product/<slug:product_slug>/", views.product, name="product"),
     path("about", views.about, name="about"),
+    path("cart", views.cart, name="cart"),
     path('your-endpoint-url/', views.your_view_name, name='your_view_name'),
     path('api/', views.product, name='api')
 ]
