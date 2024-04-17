@@ -14,10 +14,12 @@ def index(request):
 
     categories = Category.objects.all()
     special_offers = SpecialOffers.objects.all()
+    count_offers = range(special_offers.count())
 
     context = {
         "categories": categories,
         "special_offers": special_offers,
+        "count_offers": count_offers,
     }
     return render(request, "main/index.html", context=context)
 
