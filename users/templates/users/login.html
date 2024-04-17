@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <form action="{% url "user:login" %}" method="post">
+      {% csrf_token %}
+      {{form}}
+
+    <button type="submit" class="btn btn-dark btn-block">Войти</button>
+    </form>
+  </body>
+</html>
