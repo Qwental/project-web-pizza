@@ -1,5 +1,6 @@
-{% extends 'main/base_for_about_page.html' %}
-{#{% extends 'main/base.html' %}#}
+
+{#Теперь наследуется от общего base шаблона#}
+{% extends 'main/base.html' %}
 {% load static %}
 
 
@@ -20,14 +21,14 @@
 {#ЦЕНТРИРОВАНИЕ #}
     <div class="div-about">
     
-        {#кнопка#}
-        <div class="div1-about">
-            <div class="div2-about">
-                <a href="/">
-                    <button type="button" class="btn btn-light btn-lg">Вернуться на главную страницу</button>
-                </a>
-            </div>
-        </div>
+        {#кнопку убрал#}
+{#        <div class="div1-about">#}
+{#            <div class="div2-about">#}
+{#                <a href="/">#}
+{#                    <button type="button" class="btn btn-light btn-lg">Вернуться на главную страницу</button>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
         
         {#Верхняя информация#}
         {#График работы#}
