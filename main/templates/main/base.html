@@ -62,9 +62,20 @@
       <h3 class="h32">Контакты</h3>
     </nav>
     <div class="wrapper">
-      <button id="loginBtn" class="button1">
-        <div class="child"></div>
-        <div class="div1">Войти</div>
+
+        {% if request.user.is_authenticated %}
+        <button id="logoutBtn" class="button1">
+          <div class="child"></div>
+          <a href="/user/logout"><div class="div1">Выйти</div></a>
+          </button>
+          </div>
+        {% else %}
+        <button id="loginBtn" class="button1">
+          <div class="child"></div>
+          <a href="/user/login"><div class="div1">Войти</div></a>
+          </button>
+          </div>        
+        {% endif %}
       </button>
     </div>
   </header>

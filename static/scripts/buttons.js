@@ -7,6 +7,15 @@ loginBtn.addEventListener("click", (e) => {
   }, 500);
 });
 
+const logoutBtn = document.querySelector("#logoutBtn");
+
+logoutBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    window.location.href = "/user/logout";
+  }, 500);
+});
+
 const regBtn = document.querySelector("#regBtn");
 
 regBtn.addEventListener("click", (e) => {
