@@ -1,40 +1,16 @@
-.child {
-    top: calc(50% - 28.5px);
-    left: calc(50% - 243.5px);
-    border-radius: 15px;
-    background-color: #f2f3f3;
-    height: 57px;
-  }
-  .child,
-  .div2,
-  .div3 {
-    position: absolute;
-    width: 487px;
-  }
+@import url('./global.css');
 
-  .div3 {
-    top: calc(50% - 17.5px);
-    left: calc(50% - 243.5px);
-    letter-spacing: 0.03em;
-    line-height: 144.69%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 34px;
-  }
 
-  .div2 {
-    top: calc(50% - 28px);
-    left: calc(50% - 242.5px);
-    height: 57px;
-  }
-  .div1,
-  .icon {
+  .icon-about {
     position: absolute;
     left: calc(50% - 428px);
     width: 855px;
+    top: calc(50% - 381px);
+    border-radius: 40px;
+    height: 422px;
+    object-fit: cover;
   }
-  .div1 {
+  .div1-about {
     top: 0;
     background-color: var(--color-white);
     height: 100px;
@@ -43,39 +19,33 @@
     font-size: var(--font-size-5xl);
     color: #2f2f2f;
   }
-  .icon {
-    top: calc(50% - 381px);
-    border-radius: 40px;
-    height: 422px;
-    object-fit: cover;
-  }
-  .p {
+
+  .p-about {
     margin: 0;
     font-size: var(--font-size-5xl);
   }
-  .div4,
-  .div5 {
+  .div4-about,
+  .div5-about {
     position: absolute;
     width: 855px;
     height: 198px;
-  }
-  .div5 {
     top: calc(50% - 99px);
     left: calc(50% - 427.5px);
     line-height: 144.69%;
     display: inline-block;
   }
-  .div4 {
+
+  .div4-about {
     top: calc(50% + 61px);
     left: calc(50% - 428px);
     background-color: var(--color-white);
     overflow: hidden;
   }
-  .email {
+  .email-about {
     margin: 0;
     font-weight: 300;
   }
-  .email-skibidi-pizzarambler {
+  .email-skibidi-pizzarambler-about {
     position: absolute;
     top: 0;
     left: 1px;
@@ -84,7 +54,7 @@
     width: 855px;
     height: 198px;
   }
-  .div6 {
+  .div6-about {
     position: absolute;
     top: calc(50% + 279px);
     left: calc(50% - 428px);
@@ -93,7 +63,7 @@
     height: 176px;
     overflow: hidden;
   }
-  .div8 {
+  .div8-about {
     top: 0;
     left: 0;
     line-height: 144.69%;
@@ -101,12 +71,12 @@
     width: 855px;
     height: 154px;
   }
-  .div10,
-  .div7,
-  .div8 {
+  .div10-about,
+  .div7-about,
+  .div8-about {
     position: absolute;
   }
-  .div7 {
+  .div7-about {
     top: calc(50% + 475px);
     left: calc(50% - 427px);
     background-color: var(--color-white);
@@ -114,7 +84,7 @@
     height: 154px;
     overflow: hidden;
   }
-  .div10 {
+  .div10-about {
     top: 25px;
     left: 431px;
     line-height: 144.69%;
@@ -122,10 +92,10 @@
     width: 427px;
     height: 104px;
   }
-  .skibidi-pizza {
+  .skibidi-pizza-about {
     margin: 0;
   }
-  .skibidi-pizza-container {
+  .skibidi-pizza-container-about {
     position: absolute;
     top: 25px;
     left: 0;
@@ -134,12 +104,10 @@
     width: 427px;
     height: 104px;
   }
-  .div,
-  .div9 {
+
+  .div9-about {
     background-color: var(--color-white);
     overflow: hidden;
-  }
-  .div9 {
     position: absolute;
     top: calc(50% - 606px);
     left: calc(50% - 428px);
@@ -148,7 +116,7 @@
     text-align: center;
     font-size: var(--font-size-5xl);
   }
-  .div {
+  .div-about {
     width: 100%;
     position: relative;
     height: 1430px;

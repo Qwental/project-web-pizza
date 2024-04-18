@@ -1,9 +1,4 @@
-body {
-    margin: 0;
-    line-height: normal;
-  }
-
-  :root {
+:root {
     /* fonts */
     --font-helvetica: Helvetica;
 
@@ -14,5 +9,5 @@ body {
     /* Colors */
     --color-white: #fff;
     --color-black: #000;
-  }
+}
   
