@@ -1,7 +1,7 @@
 @import url('./global.css');
 
 
-  .icon-about {
+  .map-about {
     position: absolute;
     left: calc(50% - 428px);
     width: 855px;
