@@ -1,0 +1,143 @@
+@import url('./global.css');
+
+
+.map-about {
+    position: absolute;
+    left: calc(50% - 428px);
+    width: 855px;
+    top: calc(50% - 381px);
+    border-radius: 40px;
+    height: 422px;
+    object-fit: cover;
+}
+
+.div1-about {
+    top: 0;
+    background-color: var(--color-white);
+    height: 100px;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--font-size-5xl);
+    color: #2f2f2f;
+}
+
+.p-about {
+    margin: 0;
+    font-size: var(--font-size-5xl);
+}
+
+.div4-about,
+.div5-about {
+    position: absolute;
+    width: 855px;
+    height: 198px;
+    top: calc(50% - 99px);
+    left: calc(50% - 427.5px);
+    line-height: 144.69%;
+    display: inline-block;
+}
+
+.div4-about {
+    top: calc(50% + 61px);
+    left: calc(50% - 428px);
+    background-color: var(--color-white);
+    overflow: hidden;
+}
+
+.email-about {
+    margin: 0;
+    font-weight: 300;
+}
+
+.email-skibidi-pizzarambler-about {
+    position: absolute;
+    top: 0;
+    left: 1px;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 855px;
+    height: 198px;
+}
+
+.div6-about {
+    position: absolute;
+    top: calc(50% + 279px);
+    left: calc(50% - 428px);
+    background-color: var(--color-white);
+    width: 855px;
+    height: 176px;
+    overflow: hidden;
+}
+
+.div8-about {
+    top: 0;
+    left: 0;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 855px;
+    height: 154px;
+}
+
+.div10-about,
+.div7-about,
+.div8-about {
+    position: absolute;
+}
+
+.div7-about {
+    top: calc(50% + 475px);
+    left: calc(50% - 427px);
+    background-color: var(--color-white);
+    width: 855px;
+    height: 154px;
+    overflow: hidden;
+}
+
+.div10-about {
+    top: 25px;
+    left: 431px;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 427px;
+    height: 104px;
+}
+
+.skibidi-pizza-about {
+    margin: 0;
+}
+
+.skibidi-pizza-container-about {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 427px;
+    height: 104px;
+}
+
+.div9-about {
+    background-color: var(--color-white);
+    overflow: hidden;
+    position: absolute;
+    top: calc(50% - 606px);
+    left: calc(50% - 428px);
+    width: 855px;
+    height: 198px;
+    text-align: center;
+    font-size: var(--font-size-5xl);
+}
+
+.div-about {
+    width: 100%;
+    position: relative;
+    height: 1430px;
+    text-align: left;
+    font-size: var(--font-size-lg);
+    color: var(--color-black);
+    font-family: var(--font-helvetica);
+}
+
+.a-about {
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #2f2f2f;
