@@ -3,7 +3,25 @@ const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", (e) => {
   e.preventDefault();
   setTimeout(() => {
-    window.location.href = "/login";
+    window.location.href = "/user/login";
+  }, 500);
+});
+
+const logoutBtn = document.querySelector("#logoutBtn");
+
+logoutBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    window.location.href = "/user/logout";
+  }, 500);
+});
+
+const regBtn = document.querySelector("#regBtn");
+
+regBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    window.location.href = "/user/registration";
   }, 500);
 });
 
