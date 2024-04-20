@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+
+from django.http import HttpResponse, HttpRequest
+
 import json
 
 from django.templatetags.static import static
@@ -25,8 +28,16 @@ def index(request):
 
 
 
-def about(request):
-    pass
+def about(request: HttpRequest):
+    """
+    Контроллер, отвечающий за страницу "о нас" (about_page.html),
+    та в свою очередь подгружает стили
+    из папки styles_for_about_page
+    """
+    context = {
+
+    }
+    return render(request, 'main/about_page.html', context=context)
 
 
 def test_pizza_ajax(request):
