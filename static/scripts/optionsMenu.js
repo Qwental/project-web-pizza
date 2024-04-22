@@ -305,7 +305,7 @@ function addToCartp(id) {
         const token = getCookie("csrftoken");
 
         // добавляем в корзину
-        fetch("your-endpoint-url/", {
+        fetch("cart/cart_add/", {
           method: "POST",
           body: jsonString,
           headers: {
