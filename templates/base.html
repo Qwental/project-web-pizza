@@ -39,7 +39,7 @@
       <h3 class="h3">г. Москва</h3>
 
       {#Добавил ссылку на страницу /about#}
-      <a class="a-about" href="/about">
+      <a class="a-about" href="{% url 'main:about' %}">
         <h3 class="h31">О нас</h3>
       </a>
 
@@ -75,7 +75,7 @@
   <footer class="footer">
     <div class="faq-container">
       <p class="faq">FAQ</p>
-      <a class="a-about" href="/about"><p class="p18">О нас</p></a>
+      <a class="a-about" href="{% url 'main:about' %}"><p class="p18">О нас</p></a>
       <p class="p19">Адрес: город Москва, Дубосековская улица, 4Ас1</p>
       <p class="p20">© Все изображения без АП</p>
     </div>
