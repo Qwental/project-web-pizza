@@ -3034,6 +3034,7 @@ body {
 .faq,
 .p18,
 .p19 {
+  color: white;
   margin-block-start: 0;
   margin-block-end: 30px;
 }
@@ -3042,10 +3043,13 @@ body {
 }
 .faq-container {
   height: 7rem;
-  flex: 1;
+  /* flex: 1; */
   position: relative;
   font-weight: 300;
-  display: inline-block;
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   min-width: 15.375rem;
   max-width: 100%;
 }
@@ -3055,12 +3059,17 @@ body {
   margin-block-end: 30px;
 }
 .skibidi-pizzaramblerru {
+  color: white;
   height: 7rem;
   width: 16.375rem;
   position: relative;
   font-weight: 300;
-  display: inline-block;
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   flex-shrink: 0;
+  align-items: center;
 }
 .p22,
 .p23,
@@ -3080,7 +3089,10 @@ body {
   width: 18.75rem;
   position: relative;
   font-weight: 300;
-  display: inline-block;
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   flex-shrink: 0;
 }
 .div,
@@ -3097,14 +3109,20 @@ body {
   align-items: flex-start;
   padding: var(--padding-2xl) var(--padding-17xl) 0;
   box-sizing: border-box;
-  gap: 0.563rem;
+  flex-direction: row;
+	flex-wrap: wrap;
   max-width: 100%;
   text-align: left;
   font-size: var(--font-size-base);
   color: var(--color-white);
   font-family: var(--font-helvetica);
+  height: 250px;
 }
 .div {
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   width: 100%;
   position: relative;
   background-color: var(--color-white);
@@ -3247,3 +3265,8 @@ body {
   border-color: #007bff;
  }
  
+
+ .a-base {
+  text-decoration: none;
+  color: white;
+ }

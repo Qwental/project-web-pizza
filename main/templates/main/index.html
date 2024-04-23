@@ -1,6 +1,9 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
+{% block head_title %}Главная{% endblock %}
+
 <!DOCTYPE html>
 <html>
 
@@ -25,7 +28,7 @@
 
 	{# TODO: починить скроллинг (не видно названий категорий в меню) #}
 	{# МЕНЮ #}
-	<div class="block menu">
+	<div class="menu">
 		{# Заполнение товаров по категориям (сделал как это примерно должно работать) #}
 		{% for category in categories %}
 		<div id="{{ category.name }}" class="menu__section menu__section_{{ category.name }}">
@@ -38,9 +41,9 @@
 					<div class="div11">
 						{% if product.image %}
 						<img class="icon1" loading="lazy" alt="{{ product.name }}" src="{{ product.image.url }}" />
-					{% else %}
-					<img src="https://placehold.co/600x400@2x.png" class="icon1">
-					{% endif %}
+						{% else %}
+							<img src="https://placehold.co/600x400@2x.png" class="icon1">
+						{% endif %}
 
 						<div class="pen-tool">
 							<b class="b">{{ product.name }}</b>
@@ -62,33 +65,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="card menu__section-content-card">
-						<div class="menu__section-content-card-content">
-							{% if product.image %}
-							<img src="{{ product.image.url }}" class="menu__section-content-card-content-img"
-								alt="{{ product.name }}">
-							{% else %}
-							<img src="https://placehold.co/600x400@2x.png"
-								class="menu__section-content-card-content-img" alt="Not found image">
-							{% endif %}
-							
-							<div class="menu__section-content-card-content-title">{{ product.name }}</div>
-							<div class="menu__section-content-card-content-description">{{ product.description|truncatechars:100 }}
-							</div>
-							{% if product.discount == 0 %}	
-							<div class="menu__section-content-card-content-cost">{{ product.price }}</div>
-							{% else %}
-							{# цена без скидки должна быть в красном (желтом/оранжевом) квадратике и зачеркнута [зачеркивание сделал] #}
-							<div class="menu__section-content-card-content-cost-withoutDiscount">{{ product.price }}
-							</div>
-							<div class="menu__section-content-card-content-cost-withDiscount">{{ product.sell_price }}
-							</div>
-							{% endif %}
-							<div class="menu__section-content-card-content-addBtn">
-								<button onclick="addToCart({{product.id}})"><span id="toggle{{product.id}}" class="material-symbols-outlined">add</span></button>
-							</div>
-						</div>
-					</div> -->
 					{% endfor %}
 
 				</div>

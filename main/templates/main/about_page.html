@@ -3,6 +3,8 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
+{% block head_title %}О нас{% endblock %}
 
 {% block css_additionl %}
     <meta name="viewport" content="initial-scale=1, width=device-width"/>
@@ -18,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-{#ЦЕНТРИРОВАНИЕ #}
+{#ЦЕНТРИРОВАНИЕ #}  
     <div class="div-about">
     
         {#кнопку убрал#}
