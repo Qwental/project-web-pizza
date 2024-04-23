@@ -5,7 +5,6 @@ from django.shortcuts import render
 from cart.models import Cart
 from main.models import Products
 
-# TODO: ВАНЯ ПОПРАВЬ __message, а то там всегда "Ошибка добавления товара в корзину" и не отображается успешный-попап
 def cart_add(request: HttpRequest):
 
     data = json.loads(request.body)
@@ -72,3 +71,9 @@ def cart_change(request):
     ...
 
 
+def cart(request):
+    '''
+    Просто открывает страничку с корзиной
+    '''
+    context = {}
+    return render(request, 'cart/index.html', context=context)
