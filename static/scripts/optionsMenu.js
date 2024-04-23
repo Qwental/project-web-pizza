@@ -158,6 +158,7 @@ function addToCartp(id) {
      * Заранее инициализируем итоговую цену
      */
     const finalPriceInput = createFormElement("p", "price", price);
+    finalPriceInput.classList.add("finalPrice");
 
     /**
      * Работаем с DOM при обновлении уены
@@ -251,7 +252,7 @@ function addToCartp(id) {
         }
       }
 
-      console.log(price);
+      window.price = price;
     });
     // ПАМАГИТЕ!!!!!!!!!!!!!!
 
@@ -277,14 +278,20 @@ function addToCartp(id) {
     .catch((error) => console.error("Ошибка:", error));
 
 
-  console.log(price)
+  console.log(window.price)
     // отправка
-    + document
+    document
       .getElementById("dynamic-form")
       .addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const jsonString = formToJson("dynamic-form", price);
+
+        // костыль. Потом исправить
+
+        const elem = document.getElementsByClassName("finalPrice");
+        let nePrice = parseInt(elem.textContent);
+
+        const jsonString = formToJson("dynamic-form", window.price);
         console.log("Пользователь выбрал " + jsonString);
         const jsonObject = JSON.parse(jsonString);
         const token = getCookie("csrftoken");
