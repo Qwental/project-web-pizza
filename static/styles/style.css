@@ -3246,7 +3246,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.block-special-offers {
+.block {
     width: 600px;
     height: 200px;
     border-radius: 20px;
@@ -3257,7 +3257,7 @@ body {
     justify-content: left;
 }
 
-.block-special-offers span {
+.block span {
     font-size: 26px;
     color: white;
     margin: 10px 289px 0px 20px;
