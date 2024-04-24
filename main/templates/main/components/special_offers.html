@@ -6,10 +6,10 @@
 <!-- TODO: доделать Ире -->
 {% load static %} {% block css %}
 <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-  crossorigin="anonymous"
-/>
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        crossorigin="anonymous"
+        xmlns:1="http://www.w3.org/1999/xhtml" xmlns:1="http://www.w3.org/1999/xhtml"/>
 {% endblock %}
 
 <div
@@ -19,7 +19,7 @@
 >
   <div class="carousel-indicators">
     {% for cnt in count_offers %}
-    <button
+    <!-- <button
       type="button"
       data-bs-target="#carouselExampleCaptions"
       data-bs-slide-to="{{cnt}}"
@@ -27,15 +27,19 @@
       class="active"
       aria-current="true"
       {% endif %}
-      
-      aria-label="Slide {{cnt|add:"1"}}"
-    ></button>
+
+      aria-label="Slide {{cnt|add:"1:"}}"
+    </button> -->
     {% endfor %}
   </div>
   <div class="carousel-inner">
     {% for offer in special_offers %}
     <div class="carousel-item active">
-      <div class="block specialoffers" style="background-color: #ff0000">
+      <div class="block block-special-offers" style="background-color: #ff0000">
+        <span>Скидка 10% по студенческому билету на пиццу Пепперони</span>
+        <button data-cart type="button" class="btn btn-block btn-outline-warning">Заказать</button>
+      </div>
+      <!-- <div class="block specialoffers" style="background-color: #ff0000">
         {% if product.image %}
         <img src="{{ offer.image.url }}" alt="{{ offer.product.name }}" />
         {% else %}
@@ -53,7 +57,7 @@
             заказать
           </button>
         </div>
-      </div>
+      </div> -->
 
       <!-- <img
         src="{%static 'img/Logo-pizza.png' %}"
