@@ -3250,7 +3250,7 @@ body {
     width: 600px;
     height: 200px;
     border-radius: 20px;
-    background-image: url(../img/pizza1.jpg);
+    background-image: url('../img/pizza1.jpg');
     background-size: cover;
     display: flex;
     flex-wrap: wrap;
