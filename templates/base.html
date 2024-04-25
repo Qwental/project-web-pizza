@@ -42,8 +42,15 @@
       <a class="a-about" href="{% url 'main:about' %}">
         <h3 class="h31">О нас</h3>
       </a>
+    </nav>
 
-      <h3 class="h32">Контакты</h3>
+    <nav class="button">
+
+      {#Добавил ссылку на страницу /contacts#}
+      <a class="a-about" href="{% url 'main:contacts' %}">
+        <h3 class="h31">Контакты</h3>
+      </a>
+
     </nav>
     <div class="wrapper">
       {% if request.user.is_authenticated %}

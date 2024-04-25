@@ -10,7 +10,8 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("pizza-details", views.test_pizza_ajax, name="pizza-details"),
     path("product/<slug:product_slug>/", views.product, name="product"),
+    path("contacts/", views.contacts, name="contacts"),
     path("about", views.about, name="about"),
     path('your-endpoint-url/', views.your_view_name, name='your_view_name'),
-    path('api/', views.product, name='api')
+    path('api/', views.product, name='api'),
 ]
