@@ -21,13 +21,17 @@
 }
 
 .div6-about {
-    position: absolute;
+    /* position: absolute;
     top: calc(50% + 279px);
     left: calc(50% - 428px);
     background-color: var(--color-white);
     width: 855px;
     height: 176px;
-    overflow: hidden;
+    overflow: hidden; */
+}
+
+.content{
+    display: block;
 }
 
 .div8-about {

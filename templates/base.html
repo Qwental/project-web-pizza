@@ -23,8 +23,8 @@
   {% block css_additionl %} {% endblock %}
 </head>
 
-<body>
-  <header class="header">
+<body class="d-flex flex-column min-vh-100">
+  <header class="mb-auto header">
     <div class="list-item" id="title">
 
       {#Добавил ссылку на главную /#}
@@ -79,7 +79,7 @@
   {% endblock %}
 
 
-  <footer class="footer">
+  <footer class="mt-auto navbar-fixed-bottom footer">
     <div class="faq-container">
       <p class="faq">FAQ</p>
       <a class="a-about" href="{% url 'main:about' %}"><p class="p18">О нас</p></a>

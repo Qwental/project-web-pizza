@@ -514,8 +514,9 @@ body {
   padding: var(--padding-2xl) 0 0;
 }
 .header {
+  
   align-self: stretch;
-  height: 6.25rem;
+  height: 100px;
   background-color: var(--color-white);
   overflow: hidden;
   flex-shrink: 0;
@@ -523,8 +524,8 @@ body {
   padding: 0 var(--padding-9xl) 0 0;
   gap: var(--gap-6xl);
   top: 0;
-  z-index: 99;
-  position: sticky;
+  z-index: 0;
+  position: static;
   max-width: 100%;
   text-align: center;
   font-size: var(--font-size-5xl);
