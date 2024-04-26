@@ -43,7 +43,7 @@ def contacts(request: HttpRequest):
     """
     Контроллер, отвечающий за страницу "Контакты" (contacts.html),
     та в свою очередь подгружает стили
-    из папки styles_for_about_page
+    из папки styles_for_contacts_page
     """
     context = {
 
