@@ -1081,7 +1081,8 @@ body {
   flex-direction: row;
   padding: var(--padding-smi) var(--padding-5xs) var(--padding-5xs) var(--padding-xs);
   gap: var(--gap-3xs);
-  max-width: 294.75px;
+  max-width: 48vw;
+  width: auto;
 }
 
 .b1,
