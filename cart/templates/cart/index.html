@@ -18,22 +18,27 @@
 {% block content %}
   <div class="cart_page">
     <div class="cart_index">
+      {% for cartItem in cartContent %}
+        
+      
+
       <div class="cart_item">
-        <img class="first_clmn" src="https://placehold.co/200x200@2x.png" style="width: 200px; height: 200px; border-radius: 15px;" />
+        <img class="first_clmn" src="{{ cartItem.product.image }}" style="width: 200px; height: 200px; border-radius: 15px;" />
         <div class="second_clmn" class="product_info">
-          <div class="title">Бла бла бла я название вкусной превкусной пиццы, а моя цена - скам</div>
+          <div class="title">{{ cartItem.product.name }}</div>
           <br />
-          <div class="description">Бла бла бла я название вкусной превкусной пиццы, а моя цена - скам; ты выбрал - бекон за 1000 (мамонт). Внутри только НЕ натуральные продукты</div>
+          <div class="description">{{ cartItem.product.description }}</div>
         </div>
         <div class="third_clmn">
-          <div class="cost">25000₽</div>
+          {% comment %} Цена берется дефолтная {% endcomment %}
+          <div class="cost">{{ cartItem.product.price }}₽</div>
           <div class="delete">
             <a href="{% url 'cart:cart_remove' %}"><span class="material-symbols-outlined">delete</span></a>
           </div>
         </div>
       </div>
     </div>
-
+    {% endfor %}
     <div class="form">
       <div class="form_content">
         <div>Итого {total_sum} {со скидкой, если применен промокоТ}</div>
@@ -46,10 +51,9 @@
     </div>
   </div>
   <style>
-    .form_content{
-        display: flex;
-        flex-direction: column;
-
+    .form_content {
+      display: flex;
+      flex-direction: column;
     }
     .go {
       border-radius: 10px;

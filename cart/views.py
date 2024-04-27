@@ -75,5 +75,10 @@ def cart(request):
     '''
     Просто открывает страничку с корзиной
     '''
-    context = {}
+
+    cartContent = Cart.objects.all()
+
+    context = {
+        "cartContent": cartContent
+    }
     return render(request, 'cart/index.html', context=context)
