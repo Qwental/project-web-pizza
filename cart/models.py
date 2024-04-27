@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from main.models import Products
@@ -40,3 +41,18 @@ class Cart(models.Model):
             return f'Корзина {self.user.username} | Товар {self.product.name} | Количество {self.quantity}'
             
         return f'Анонимная корзина | Товар {self.product.name} | Количество {self.quantity}'
+    
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True, verbose_name='Промокод')
+    valid_from = models.DateTimeField(verbose_name='Активен c')
+    valid_to = models.DateTimeField(verbose_name='Активен до')
+    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name='Скидка в %')
+    active = models.BooleanField(verbose_name='Активен')
+
+    class Meta:
+        verbose_name = "Купон"
+        verbose_name_plural = "Купоны"
+
+    def __str__(self):
+        return self.code
