@@ -6,8 +6,9 @@ from cart.models import Cart
 from cart.utils import get_user_carts
 from main.models import Products
 
-def cart_add(request: HttpRequest):
 
+
+def cart_add(request: HttpRequest):
     data = json.loads(request.body)
     print(data)
     product_id = data.get('productId')
@@ -83,6 +84,6 @@ def cart(request):
     cartContent = get_user_carts(request)
 
     context = {
-        "cartContent": cartContent
+        "cartContent": cartContent,
     }
     return render(request, 'cart/index.html', context=context)
