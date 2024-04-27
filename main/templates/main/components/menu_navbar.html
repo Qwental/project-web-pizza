@@ -1,3 +1,6 @@
+{% load carts_tags %}
+
+{% user_carts request as carts %}
 <section class="section1">
   <div class="divider">
     {% for category in categories %}
@@ -11,7 +14,7 @@
     <a style="text-decoration: none; color: black;" href="{% url 'cart:cart_view' %}" class="cart" id="cart">
       
       <div class="cart_content">
-        <p>Корзина</p>&nbsp;<div id="counter">0</div>
+        <p>Корзина</p>&nbsp;<div id="counter">{{ carts.total_quantity }}</div>
       </div>
     </a>
 </section>

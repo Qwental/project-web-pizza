@@ -3,6 +3,7 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
 
 from cart.models import Cart
+from cart.utils import get_user_carts
 from main.models import Products
 
 def cart_add(request: HttpRequest):
@@ -79,7 +80,7 @@ def cart(request):
     Просто открывает страничку с корзиной
     '''
 
-    cartContent = Cart.objects.all()
+    cartContent = get_user_carts(request)
 
     context = {
         "cartContent": cartContent
