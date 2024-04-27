@@ -39,6 +39,17 @@ def about(request: HttpRequest):
     }
     return render(request, 'main/about_page.html', context=context)
 
+def contacts(request: HttpRequest):
+    """
+    Контроллер, отвечающий за страницу "Контакты" (contacts.html),
+    та в свою очередь подгружает стили
+    из папки styles_for_contacts_page
+    """
+    context = {
+
+    }
+    return render(request, 'main/contacts.html', context=context)
+
 
 def test_pizza_ajax(request):
     product_id = request.GET.get("id")

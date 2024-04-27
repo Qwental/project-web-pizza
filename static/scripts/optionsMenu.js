@@ -158,6 +158,7 @@ function addToCartp(id) {
      * Заранее инициализируем итоговую цену
      */
     const finalPriceInput = createFormElement("p", "price", price);
+    finalPriceInput.classList.add("finalPrice");
 
     /**
      * Работаем с DOM при обновлении уены
@@ -251,7 +252,7 @@ function addToCartp(id) {
         }
       }
 
-      console.log(price);
+      window.price = price;
     });
     // ПАМАГИТЕ!!!!!!!!!!!!!!
 
@@ -277,42 +278,48 @@ function addToCartp(id) {
     .catch((error) => console.error("Ошибка:", error));
 
 
-  console.log(price)
+  console.log(window.price)
     // отправка
-    + document
+    document
       .getElementById("dynamic-form")
       .addEventListener("submit", function (event) {
         event.preventDefault();
 
-        var selectedAdds = Array.from(
-          document.querySelectorAll('#dynamic-form input[name="add"]:checked')
-        ).map(function (checkbox) {
-          return checkbox.value;
-        });
 
-        // Формируем тело запроса
-        const requestBody = {
-          adds: selectedAdds,
-        };
+        // костыль. Потом исправить
 
-        console.log("Выбранные добавки:", requestBody);
+        const elem = document.getElementsByClassName("finalPrice");
+        let nePrice = parseInt(elem.textContent);
 
-        const jsonString = formToJson("dynamic-form", price);
+        const jsonString = formToJson("dynamic-form", window.price);
         console.log("Пользователь выбрал " + jsonString);
-
-
-        // передаётся два токена. почему??????????????????????????????????????????????????????????????????
+        const jsonObject = JSON.parse(jsonString);
         const token = getCookie("csrftoken");
 
         // добавляем в корзину
-        fetch("your-endpoint-url/", {
-          method: "POST",
-          body: jsonString,
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": token,
-          },
-        });
+        if (jsonObject.options && typeof jsonObject.options === 'object' && Object.keys(jsonObject.options).length >= 1) {
+          fetch("cart/cart_add/", {
+            method: "POST",
+            body: jsonString,
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": token,
+            },
+          }).then(response => response.json())
+            .then(data => {
+              if (data.message === "Товар добавлен в корзину") {
+                $('#successModal').modal('show');
+              }
+              else {
+                $('#errorModal').modal('show');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        else {
+          $('#netOptions').modal('show');
+        }
+
       });
 }
 
@@ -327,25 +334,30 @@ function formToJson(formId, price, _id) {
   const form = document.getElementById(formId);
   const formData = new FormData(form);
   const formDataObj = {};
-  formDataObj.productName = form.getAttribute("data-product-name");
+
+  // formDataObj.productName = form.getAttribute("data-product-name");
+
   formDataObj.productId = form.getAttribute("data-options-for");
+  formDataObj.options = {};
+  let optionsBlock = formDataObj.options;
   for (let [key, value] of formData.entries()) {
+    if (key === 'csrfmiddlewaretoken') continue;
     if (formDataObj.hasOwnProperty(key)) {
       if (Array.isArray(formDataObj[key])) {
-        formDataObj[key].push(value);
+        optionsBlock[key].push(value);
       } else {
-        formDataObj[key] = [formDataObj[key], value];
+        optionsBlock[key] = [optionsBlock[key], value];
       }
     } else {
       if (key.startsWith("add")) {
-        formDataObj[key] = [value];
+        optionsBlock[key] = [value];
       } else {
-        formDataObj[key] = value;
+        optionsBlock[key] = value;
       }
     }
   }
-  if (!formDataObj.hasOwnProperty("adds")) {
-    formDataObj.adds = [];
+  if (!optionsBlock.hasOwnProperty("add")) {
+    optionsBlock.add = [];
   }
   formDataObj['price'] = price;
   return JSON.stringify(formDataObj);

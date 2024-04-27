@@ -1,47 +1,8 @@
 @import url('./global.css');
 
-
-.map-about {
-    position: absolute;
-    left: calc(50% - 428px);
-    width: 855px;
-    top: calc(50% - 381px);
-    border-radius: 40px;
-    height: 422px;
-    object-fit: cover;
-}
-
-.div1-about {
-    top: 0;
-    background-color: var(--color-white);
-    height: 100px;
-    overflow: hidden;
-    text-align: center;
-    font-size: var(--font-size-5xl);
-    color: #2f2f2f;
-}
-
 .p-about {
     margin: 0;
     font-size: var(--font-size-5xl);
-}
-
-.div4-about,
-.div5-about {
-    position: absolute;
-    width: 855px;
-    height: 198px;
-    top: calc(50% - 99px);
-    left: calc(50% - 427.5px);
-    line-height: 144.69%;
-    display: inline-block;
-}
-
-.div4-about {
-    top: calc(50% + 61px);
-    left: calc(50% - 428px);
-    background-color: var(--color-white);
-    overflow: hidden;
 }
 
 .email-about {
@@ -60,13 +21,17 @@
 }
 
 .div6-about {
-    position: absolute;
+    /* position: absolute;
     top: calc(50% + 279px);
     left: calc(50% - 428px);
     background-color: var(--color-white);
     width: 855px;
     height: 176px;
-    overflow: hidden;
+    overflow: hidden; */
+}
+
+.content{
+    display: block;
 }
 
 .div8-about {
@@ -78,7 +43,6 @@
     height: 154px;
 }
 
-.div10-about,
 .div7-about,
 .div8-about {
     position: absolute;
@@ -93,14 +57,6 @@
     overflow: hidden;
 }
 
-.div10-about {
-    top: 25px;
-    left: 431px;
-    line-height: 144.69%;
-    display: inline-block;
-    width: 427px;
-    height: 104px;
-}
 
 .skibidi-pizza-about {
     margin: 0;
@@ -116,17 +72,6 @@
     height: 104px;
 }
 
-.div9-about {
-    background-color: var(--color-white);
-    overflow: hidden;
-    position: absolute;
-    top: calc(50% - 606px);
-    left: calc(50% - 428px);
-    width: 855px;
-    height: 198px;
-    text-align: center;
-    font-size: var(--font-size-5xl);
-}
 
 .div-about {
     width: 100%;

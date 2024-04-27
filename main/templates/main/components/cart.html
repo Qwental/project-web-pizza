@@ -1,13 +1,89 @@
-<div class="popup">
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div id="added" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Ура</h5>
+        <button class="btn-close successModal_closeBtn" type="button" class="close" data-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="successModalBody">
+        Товар добавлен в корзину
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.successModal_closeBtn').addEventListener('click', function () {
+    $('#successModal').modal('hide');
+  });
+</script>
+
+<div class="modal fade" id="netOptions" tabindex="-1" role="dialog" aria-labelledby="netOptionsLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div id="notAdded" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="netOptionsLabel">Ура</h5>
+        <button class="btn-close netOptions_closeBtn" type="button" class="close" data-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="netOptionsBody">
+        Упс... Вы не выбрали ни одной опции - так нельзя
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="netOptionsLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div id="notAdded" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="netOptionsLabel">О нет</h5>
+        <button class="btn-close netOptions_closeBtn" type="button" class="close" data-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="netOptionsBody">
+        Вупси-дупси... Что-то пошло не так, но мы с этим уже разбираемся
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.netOptions_closeBtn').addEventListener('click', function () {
+    $('#errorModal').modal('hide');
+  });
+</script>
+
+<style>
+  #added {
+    z-index: 1;
+    background-color: bisque !important;
+  }
+
+  #notAdded {
+    z-index: 2;
+    background-color: rgb(172, 23, 23);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between
+  }
+</style>
+<!-- <div class="popup">
   <div class="popup__container" id="popup_container">
     <div class="popup__item">
       <h1 class="popup__title">Оформление заказа</h1>
       <h6>Ну то есть самая приятная часть - плати мне деняг</h6>
     </div>
     <div class="popup__item" id="popup_product_list">
-      <!-- <div class="popup__product">
+      <div class="popup__product">
         TODO: карточка товара 
-      </div> -->
+      </div>
     </div>
     <div class="popup__item">
       <div class="popup__cost">
@@ -18,4 +94,4 @@
     <button type="submit">Оформить заказ</button>
     <button class="popup__close" id="popup_close"><span class="material-symbols-outlined">close</span></button>
   </div>
-</div>
+</div> -->

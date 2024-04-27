@@ -26,7 +26,9 @@ body {
     font-size: larger;
     margin: 0;
     position: relative;
+
 }
+
 
 .block {
     /* TODO: убрать border на ПрОдЕ */
@@ -512,8 +514,9 @@ body {
   padding: var(--padding-2xl) 0 0;
 }
 .header {
+  
   align-self: stretch;
-  height: 6.25rem;
+  height: 100px;
   background-color: var(--color-white);
   overflow: hidden;
   flex-shrink: 0;
@@ -521,8 +524,8 @@ body {
   padding: 0 var(--padding-9xl) 0 0;
   gap: var(--gap-6xl);
   top: 0;
-  z-index: 99;
-  position: sticky;
+  z-index: 0;
+  position: static;
   max-width: 100%;
   text-align: center;
   font-size: var(--font-size-5xl);
@@ -3034,6 +3037,7 @@ body {
 .faq,
 .p18,
 .p19 {
+  color: white;
   margin-block-start: 0;
   margin-block-end: 30px;
 }
@@ -3042,10 +3046,13 @@ body {
 }
 .faq-container {
   height: 7rem;
-  flex: 1;
+  /* flex: 1; */
   position: relative;
   font-weight: 300;
-  display: inline-block;
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   min-width: 15.375rem;
   max-width: 100%;
 }
@@ -3055,12 +3062,17 @@ body {
   margin-block-end: 30px;
 }
 .skibidi-pizzaramblerru {
+  color: white;
   height: 7rem;
   width: 16.375rem;
   position: relative;
   font-weight: 300;
-  display: inline-block;
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   flex-shrink: 0;
+  align-items: center;
 }
 .p22,
 .p23,
@@ -3080,7 +3092,10 @@ body {
   width: 18.75rem;
   position: relative;
   font-weight: 300;
-  display: inline-block;
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   flex-shrink: 0;
 }
 .div,
@@ -3097,14 +3112,20 @@ body {
   align-items: flex-start;
   padding: var(--padding-2xl) var(--padding-17xl) 0;
   box-sizing: border-box;
-  gap: 0.563rem;
+  flex-direction: row;
+	flex-wrap: wrap;
   max-width: 100%;
   text-align: left;
   font-size: var(--font-size-base);
   color: var(--color-white);
   font-family: var(--font-helvetica);
+  height: 250px;
 }
 .div {
+  display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
   width: 100%;
   position: relative;
   background-color: var(--color-white);
@@ -3247,3 +3268,8 @@ body {
   border-color: #007bff;
  }
  
+
+ .a-base {
+  text-decoration: none;
+  color: white;
+ }
