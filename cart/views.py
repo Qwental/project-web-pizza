@@ -33,6 +33,9 @@ def cart_add(request: HttpRequest):
             _message = 'Товар добавлен в корзину'
 
     else:
+        if not request.session.session_key:
+            request.session.create()
+            
         carts = Cart.objects.filter(
             session_key=request.session.session_key, product=product)
 
