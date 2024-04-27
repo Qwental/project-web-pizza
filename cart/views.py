@@ -5,8 +5,9 @@ from django.shortcuts import render
 from cart.models import Cart
 from main.models import Products
 
-def cart_add(request: HttpRequest):
 
+
+def cart_add(request: HttpRequest):
     data = json.loads(request.body)
     print(data)
     product_id = data.get('productId')
@@ -82,6 +83,6 @@ def cart(request):
     cartContent = Cart.objects.all()
 
     context = {
-        "cartContent": cartContent
+        "cartContent": cartContent,
     }
     return render(request, 'cart/index.html', context=context)

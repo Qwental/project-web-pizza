@@ -31,7 +31,7 @@
         </div>
         <div class="third_clmn">
           {% comment %} Цена берется дефолтная {% endcomment %}
-          <div class="cost">{{ cartItem.product.price }}₽</div>
+          <div class="cost">{{ cartItem.final_price }}₽</div>
           <div class="delete">
             <a href="{% url 'cart:cart_remove' %}"><span class="material-symbols-outlined">delete</span></a>
           </div>
@@ -41,7 +41,7 @@
     {% endfor %}
     <div class="form">
       <div class="form_content">
-        <div>Итого {total_sum} {со скидкой, если применен промокоТ}</div>
+        <div>Итого: <тут сумма всех товаров>₽ {со скидкой, если применен промокоТ}</div>
         <form>
           <label for="inputPromo" class="form-label">Промокод:</label>
           <input type="password" id="inputPromo" class="form-control" aria-describedby="promocode" />
