@@ -221,7 +221,7 @@ function addToCartp(id) {
     /**
      * Логика обработки смены цены при выборе опций
      */
-    let previousCheckedRadio = null;
+    let previousCheckedRadios = new Map();
 
     form.addEventListener('change', function (event) {
       if (event.target.type === 'checkbox') {
@@ -239,19 +239,18 @@ function addToCartp(id) {
         const checkedRadio = event.target;
         if (checkedRadio) {
           const radioValue = parseFloat(checkedRadio.getAttribute('data-value-radio'));
-          // Не будет работать в случае: сначала выбераем S, Тесто Тонкое, затем - Толстое, далее - Тонкое, в конце - M -- цена не изменилась, стэк переполнен, т.к. предыдущий радио хранится только один
-          // Исправлять или сделать условностью? Либо поменять стратегию подсчета цены?.. Амелия?
-          if (previousCheckedRadio && previousCheckedRadio.name === checkedRadio.name) {
-            const previousRadioValue = parseFloat(previousCheckedRadio.getAttribute('data-value-radio'));
+          const radioGroupName = checkedRadio.name;
+          if (previousCheckedRadios.has(radioGroupName)) {
+            const previousRadio = previousCheckedRadios.get(radioGroupName);
+            const previousRadioValue = parseFloat(previousRadio.getAttribute('data-value-radio'));
             price /= previousRadioValue;
           }
           price *= radioValue;
           updateFinalPriceInput(price);
 
-          previousCheckedRadio = checkedRadio;
+          previousCheckedRadios.set(radioGroupName, checkedRadio);
         }
       }
-
       window.price = price;
     });
     // ПАМАГИТЕ!!!!!!!!!!!!!!
@@ -279,48 +278,48 @@ function addToCartp(id) {
 
 
   console.log(window.price)
-    // отправка
-    document
-      .getElementById("dynamic-form")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
+  // отправка
+  document
+    .getElementById("dynamic-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
 
-        // костыль. Потом исправить
+      // костыль. Потом исправить
 
-        const elem = document.getElementsByClassName("finalPrice");
-        let nePrice = parseInt(elem.textContent);
+      const elem = document.getElementsByClassName("finalPrice");
+      let nePrice = parseInt(elem.textContent);
 
-        const jsonString = formToJson("dynamic-form", window.price);
-        console.log("Пользователь выбрал " + jsonString);
-        const jsonObject = JSON.parse(jsonString);
-        const token = getCookie("csrftoken");
+      const jsonString = formToJson("dynamic-form", window.price);
+      console.log("Пользователь выбрал " + jsonString);
+      const jsonObject = JSON.parse(jsonString);
+      const token = getCookie("csrftoken");
 
-        // добавляем в корзину
-        if (jsonObject.options && typeof jsonObject.options === 'object' && Object.keys(jsonObject.options).length >= 1) {
-          fetch("cart/cart_add/", {
-            method: "POST",
-            body: jsonString,
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": token,
-            },
-          }).then(response => response.json())
-            .then(data => {
-              if (data.message === "Товар добавлен в корзину") {
-                $('#successModal').modal('show');
-              }
-              else {
-                $('#errorModal').modal('show');
-              }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-        else {
-          $('#netOptions').modal('show');
-        }
+      // добавляем в корзину
+      if (jsonObject.options && typeof jsonObject.options === 'object' && Object.keys(jsonObject.options).length >= 1) {
+        fetch("cart/cart_add/", {
+          method: "POST",
+          body: jsonString,
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": token,
+          },
+        }).then(response => response.json())
+          .then(data => {
+            if (data.message === "Товар добавлен в корзину") {
+              $('#successModal').modal('show');
+            }
+            else {
+              $('#errorModal').modal('show');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+      else {
+        $('#netOptions').modal('show');
+      }
 
-      });
+    });
 }
 
 /**
