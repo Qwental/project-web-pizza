@@ -23,15 +23,21 @@
       
 
       <div class="cart_item">
-        <img class="first_clmn" src="{{ cartItem.product.image }}" style="width: 200px; height: 200px; border-radius: 15px;" />
+        <img class="first_clmn" 
+        src="
+        {% if cartItem.product.image %}
+          {{ cartItem.product.image.url }}
+        {% else %}
+          {% static "img/600x400.png" %}
+        {% endif %}" style="width: 200px; height: 200px; border-radius: 15px;" />
         <div class="second_clmn" class="product_info">
           <div class="title">{{ cartItem.product.name }}</div>
           <br />
-          <div class="description">{{ cartItem.product.description }}</div>
+          <div class="description">{{ cartItem.product.description|truncatechars:50 }}</div>
         </div>
         <div class="third_clmn">
           {% comment %} Цена берется дефолтная {% endcomment %}
-          <div class="cost">{{ cartItem.product.price }}₽</div>
+          <div class="cost">{{ cartItem.final_price }}₽ x {{ cartItem.quantity }}шт.</div>
           <div class="delete">
             <a href="{% url 'cart:cart_remove' %}"><span class="material-symbols-outlined">delete</span></a>
           </div>
@@ -41,7 +47,7 @@
     </div>
     <div class="form">
       <div class="form_content">
-        <div>Итого {total_sum} {со скидкой, если применен промокоТ}</div>
+        <div>Итого {{ cartContent.total_quantity }} товаров на {{ cartContent.total_price }}₽ {со скидкой, если применен промокоТ}</div>
         <form>
           <label for="inputPromo" class="form-label">Промокод:</label>
           <input type="password" id="inputPromo" class="form-control" aria-describedby="promocode" />
