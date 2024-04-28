@@ -1022,12 +1022,13 @@ body {
 }
 
 .div12 {
-  width: 8.625rem;
   height: 3.688rem;
   position: relative;
   line-height: 0.875rem;
   display: inline-block;
   flex-shrink: 0;
+  max-width: 40vw;
+  word-wrap: break-word;
 }
 
 .icon2 {
