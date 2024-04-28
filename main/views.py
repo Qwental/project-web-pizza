@@ -103,3 +103,8 @@ def product(request):
     return JsonResponse(context, safe=False, json_dumps_params={'ensure_ascii': False}, content_type='application/json; charset=utf-8')
     
 
+def not_found_page(request, exception):
+    """
+    Пользовательское представление для обработки ошибок 404.
+    """
+    return render(request, 'main/404.html', status=404)

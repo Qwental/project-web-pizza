@@ -29,6 +29,11 @@ body {
 
 }
 
+.notFound{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .block {
   /* TODO: убрать border на ПрОдЕ */
@@ -3692,3 +3697,5 @@ body {
 .cart_section a svg path {
   fill: #292929;
 }
+
+

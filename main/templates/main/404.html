@@ -1,0 +1,22 @@
+
+{#Теперь наследуется от общего base шаблона#}
+{% extends 'base.html' %}
+{% load static %}
+
+{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
+{% block head_title %}Страница не найдена!{% endblock %}
+
+{% block css_additionl %}
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400&display=swap"
+    />
+{% endblock %}
+
+{% block content %}
+<div class="notFound">
+    Страница не найдена!
+</div>
+{% endblock %}
