@@ -18,6 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from pizza import settings
 from django.conf.urls.static import static
+from django.conf.urls import (
+handler400, handler403, handler404, handler500
+)
+
+# При debug = True будет показываться не эта страница
+handler404 = 'main.views.not_found_page'
 
 
 urlpatterns = [
@@ -26,6 +32,7 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='user')),
     path('cart/', include('cart.urls', namespace='cart'))
 ]
+
 
 if settings.DEBUG:
     urlpatterns += [ 
