@@ -1,0 +1,55 @@
+{% load static %}
+<div class="cart_index">
+    {% for cartItem in cartContent %}
+      <div class="cart_item">
+      <img class="first_clmn" 
+      src="
+      {% if cartItem.product.image %}
+        {{ cartItem.product.image.url }}
+      {% else %}
+        {% static "img/600x400.png" %}
+      {% endif %}" style="width: 200px; height: 200px; border-radius: 15px;" />
+      <div class="product_info second_clmn">
+        <div class="title">{{ cartItem.product.name }}</div>
+        <br />
+        <div class="description">{{ cartItem.product.description|truncatechars:50 }}</div>
+      </div>
+      <div class="third_clmn">
+            <pre>{{ cartItem.final_price }}₽ x </pre>
+        <div class="col p-0">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-dark btn-sm decrement"
+                        data-cart-id="{{ cartItem.id }}"
+                        data-cart-change-url="{% url "cart:cart_change" %}">
+                        {% csrf_token %}
+                        -</button>
+                </span>
+                <input style="width: 40px; height: 32px;" type="text" class="form-control number" value="{{ cartItem.quantity }}"
+                    readonly>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-dark btn-sm increment"
+                        data-cart-id="{{ cartItem.id }}"
+                        data-cart-change-url="{% url "cart:cart_change" %}">
+                        {% csrf_token %}
+                        +</button>
+                </span>
+            </div>
+        </div>
+        <div class="delete">
+          <a href="{% url "cart:cart_remove" %}" class="remove-from-cart" data-cart-id="{{ cartItem.id }}">{% csrf_token %}<span class="material-symbols-outlined">delete</span></a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="form">
+    <div class="form_content">
+      <div>Итого {{ cartContent.total_quantity }} товаров на {{ cartContent.total_price }}₽ {со скидкой, если применен промокоТ}</div>
+      <form>
+        <label for="inputPromo" class="form-label">Промокод:</label>
+        <input type="password" id="inputPromo" class="form-control" aria-describedby="promocode" />
+      </form>
+      <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-warning" type="submit">Перейти к оформлению</button>
+    </div>
+</div>

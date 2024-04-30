@@ -16,45 +16,10 @@
 {% endblock %}
 
 {% block content %}
-  <div class="cart_page">
-    <div class="cart_index">
-      {% for cartItem in cartContent %}
-        
-      
-
-      <div class="cart_item">
-        <img class="first_clmn" 
-        src="
-        {% if cartItem.product.image %}
-          {{ cartItem.product.image.url }}
-        {% else %}
-          {% static "img/600x400.png" %}
-        {% endif %}" style="width: 200px; height: 200px; border-radius: 15px;" />
-        <div class="second_clmn" class="product_info">
-          <div class="title">{{ cartItem.product.name }}</div>
-          <br />
-          <div class="description">{{ cartItem.product.description|truncatechars:50 }}</div>
-        </div>
-        <div class="third_clmn">
-          {% comment %} Цена берется дефолтная {% endcomment %}
-          <div class="cost">{{ cartItem.final_price }}₽ x {{ cartItem.quantity }}шт.</div>
-          <div class="delete">
-            <a href="{% url 'cart:cart_remove' %}"><span class="material-symbols-outlined">delete</span></a>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="form">
-      <div class="form_content">
-        <div>Итого {{ cartContent.total_quantity }} товаров на {{ cartContent.total_price }}₽ {со скидкой, если применен промокоТ}</div>
-        <form>
-          <label for="inputPromo" class="form-label">Промокод:</label>
-          <input type="password" id="inputPromo" class="form-control" aria-describedby="promocode" />
-        </form>
-        <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-warning" type="submit">Перейти к оформлению</button>
-      </div>
-    </div>
+  <div class="cart_page" id="cart-items-container">
+    {# Тут происходит магия корзины #}
+    {% include 'cart/components/cart_dynamic.html' %}
+    {# ============================ #}
   </div>
   <style>
     .form_content {
@@ -104,5 +69,5 @@
 {% endblock %}
 
 {% block js_footer %}
-  {% comment %} <script src="{% static 'scripts/optionsMenu.js' %}"></script> {% endcomment %}
+  <script src="{% static 'scripts/cart.js' %}"></script>
 {% endblock %}
