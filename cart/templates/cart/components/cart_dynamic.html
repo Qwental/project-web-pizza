@@ -1,4 +1,7 @@
 {% load static %}
+{% load carts_tags %}
+
+
 <div class="cart_index">
     {% for cartItem in cartContent %}
       <div class="cart_item">
@@ -13,6 +16,15 @@
         <div class="title">{{ cartItem.product.name }}</div>
         <br />
         <div class="description">{{ cartItem.product.description|truncatechars:50 }}</div>
+        {% product_options cartItem as options %}
+        <div class="options">
+          {% if options.0 %}
+            <p>{% for add in options.0 %} {{ add }} {% endfor %}</p>
+          {% endif %}
+          {% for option in options.1 %}
+          <p>{{ option.0 }} - {{ option.1 }}</p>
+          {% endfor %}
+        </div>
       </div>
       <div class="third_clmn">
             <pre>{{ cartItem.final_price }}₽ x </pre>
