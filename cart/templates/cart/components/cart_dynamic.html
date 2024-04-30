@@ -18,10 +18,10 @@
         <div class="description">{{ cartItem.product.description|truncatechars:50 }}</div>
         {% product_options cartItem as options %}
         <div class="options">
-          {% if options.0 %}
-            <p>{% for add in options.0 %} {{ add }} {% endfor %}</p>
+          {% if options.adds %}
+            <p>{{ options.adds|join:", "|lower }}</p>
           {% endif %}
-          {% for option in options.1 %}
+          {% for option in options.params %}
           <p>{{ option.0 }} - {{ option.1 }}</p>
           {% endfor %}
         </div>

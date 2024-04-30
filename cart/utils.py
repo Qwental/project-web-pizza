@@ -14,11 +14,11 @@ def get_user_carts(request):
 
 def get_product_options(cart: Cart):
     options = cart.options
-    options_list = []
-    options_list.append(options['add'])
+    options_dict = {}
+    options_dict['adds'] = [opt[:opt.find(':')] for opt in options.get('add')]
     del options['add']
-    options_list.append([])
+    options_dict['params'] = []
     for item in options.items():
-        options_list[1].append(item)
-    return options_list
+        options_dict['params'].append(item)
+    return options_dict
 
