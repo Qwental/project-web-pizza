@@ -288,7 +288,6 @@ function addToCartp(id) {
       // костыль. Потом исправить
 
       const elem = document.getElementsByClassName("finalPrice");
-      let nePrice = parseInt(elem.textContent);
 
       const jsonString = formToJson("dynamic-form", window.price);
       console.log("Пользователь выбрал " + jsonString);
@@ -339,25 +338,19 @@ function formToJson(formId, price, _id) {
   formDataObj.productId = form.getAttribute("data-options-for");
   formDataObj.options = {};
   let optionsBlock = formDataObj.options;
+
   for (let [key, value] of formData.entries()) {
     if (key === 'csrfmiddlewaretoken') continue;
-    if (formDataObj.hasOwnProperty(key)) {
-      if (Array.isArray(formDataObj[key])) {
-        optionsBlock[key].push(value);
-      } else {
-        optionsBlock[key] = [optionsBlock[key], value];
-      }
+    if (key.startsWith("add")) {
+      optionsBlock[key] = formData.getAll(key);
     } else {
-      if (key.startsWith("add")) {
-        optionsBlock[key] = [value];
-      } else {
-        optionsBlock[key] = value;
-      }
+      optionsBlock[key] = value;
     }
   }
   if (!optionsBlock.hasOwnProperty("add")) {
     optionsBlock.add = [];
   }
+  
   formDataObj['price'] = price;
   return JSON.stringify(formDataObj);
 }
