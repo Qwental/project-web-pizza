@@ -55,6 +55,7 @@
     </div>
     {% endfor %}
 </div>
+<div style="display: grid; justify-items: end;">
 <div class="form">
     <div class="form_content">
       <div>Итого {{ cartContent.total_quantity }} товаров на {{ cartContent.total_price }}₽ {со скидкой, если применен промокоТ}</div>
@@ -64,4 +65,5 @@
       </form>
       <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-warning" type="submit">Перейти к оформлению</button>
     </div>
+</div>
 </div>
