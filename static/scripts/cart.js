@@ -36,6 +36,7 @@ $(document).ready(function () {
         var currentValue = parseInt($input.val());
 
         if (currentValue > 1) {
+            // делаем в поле -1
             $input.val(currentValue - 1);
             updateCart(cartID, currentValue - 1, -1, url);
         } else if (currentValue === 1) {
@@ -54,7 +55,7 @@ $(document).ready(function () {
         var $input = $(this).closest('.input-group').find('.number');
         // Берем значение количества товара
         var currentValue = parseInt($input.val());
-
+        // делаем в поле +1
         $input.val(currentValue + 1);
 
         // Запускаем функцию определенную ниже
