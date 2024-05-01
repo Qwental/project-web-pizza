@@ -1,7 +1,8 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django_jsonform.models.fields import JSONField
 from django.contrib.auth.models import User
-from main.models import Products
+from main.models import Addition, Products
 
 
 class CartQueryset(models.QuerySet):
@@ -15,6 +16,28 @@ class CartQueryset(models.QuerySet):
         return 0
 
 
+def OPTIONS_SCHEMA():
+    schema = {
+        "type": "dict",
+        "title": "Дополнительные характеристики",
+        "keys": {
+            "add":{
+            "type": "array",
+            "title": "Добавки",
+            "items": {
+                "type": "string",
+                "choices": [f'{x.name}:{x.price}' for x in Addition.objects.all()],
+            "widget": "multiselect"
+            }
+            }
+        },
+        "additionalProperties": {
+            "type": "string"
+        }
+    }
+    return schema
+
+
 class Cart(models.Model):
 
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
@@ -23,7 +46,7 @@ class Cart(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
     session_key = models.CharField(max_length=32, null=True, blank=True)
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
-    options = models.JSONField(verbose_name='Дополнительные параметры')
+    options = JSONField(verbose_name='Дополнительные параметры', schema=OPTIONS_SCHEMA)
 
     class Meta:
         db_table = 'cart'
