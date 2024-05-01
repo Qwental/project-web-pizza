@@ -1,60 +1,46 @@
 // Когда html документ готов (прорисован)
 $(document).ready(function () {
-    // Ловим собыитие клика по кнопке удалить товар из корзины
-    $(document).on("click", ".remove-from-cart", function (e) {
-        // Блокируем его базовое действие
-        e.preventDefault();
-
-        // Получаем id корзины из атрибута data-cart-id
-        var cart_id = $(this).data("cart-id");
-        // Из атрибута href берем ссылку на контроллер django
-        var remove_from_cart = $(this).attr("href");
-
-        // делаем post запрос через ajax не перезагружая страницу
+    // Универсальная функция для удаления товара из корзины
+    function removeFromCart(cartID, removeUrl) {
         $.ajax({
-
             type: "POST",
-            url: remove_from_cart,
+            url: removeUrl,
             data: {
-                cart_id: cart_id,
+                cart_id: cartID,
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
             },
-            success: function (data) {
-                // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
+            success: function(data) {
                 var cartItemsContainer = $("#cart-items-container");
                 cartItemsContainer.html(data.cart_items_html);
-
             },
-
-            error: function (data) {
-                console.log("Ошибка при добавлении товара в корзину");
-            },
+            error: function(data) {
+                console.log("Ошибка при удалении товара из корзины");
+            }
         });
+    }
+
+    // Ловим собыитие клика по кнопке удалить товар из корзины
+    $(document).on("click", ".remove-from-cart", function(e) {
+        e.preventDefault();
+        var cartID = $(this).data("cart-id");
+        var removeUrl = $(this).attr("href");
+
+        removeFromCart(cartID, removeUrl);
     });
 
-
-
-
-    // Теперь + - количества товара 
-    // Обработчик события для уменьшения значения
+    // Обработчик для уменьшения количества товара
     $(document).on("click", ".decrement", function () {
-        // Берем ссылку на контроллер django из атрибута data-cart-change-url
         var url = $(this).data("cart-change-url");
-        console.log(url);
-        // Берем id корзины из атрибута data-cart-id
         var cartID = $(this).data("cart-id");
-        console.log(cartID);
-        // Ищем ближайшеий input с количеством 
         var $input = $(this).closest('.input-group').find('.number');
-        // Берем значение количества товара
         var currentValue = parseInt($input.val());
-        console.log(currentValue);
-        // Если количества больше одного, то только тогда делаем -1
+
         if (currentValue > 1) {
             $input.val(currentValue - 1);
-            // Запускаем функцию определенную ниже
-            // с аргументами (id карты, новое количество, количество уменьшилось или прибавилось, url)
             updateCart(cartID, currentValue - 1, -1, url);
+        } else if (currentValue === 1) {
+            // var removeUrl = $(this).closest('.cart-item').find('.remove-from-cart').attr('href');
+            removeFromCart(cartID, "/cart/cart_remove/");
         }
     });
 
