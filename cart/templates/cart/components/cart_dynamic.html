@@ -59,11 +59,13 @@
 <div class="form">
     <div class="form_content">
       <div>Итого {{ cartContent.total_quantity }} товаров на {{ cartContent.total_price }}₽ {со скидкой, если применен промокоТ}</div>
-      <form>
+      <form >
         <label for="inputPromo" class="form-label">Промокод:</label>
         <input type="password" id="inputPromo" class="form-control" aria-describedby="promocode" />
+        <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-light" type="submit">Применить промокод</button>
       </form>
-      <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-warning" type="submit">Перейти к оформлению</button>
+      {# кнопка оформления заказа не кнопка "submit" #}
+      <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-warning" type="button">Перейти к оформлению</button>
     </div>
 </div>
 </div>
