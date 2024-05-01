@@ -3,6 +3,7 @@
 
 
 <div class="cart_index">
+  {% if cartContent %}
     {% for cartItem in cartContent %}
       <div class="cart_item">
       <img class="first_clmn" 
@@ -54,6 +55,14 @@
       </div>
     </div>
     {% endfor %}
+    {% else %}
+    <div class="empty-cart">
+      <img class="img" src="{% static 'img/empty-cart-img.jpeg' %}" alt="Корзина пуста | Милейший аниме-корги в пустой коробке из-под пиццы">
+      <h2>Ой, пусто :(</h2>
+      <p>Ваша корзина пуста, откройте <a class="goToMenuBtn" href="{% url "main:index" %}">«Меню»</a>
+      и выберите понравившийся товар.</p>
+    </div>
+{% endif %}
 </div>
 <div style="display: grid; justify-items: end;">
 <div class="form">
