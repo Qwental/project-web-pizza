@@ -5,7 +5,7 @@ from cart.models import Cart, Coupon
 
 class CartTabAdmin(admin.TabularInline):
     model = Cart
-    fields = "product", "quantity", "created_timestamp"
+    fields = "product", "quantity", "created_timestamp", "options", "final_price"
     search_fields = "product", "quantity", "created_timestamp"
     readonly_fields = ("created_timestamp",)
     extra = 1
