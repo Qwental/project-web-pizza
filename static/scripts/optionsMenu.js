@@ -158,6 +158,7 @@ function addToCartp(id) {
      * Заранее инициализируем итоговую цену
      */
     const finalPriceInput = createFormElement("p", "price", price);
+    finalPriceInput.classList.add("finalPrice");
 
     /**
      * Работаем с DOM при обновлении уены
@@ -220,7 +221,7 @@ function addToCartp(id) {
     /**
      * Логика обработки смены цены при выборе опций
      */
-    let previousCheckedRadio = null;
+    let previousCheckedRadios = new Map();
 
     form.addEventListener('change', function (event) {
       if (event.target.type === 'checkbox') {
@@ -238,20 +239,19 @@ function addToCartp(id) {
         const checkedRadio = event.target;
         if (checkedRadio) {
           const radioValue = parseFloat(checkedRadio.getAttribute('data-value-radio'));
-          // Не будет работать в случае: сначала выбераем S, Тесто Тонкое, затем - Толстое, далее - Тонкое, в конце - M -- цена не изменилась, стэк переполнен, т.к. предыдущий радио хранится только один
-          // Исправлять или сделать условностью? Либо поменять стратегию подсчета цены?.. Амелия?
-          if (previousCheckedRadio && previousCheckedRadio.name === checkedRadio.name) {
-            const previousRadioValue = parseFloat(previousCheckedRadio.getAttribute('data-value-radio'));
+          const radioGroupName = checkedRadio.name;
+          if (previousCheckedRadios.has(radioGroupName)) {
+            const previousRadio = previousCheckedRadios.get(radioGroupName);
+            const previousRadioValue = parseFloat(previousRadio.getAttribute('data-value-radio'));
             price /= previousRadioValue;
           }
           price *= radioValue;
           updateFinalPriceInput(price);
 
-          previousCheckedRadio = checkedRadio;
+          previousCheckedRadios.set(radioGroupName, checkedRadio);
         }
       }
-
-      console.log(price);
+      window.price = price;
     });
     // ПАМАГИТЕ!!!!!!!!!!!!!!
 
@@ -277,43 +277,49 @@ function addToCartp(id) {
     .catch((error) => console.error("Ошибка:", error));
 
 
-  console.log(price)
-    // отправка
-    + document
-      .getElementById("dynamic-form")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        var selectedAdds = Array.from(
-          document.querySelectorAll('#dynamic-form input[name="add"]:checked')
-        ).map(function (checkbox) {
-          return checkbox.value;
-        });
-
-        // Формируем тело запроса
-        const requestBody = {
-          adds: selectedAdds,
-        };
-
-        console.log("Выбранные добавки:", requestBody);
-
-        const jsonString = formToJson("dynamic-form", price);
-        console.log("Пользователь выбрал " + jsonString);
+  console.log(window.price)
+  // отправка
+  document
+    .getElementById("dynamic-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
 
 
-        // передаётся два токена. почему??????????????????????????????????????????????????????????????????
-        const token = getCookie("csrftoken");
+      // костыль. Потом исправить
 
-        // добавляем в корзину
-        fetch("your-endpoint-url/", {
+      const elem = document.getElementsByClassName("finalPrice");
+      let nePrice = parseInt(elem.textContent);
+
+      const jsonString = formToJson("dynamic-form", window.price);
+      console.log("Пользователь выбрал " + jsonString);
+      const jsonObject = JSON.parse(jsonString);
+      const token = getCookie("csrftoken");
+
+      // добавляем в корзину
+      if (jsonObject.options && typeof jsonObject.options === 'object' && Object.keys(jsonObject.options).length >= 1) {
+        fetch("cart/cart_add/", {
           method: "POST",
           body: jsonString,
           headers: {
             "Content-Type": "application/json",
             "X-CSRFToken": token,
           },
-        });
-      });
+        }).then(response => response.json())
+          .then(data => {
+            if (data.message === "Товар добавлен в корзину") {
+              $('#successModal').modal('show');
+            }
+            else {
+              $('#errorModal').modal('show');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+      else {
+        $('#netOptions').modal('show');
+      }
+
+    });
 }
 
 /**
@@ -327,25 +333,30 @@ function formToJson(formId, price, _id) {
   const form = document.getElementById(formId);
   const formData = new FormData(form);
   const formDataObj = {};
-  formDataObj.productName = form.getAttribute("data-product-name");
+
+  // formDataObj.productName = form.getAttribute("data-product-name");
+
   formDataObj.productId = form.getAttribute("data-options-for");
+  formDataObj.options = {};
+  let optionsBlock = formDataObj.options;
   for (let [key, value] of formData.entries()) {
+    if (key === 'csrfmiddlewaretoken') continue;
     if (formDataObj.hasOwnProperty(key)) {
       if (Array.isArray(formDataObj[key])) {
-        formDataObj[key].push(value);
+        optionsBlock[key].push(value);
       } else {
-        formDataObj[key] = [formDataObj[key], value];
+        optionsBlock[key] = [optionsBlock[key], value];
       }
     } else {
       if (key.startsWith("add")) {
-        formDataObj[key] = [value];
+        optionsBlock[key] = [value];
       } else {
-        formDataObj[key] = value;
+        optionsBlock[key] = value;
       }
     }
   }
-  if (!formDataObj.hasOwnProperty("adds")) {
-    formDataObj.adds = [];
+  if (!optionsBlock.hasOwnProperty("add")) {
+    optionsBlock.add = [];
   }
   formDataObj['price'] = price;
   return JSON.stringify(formDataObj);
