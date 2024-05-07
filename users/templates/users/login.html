@@ -9,15 +9,13 @@
       {{form}}
 
       <button type="submit" class="btn btn-dark btn-block">Войти</button>
-      <button id="lost_PassBtn" type="submit" class="btn btn-dark btn-block">Забыли пароль?</button>
+      <button id="lost_PassBtn" type="submit" class="sent_lost_pass_message">Забыли пароль?</button>
       <br>
       <button id="regBtn" type="button" class="btn btn-dark btn-block">Нужен аккаунт? Зарегистрируйся!</button>
     </form>
     
   </main>
   
-
-
   <script>
 
     const regBtn = document.querySelector("#regBtn");
@@ -26,7 +24,7 @@
       e.preventDefault();
       setTimeout(() => {
         window.location.href = "/user/registration";
-      }, 500);
+      }, 50);
     });
   </script>
 
@@ -38,7 +36,7 @@
     e.preventDefault();
     setTimeout(() => {
       window.location.href = "/user/lost_pass";
-    }, 500);
+    }, 50);
   });
 </script>
 

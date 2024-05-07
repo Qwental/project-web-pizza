@@ -1,14 +1,84 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
 
+  <div class="forgottenPass">
     <h3>Восстановление пароля</h3>
-    <form action="{% url "user:lost_pass" %}" method="post" >
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form class="forgottenPass_form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
 
-    <button type="submit">Отправить</button>
-
+      <button type="submit">Отправить</button>
+    </form>
+    <script>
+        $(document).ready(function() {
+            // Создание модального окошка с соо
+            function showModal(message) {
+                var modal = document.createElement('div');
+                modal.className = "modal fade show";
+                modal.id = "forgotPassMsg",
+                modal.innerHTML = `
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="btn-close close" type="button" data-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+                        <div class="modal-body">
+                            <p>${message}</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            
+                document.body.appendChild(modal);
+                
+                // окно закрывается при клике вне окна
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.remove();
+                    }
+                };
+                
+                // кнопка закрыть -- закрывает
+                var span = modal.querySelector('.close');
+                span.onclick = function() {
+                    modal.remove();
+                };
+            }
+            
+    
+            // работа с формой
+            $('.forgottenPass_form').on('submit', function(e) {
+                e.preventDefault();
+    
+                // отправляем запрос с содержимым формы на сервер
+                $.ajax({
+                    url: "{% url "user:lost_pass" %}",
+                    type: 'POST',
+                    // преобразовываем в форму в json штатными средствами jquery
+                    data: $(this).serialize(),
+                    // если все получилось
+                    success: function(response) {
+                        showModal(response.message);
+                    },
+                    // обработка ошибки
+                    error: function(xhr, status, error) {
+                        console.error(`Статус: ${status} | Ошибка: ${error}`);
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .show{
+            display: block;
+        }
+        /* окно распологается по центру экрана [исправить(?)] */
+        .modal.show .modal-dialog {
+        justify-content: center!important;
+        }
+    </style>
+  </div>
 {% endblock %}
