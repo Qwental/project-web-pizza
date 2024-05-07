@@ -9,6 +9,7 @@
       {{form}}
 
       <button type="submit" class="btn btn-dark btn-block">Войти</button>
+      <button id="lost_PassBtn" type="submit" class="btn btn-dark btn-block">Забыли пароль?</button>
       <br>
       <button id="regBtn" type="button" class="btn btn-dark btn-block">Нужен аккаунт? Зарегистрируйся!</button>
     </form>
@@ -28,5 +29,17 @@
       }, 500);
     });
   </script>
+
+<script>
+
+  const lost_PassBtn = document.querySelector("#lost_PassBtn");
+
+    lost_PassBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      window.location.href = "/user/lost_pass";
+    }, 500);
+  });
+</script>
 
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <h3>Восстановление пароля</h3>
+    <form action="{% url "user:lost_pass" %}" method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Отправить</button>
+
+{% endblock %}
