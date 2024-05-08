@@ -3702,3 +3702,12 @@ body {
 .forgottenPass{
   margin:0 auto;
 }
+
+.sent_button{
+  color: #fff;
+  text-decoration: none;
+  user-select: none;
+  background: rgb(0, 0, 0);
+  padding: .3em 0.5em;
+  outline: none;
+}

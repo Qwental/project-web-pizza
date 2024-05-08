@@ -2,14 +2,14 @@
   {% load static %}
 
  
-    {% block content %}
+    {% block content %}      
 
     <form style="height:52vh"; action="{% url "user:login" %}" method="post">
       {% csrf_token %}
       {{form}}
 
       <button type="submit" class="btn btn-dark btn-block">Войти</button>
-      <button id="lost_PassBtn" type="submit" class="sent_lost_pass_message">Забыли пароль?</button>
+      <button id="lost_PassBtn" type="submit" class="btn btn-dark btn-block">Забыли пароль?</button>
       <br>
       <button id="regBtn" type="button" class="btn btn-dark btn-block">Нужен аккаунт? Зарегистрируйся!</button>
     </form>
