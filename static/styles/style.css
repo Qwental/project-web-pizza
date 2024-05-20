@@ -3711,3 +3711,21 @@ body {
   padding: .3em 0.5em;
   outline: none;
 }
+
+.form_reg{
+  width: 35%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+.form_profile{
+  width: 35%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+
