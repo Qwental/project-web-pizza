@@ -57,7 +57,8 @@
     {% endfor %}
     {% else %}
     <div class="empty-cart">
-      <img class="img" src="{% static 'img/empty-cart-img.jpeg' %}" alt="Корзина пуста | Милейший аниме-корги в пустой коробке из-под пиццы">
+{#      <img class="img" src="{% static 'img/empty-cart-img.jpeg' %}" alt="Корзина пуста | Милейший аниме-корги в пустой коробке из-под пиццы">#}
+        <img class="img" src="{% static selected_image %}" alt="{{ selected_alt_text }}">
       <h2>Ой, пусто :(</h2>
       <p>Ваша корзина пуста, откройте <a class="goToMenuBtn" href="{% url "main:index" %}">«Меню»</a>
       и выберите понравившийся товар.</p>

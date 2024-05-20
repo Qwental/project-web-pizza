@@ -1,4 +1,6 @@
 import json
+import random
+
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -120,8 +122,17 @@ def cart(request):
     '''
 
     cartContent = get_user_carts(request)
+    images = ['img/empty-cart-img.jpeg', 'img/empty-cart-img2.jpeg']
+    alt_texts = ['Корзина пуста | Милейший аниме-корги в пустой коробке из-под пиццы', 'Корзина пуста | Милейшая '
+                                                                                       'панда с пиццей']
+
+    selected_image = random.choice(images)
+    selected_index = images.index(selected_image)
+    selected_alt_text = alt_texts[selected_index]
 
     context = {
         "cartContent": cartContent,
+        'selected_image': selected_image,
+        'selected_alt_text': selected_alt_text
     }
     return render(request, 'cart/index.html', context=context)
