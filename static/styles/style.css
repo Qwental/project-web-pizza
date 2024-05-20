@@ -3728,4 +3728,35 @@ body {
   color: black;
 }
 
+.form_login{
+  width: 35%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
 
+.regBtn{
+  margin-top: 5px;
+  margin-left: -5px;
+}
+
+.Btn_reg{
+  margin-left: -4px;
+}
+
+.login_btn{
+  margin-left: -4px;
+}
+
+.btn_confirm{
+  margin-top: -7px;
+}
+
+.forgot_pass_form{
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}

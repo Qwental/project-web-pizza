@@ -5,11 +5,11 @@
 
   <div class="forgottenPass">
     <h3>Восстановление пароля</h3>
-    <form class="forgottenPass_form" method="post">
+    <form class="forgot_pass_form" method="post">
       {% csrf_token %}
       {{ form.as_p }}
 
-      <button type="submit" class="sent_button"> Отправить</button>
+      <button type="submit" class="btn btn-dark btn-block"> Отправить</button>
     </form>
     <script>
         $(document).ready(function() {

@@ -1,21 +1,41 @@
+
   {% extends 'base.html' %}
   {% load static %}
 
- 
-    {% block content %}      
+    {% block content %}
+    <main>
+      <h2 class="text-center mb-4">Авторизация</h2>
+      <form class="form-label form_login" style="height:52vh" action="{% url "user:login" %}" method="post">
+        {% csrf_token %}
+        <div class="row">
 
-    <form style="height:52vh"; action="{% url "user:login" %}" method="post">
-      {% csrf_token %}
-      {{form}}
+          <div class="reg_label p-1 mb-1 mx-1">
+            <label for="id_username" class="form-label">Имя пользователя*</label>
+            <input type="text" class="form-control" id="id_username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" name="username" placeholder="Введите ваше имя пользователя" required />
+            {% if form.errors %}
+              <div class="alert alert-danger alert-dismissible fade show">        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}</div>
+            {% endif %}
+          </div>
+          <div class="reg_label p-1 mb-1 mx-1">
+            <label for="id_password" class="form-label">Пароль*</label>
+            <input type="password" class="form-control" id="id_password" value="{% if form.password.value %}{{ form.password.value }}{% endif %}" name="password" placeholder="Введите пароль" required />
+          {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}</div>
+          {% endif %}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-dark btn-block login_btn">Войти</button>
+        <button id="lost_PassBtn" type="submit" class="btn btn-dark btn-block ">Забыли пароль?</button>
+        <br>
+        <button id="regBtn" type="button" class="btn btn-dark btn-block regBtn">Нужен аккаунт? Зарегистрируйся!</button>
+      </form>
+<br> <br> <br> <br> <br>
+    </main>
 
-      <button type="submit" class="btn btn-dark btn-block">Войти</button>
-      <button id="lost_PassBtn" type="submit" class="btn btn-dark btn-block">Забыли пароль?</button>
-      <br>
-      <button id="regBtn" type="button" class="btn btn-dark btn-block">Нужен аккаунт? Зарегистрируйся!</button>
-    </form>
-    
-  </main>
-  
   <script>
 
     const regBtn = document.querySelector("#regBtn");
