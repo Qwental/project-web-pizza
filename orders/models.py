@@ -31,8 +31,8 @@ class Order(models.Model):
     # Думаю телефон нам не нужен
     # phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
 
-    email = models.EmailField(max_length=256, blank=True, null=True,
-                              verbose_name="Почтовый ящик")
+   # email = models.EmailField(max_length=256, blank=True, null=True,
+   #                            verbose_name="Почтовый ящик")
 
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
