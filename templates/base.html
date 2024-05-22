@@ -13,6 +13,7 @@
     <link href="{% static 'styles/style.css' %}" rel="stylesheet"/>
     {#Тут подрубается класс a class="a-about" и все, больше ничего#}
     <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}"/>
+
     <link href="{% static 'styles/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
     {% block css %}
     {% endblock %}
@@ -20,7 +21,6 @@
     {% block js_head %}
     {% endblock %}
     <script src="{% static "scripts/libs/jquery.min.js" %}"></script>
-    {% block css_additionl %} {% endblock %}
 </head>
 
 <body class="d-flex flex-column min-vh-100">
