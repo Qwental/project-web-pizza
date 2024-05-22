@@ -13,6 +13,17 @@
 ###### Для чего это?
 При DEBUG=False начинают работать 404 и тп ошибки вместо стандартных заглушек; при разработке ставим DEBUG=True; подробнее про флаг **insecure** здесь [здесь](https://docs.djangoproject.com/en/5.0/ref/contrib/staticfiles/#cmdoption-runserver-insecure)
 
+### Запуск приложения через Docker и Docker-Compose
+1. Скачай Docker [отсюда](https://www.docker.com/products/docker-desktop/)
+2. Запусти Docker Desktop или удостоерся через терминал, что docker работает корректно
+3. ВАЖНО: РАБОТА С DOCKER ВЕДЕТСЯ ТОЛЬКО ЧЕРЕЗ WSL (если ты на винде); для unix-систем ничего делать не надо [подробнее](https://docs.docker.com/desktop/install/windows-install/)
+4. Переходим в рабочую директорию проекта
+5. Выполняем команду ```docker-compose up --build```
+6. Для остановки:
+   1. ```docker-compose stop``` -- если хотим потом заново запустить (без пересборки контейнера)
+   2. ```docker-compose down``` -- полностью оставить и удалить контейнер
+7. Если хочешь выполнить какую-то команду внутри контейнера: ```docker-compose exec <имя_контейнера> <команда>```
+
 ### Запуск приложения
 1. [Ты уже установил python] Установи зависимости: ```pip install -r requirements.txt```  
 2. Выполни миграцию для БД - ```python manage.py migrate```
