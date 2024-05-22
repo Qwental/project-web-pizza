@@ -4,8 +4,7 @@ services:
     ports:
       - "8000:8000"
     command: >
-      bash -c "python manage.py migrate && python manage.py loaddata ./fixtures/new_all_data.json
-                                           && python manage.py runserver 0.0.0.0:8000 --insecure"
+      bash -c "python manage.py migrate && python manage.py loaddata ./fixtures/new_all_data.json && python manage.py runserver 0.0.0.0:8000 --insecure"
     volumes:
       - .:/code
     depends_on:
