@@ -6,10 +6,10 @@ from main.models import Addition, Products
 
 
 class CartQueryset(models.QuerySet):
-    
+
     def total_price(self):
         return sum(cart.products_price() for cart in self)
-    
+
     def total_quantity(self):
         if self:
             return sum(cart.quantity for cart in self)
@@ -21,14 +21,14 @@ def OPTIONS_SCHEMA():
         "type": "dict",
         "title": "Дополнительные характеристики",
         "keys": {
-            "add":{
-            "type": "array",
-            "title": "Добавки",
-            "items": {
-                "type": "string",
-                "choices": [f'{x.name}:{x.price}' for x in Addition.objects.all()],
-            "widget": "multiselect"
-            }
+            "add": {
+                "type": "array",
+                "title": "Добавки",
+                "items": {
+                    "type": "string",
+                    "choices": [f'{x.name}:{x.price}' for x in Addition.objects.all()],
+                    "widget": "multiselect"
+                }
             }
         },
         "additionalProperties": {
@@ -39,7 +39,6 @@ def OPTIONS_SCHEMA():
 
 
 class Cart(models.Model):
-
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
     product = models.ForeignKey(to=Products, on_delete=models.CASCADE, verbose_name='Товар')
     final_price = models.DecimalField(default=0.00, max_digits=7, decimal_places=2, verbose_name="Конечная цена")
@@ -58,13 +57,12 @@ class Cart(models.Model):
     def products_price(self):
         return round(self.final_price * self.quantity, 2)
 
-
     def __str__(self):
         if self.user:
             return f'Корзина {self.user.username} | Товар {self.product.name} | Количество {self.quantity}'
-            
+
         return f'Анонимная корзина | Товар {self.product.name} | Количество {self.quantity}'
-    
+
 
 class Coupon(models.Model):
     code = models.CharField(max_length=50, unique=True, verbose_name='Промокод')

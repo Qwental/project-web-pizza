@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% load  %}
+
 
 
 {% block content %}
@@ -17,66 +17,122 @@
 
             <div class="row g-5">
 
-                    {#  Корзина#}
+                {#  Корзина#}
                 <div class="col-md-5 col-lg-4 order-md-last">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Корзина</span>
-                    <span class="badge badge-primary badge-pill text-white">{{ cartContent.total_quantity }}</span>
-                </h4>
-                <ul class="list-group mb-3">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">Корзина</span>
+                        <span class="badge badge-primary badge-pill text-white">{{ cartContent.total_quantity }}</span>
+                    </h4>
+                    <ul class="list-group mb-3">
 
-                    {% for cartItem in cartContent %}
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">{{ cartItem.product.name }}</h6>
-                            <small class="text-muted">{{ cartItem.quantity }} шт.</small>
-                        </div>
-                        <span class="text-muted">{{cartItem.final_price}} руб.</span>
-                    </li>
-                    {% endfor %}
+                        {% for cartItem in cartContent %}
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">{{ cartItem.product.name }}</h6>
+                                    <small class="text-muted">{{ cartItem.quantity }} шт.</small>
+                                </div>
+                                <span class="text-muted">{{ cartItem.final_price }} руб.</span>
+                            </li>
+                        {% endfor %}
 
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Сумма к оплате</span>
-                        <strong>{{ cartContent.total_price }}₽</strong>
-                    </li>
-                </ul>
-            </div>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Сумма к оплате</span>
+                            <strong>{{ cartContent.total_price }}₽</strong>
+                        </li>
+                    </ul>
+                </div>
                 {# КОНЕЦ Корзины#}
 
                 <div class="col-md-7 col-lg-8">
 
 
                     <!-- ФОРМА-->
-                    <form>
+                    <form action="{% url 'orders:create_order' %}" method="post">
+                        {% csrf_token %}
+
+
                         <div class="row g-3">
+                            {# first_name #}
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">Имя</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Иван" value=""
-                                       required>
+                                {#                                <label for="firstName" class="form-label">Имя</label>#}
+                                <label for="id_first_name" class="form-label">Имя*:</label>
+                                <input type="text" class="form-control" id="id_first_name" placeholder="Иван"
+                                       value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+                                       name="first_name" required>
+
+                                {#                                <input type="text" class="form-control" id="firstName" placeholder="Иван" value=""#}
+                                {#                                       required>#}
+                                {% if form.first_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                                {% endif %}
+
                             </div>
 
+                            {# last_name #}
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Фамилия</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Иванов" value=""
+                                <label for="id_last_name" class="form-label">Фамилия*:</label>
+                                <input type="text" class="form-control" id="id_last_name" name="last_name"
+                                       placeholder="Иванов"
+                                       value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
                                        required>
+                                {% if form.last_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                                {% endif %}
                             </div>
 
-                            <div class="col-12 mt-3">
-                                <label for="email" class="form-label">Адрес электронной почты</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                            {# email #}
+                            <div class="col-sm-6">
+                                <label for="id_email" class="form-label">Адрес электронной почты*</label>
+                                {#                                <input type="email" class="form-control" id="email" placeholder="you@example.com"#}
+                                {#                                       required>#}
+                                <input type="email" class="form-control" id="id_email" name="last_name"
+                                       placeholder="you@example.com"
+                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+                                       required>
+                                {#                            ЧТо за еррорс в 92#}
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                                {% endif %}
+
                             </div>
 
-                            <div class="col-12 mt-3">
-                                <label for="special_offer" class="form-label">Промокод</label>
-                                <input type="text" class="form-control" id="special_offer" placeholder="SALE2024">
+                            {# phone #}
+                            {#                            Убрал телефон#}
+                            {#                            <div class="col-12 mt-3">#}
+                            {#                                <label for="address" class="form-label">Номер телефона</label>#}
+                            {#                                <input type="text" class="form-control" id="number"#}
+                            {#                                       placeholder="XXX-XXX-XX-XX" required>#}
+                            {#                            </div>#}
+
+                            {# special_offer #}
+
+                            {#                            <div class="col-12 mt-3">#}
+                            {#                                <label for="special_offer" class="form-label">Промокод</label>#}
+                            {#                                <input type="text" class="form-control" id="special_offer" placeholder="SALE2024">#}
+                            {#                            </div>#}
+
+                            {# payment_on_get #}
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Способ оплаты: </label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="payment_on_get"
+                                           id="id_payment_on_get" value="0" checked>
+                                    <label class="form-check-label" for="id_payment_on_get">Оплата
+                                        картой</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="payment_on_get"
+                                           id="id_payment_on_get" value="1">
+                                    <label class="form-check-label" for="id_payment_on_get">Наличными/картой
+                                        при плучении</label>
+                                    {% if form.payment_on_get.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.payment_on_get.errors }}</div>
+                                    {% endif %}
+                                </div>
                             </div>
 
-                            <div class="col-12 mt-3">
-                                <label for="address" class="form-label">Номер телефона</label>
-                                <input type="text" class="form-control" id="number"
-                                       placeholder="XXX-XXX-XX-XX" required>
-                            </div>
 
+                            {# requires_delivery #}
                             <div class="col-md-12 mb-3">
                                 <label for="delivery" class="form-label">Способ доставки: </label>
                                 <div class="form-check form-check-inline">
@@ -85,45 +141,53 @@
                                     <label class="form-check-label" for="id_requires_delivery">Нужна
                                         доставка</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="requires_delivery"
                                            id="id_requires_delivery" value="0">
                                     <label class="form-check-label" for="id_requires_delivery">Самовывоз</label>
                                 </div>
                             </div>
-                            <hr class="my-4">
-
-                            <div class="col-12 mt-3">
-                                <h4 class="mb-3">Адрес доставки</h4>
-                                <div class="col-md-12 mb-3">
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="requires_map"
-                                               id="requires_map" value="1" checked>
-                                        <label class="form-check-label" for="id_requires_delivery">Нужна
-                                            карта</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="requires_map"
-                                               id="requires_map" value="0">
-                                        <label class="form-check-label" for="id_requires_delivery">Введу адрес
-                                            самостоятельно</label>
-                                    </div>
 
 
-                                </div>
-                                <input type="text" class="form-control" id="address"
-                                       placeholder="Россия, Москва, ул. Мира, дом 6" required>
+                            {#                            <hr class="my-4">#}
+
+
+                            {#                                    <div class="form-check form-check-inline">#}
+                            {#                                        <input class="form-check-input" type="radio" name="requires_map"#}
+                            {#                                               id="requires_map" value="1" checked>#}
+                            {#                                        <label class="form-check-label" for="id_requires_delivery">Нужна#}
+                            {#                                            карта</label>#}
+                            {#                                    </div>#}
+                            {#                                    <div class="form-check form-check-inline">#}
+                            {#                                        <input class="form-check-input" type="radio" name="requires_map"#}
+                            {#                                               id="requires_map" value="0">#}
+                            {#                                        <label class="form-check-label" for="id_requires_delivery">Введу адрес#}
+                            {#                                            самостоятельно</label>#}
+                            {#                                    </div>#}
+
+
+                            {# delivery_address #}
+                            <div class="mb-3" id="deliveryAddressField">
+                                <label for="id_delivery_address" class="form-label">Адрес
+                                    доставки*:</label>
+                                <textarea class="form-control" id="id_delivery_address"
+                                          value="
+                                                  {% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
+                                          name="delivery_address" rows="2" placeholder="Россия, Москва, ул. Мира, дом 6"></textarea>
+                                {% if form.delivery_address.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
+                                {% endif %}
                             </div>
-
-                            <div class="col-12 mt-3">
-                                <script type="text/javascript" charset="utf-8" async
-                                        src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A481b285872e44f909f96dfe10a4ef1041bbcf62def9c8d8142df6b437052bc24&amp;width=100%25&amp;height=428&amp;lang=ru_RU&amp;scroll=true"></script>
-                            </div>
-
 
                         </div>
+
+
+                        {#Заглушка карты#}
+                        <div class="col-12 mt-3">
+                            <script type="text/javascript" charset="utf-8" async
+                                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A481b285872e44f909f96dfe10a4ef1041bbcf62def9c8d8142df6b437052bc24&amp;width=100%25&amp;height=428&amp;lang=ru_RU&amp;scroll=true"></script>
+                        </div>
+
 
                         <hr class="my-4">
 
