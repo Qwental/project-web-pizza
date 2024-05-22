@@ -30,7 +30,8 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),
     path('admin/', admin.site.urls),
     path('user/', include('users.urls', namespace='user')),
-    path('cart/', include('cart.urls', namespace='cart'))
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
 ]
 urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

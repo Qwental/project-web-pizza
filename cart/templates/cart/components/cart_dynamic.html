@@ -55,6 +55,7 @@
       </div>
     </div>
     {% endfor %}
+
     {% else %}
     <div class="empty-cart">
 {#      <img class="img" src="{% static 'img/empty-cart-img.jpeg' %}" alt="Корзина пуста | Милейший аниме-корги в пустой коробке из-под пиццы">#}
@@ -75,7 +76,9 @@
         <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-light" type="submit">Применить промокод</button>
       </form> {% endcomment %}
       {# кнопка оформления заказа не кнопка "submit" #}
-      <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-warning" type="button">Перейти к оформлению</button>
+
+{#        РЕДИРЕКТ НА СТРАНИЦУ С ЗАКАЗОМ !#}
+        <a href="{% url 'orders:create_order'%}"><button class="go btn btn-warning" type="button">Перейти к оформлению</button></a>
     </div>
 </div>
 </div>
