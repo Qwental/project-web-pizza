@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 
-    {% block content %}
+{% block content %}
 
     <div class="col-md-5">
         <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
@@ -13,42 +14,83 @@
                     <div class="col-md-12 mb-3">
                         <label for="id_first_name" class="form-label">Имя*</label>
                         <input type="text" class="form-control" id="id_first_name"
-                            name="first_name"
-                            placeholder="Введите ваше имя" value="{{ form.first_name.value }}" required>
-                            {% if form.first_name.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
-                            {% endif %}
+                               name="first_name"
+                               placeholder="Введите ваше имя" value="{{ form.first_name.value }}" required>
+                        {% if form.first_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                        {% endif %}
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="id_last_name" class="form-label">Фамилия*</label>
                         <input type="text" class="form-control" id="id_last_name"
-                            name="last_name"
-                            placeholder="Введите вашу фамилию" value="{{ form.last_name.value }}" required>
-                            {% if form.last_name.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show">{{form.last_name.errors}}</div>
-                            {% endif %}
+                               name="last_name"
+                               placeholder="Введите вашу фамилию" value="{{ form.last_name.value }}" required>
+                        {% if form.last_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                        {% endif %}
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="id_username" class="form-label">Имя пользователя*</label>
                         <input type="text" class="form-control" id="id_username"
-                            name="username"
-                            placeholder="Введите ваше имя пользователя" value="{{ form.username.value }}" required>
-                            {% if form.username.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show">{{form.username.errors}}</div>
-                            {% endif %}
+                               name="username"
+                               placeholder="Введите ваше имя пользователя" value="{{ form.username.value }}" required>
+                        {% if form.username.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+                        {% endif %}
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="id_email" class="form-label">Email*</label>
                         <input type="email" class="form-control" id="id_email"
-                            name="email"
-                            placeholder="Введите ваш email *youremail@example.com" value="{{ form.email.value }}" required>
-                            {% if form.email.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show">{{form.email.errors}}</div>
-                            {% endif %}
+                               name="email"
+                               placeholder="Введите ваш email *youremail@example.com" value="{{ form.email.value }}"
+                               required>
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-dark btn_confirm">Сохранить</button>
             </form>
         </div>
     </div>
+
+
+
+    <!-- Оформленные заказы -->
+    <section>
+        <div>
+            <div class="text-center mt-5">
+                <h1>Заказы</h1>
+
+                <div class="orders mt-5">
+                    <table class="table">
+                        <thead>
+                        <tr class="table-light">
+                            <th scope="col">ID</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Создан</th>
+                            <th scope="col">Итого</th>
+                            <th scope="col">Действие</th>
+                        </tr>
+                        </thead>
+                        {% for order in orders %}
+                            <tbody>
+
+                            <tr class="table-info">
+                                <th scope="row">{{ order.id }}</th>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.created_timestamp }} </td>
+                                <td>{{ order.orderitem_set.total_price|intcomma }} </td>
+                                <td>
+                                    <a href="order.html">просмотреть</a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
