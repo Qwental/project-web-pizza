@@ -38,7 +38,6 @@ class Order(models.Model):
     # email = models.EmailField(max_length=256, blank=True, null=True,
     #                            verbose_name="Почтовый ящик")
 
-
     CREATED = 0
     PAID = 1
     ON_WAY = 2
@@ -51,13 +50,14 @@ class Order(models.Model):
         (DELIVERED, 'Доставлен'),
         (WAITING, 'Ожидает'),
     )
+    status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
 
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
-    delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
+    delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки",
+                                        default='Пользователь выбрал самовывоз', )
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    #status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
-    status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
+    # status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
 
     class Meta:
         db_table = "order"
