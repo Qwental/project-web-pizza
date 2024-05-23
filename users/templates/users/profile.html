@@ -125,7 +125,7 @@
                                                 <td>
                                                     {% product_options item as options %}
                                                         {% if options.adds %}
-                                                            <p>{{ options.adds|join:", "|lower }}</p>
+                                                            <p>Добавки: {{ options.adds|join:", "|lower }}</p>
                                                         {% endif %}
 
                                                         {% for option in options.params %}
