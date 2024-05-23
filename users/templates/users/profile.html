@@ -111,6 +111,7 @@
                                         <tr>
                                             <th scope="col">Название</th>
                                             <th scope="col">Кол-во</th>
+                                            <th scope="col">Добавки</th>
                                             <th scope="col">Цена за единицу, руб</th>
                                             <th scope="col">Суммарная цена, руб</th>
 
@@ -120,9 +121,18 @@
                                         {% for item in order.orderitem_set.all %}
                                             <tr>
                                                 {#                                                <td><a class="text-white" href="{% url 'goods:product' item.product.slug %}">{{ item.product.name }}</a></td>#}
+                                                {# наименование #}
                                                 <td>{{ item.name }}</td>
+                                                {# количество #}
                                                 <td>{{ item.quantity }}</td>
+                                                {# список добавок #}
+                                                {# загллушка TODO: убрать!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 #}
+                                                <td><b>Сыр</b>, <b>бекон</b>.<br>Размер: <b>S</b>.<br>Тесто: <b>Тонкое</b>.</td>
+{#                                                <td>{{ item.options }}</td>#}
+
+                                                {# цена (ед.) #}
                                                 <td>{{ item.price }}</td>
+                                                {# цена (итог) #}
                                                 <td>{{ item.products_price }}</td>
                                             </tr>
                                         {% endfor %}
