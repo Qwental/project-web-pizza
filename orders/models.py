@@ -43,11 +43,13 @@ class Order(models.Model):
     PAID = 1
     ON_WAY = 2
     DELIVERED = 3
+    WAITING = 4
     STATUSES = (
         (CREATED, 'Создан'),
         (PAID, 'Оплачен'),
         (ON_WAY, 'В пути'),
         (DELIVERED, 'Доставлен'),
+        (WAITING, 'Ожидает'),
     )
 
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
