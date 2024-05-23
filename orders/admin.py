@@ -9,7 +9,7 @@ from orders.models import Order, OrderItem
 
 class OrderItemTabulareAdmin(admin.TabularInline):
     model = OrderItem
-    fields = "product", "name", "price", "quantity"
+    fields = "product", "name", "price", "quantity", "options",
     search_fields = (
         "product",
         "name",
@@ -19,7 +19,7 @@ class OrderItemTabulareAdmin(admin.TabularInline):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = "order", "product", "name", "price", "quantity"
+    list_display = "order", "product", "name", "price", "quantity",
     search_fields = (
         "order",
         "product",
@@ -32,6 +32,7 @@ class OrderTabulareAdmin(admin.TabularInline):
     fields = (
         "requires_delivery",
         "status",
+
         "payment_on_get",
         "is_paid",
         "created_timestamp",

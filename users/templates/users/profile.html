@@ -99,7 +99,7 @@
 
                                         <tr class="table-info">
                                             <th scope="row">{{ order.id }}</th>
-                                            <td>{{ order.status }}</td>
+                                            <td>{{ order.status.get_status_display }}</td>
                                             <td>{{ order.created_timestamp }} </td>
                                             <td>{{ order.orderitem_set.total_price|intcomma }} </td>
                                         </tr>
