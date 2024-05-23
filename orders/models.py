@@ -8,12 +8,17 @@ from django.db import models
 from main.models import Products
 
 from django.contrib.auth.models import User
+from cart.models import *
+
 
 
 class OrderitemQueryset(models.QuerySet):
 
     def total_price(self):
         return sum(cart.products_price() for cart in self)
+
+    # def total_price(self):
+    #     return sum(cart.final_price() for cart in self)
 
     def total_quantity(self):
         if self:
@@ -70,7 +75,11 @@ class OrderItem(models.Model):
     objects = OrderitemQueryset.as_manager()
 
     def products_price(self):
+        return round(self.price * self.quantity, 2)
+
+    def original_price(self):
         return round(self.product.sell_price() * self.quantity, 2)
+
 
     def __str__(self):
         return f"Товар {self.name} | Заказ № {self.order.pk}"

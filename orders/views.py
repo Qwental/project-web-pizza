@@ -43,12 +43,9 @@ def create_order(request):
                         for cart_item in cartContent:
                             product = cart_item.product
                             name = cart_item.product.name
-                            price = cart_item.product.sell_price()
+                            price = cart_item.final_price
                             quantity = cart_item.quantity
 
-                            # if product.quantity < quantity:
-                            #     raise ValidationError(f'Недостаточное количество товара {name} на складе\
-                            #                            В наличии - {product.quantity}')
 
                             OrderItem.objects.create(
                                 order=order,
@@ -57,8 +54,6 @@ def create_order(request):
                                 price=price,
                                 quantity=quantity,
                             )
-
-                            # product.quantity -= quantity
                             product.save()
 
                         # Очистить корзину пользователя после создания заказа
