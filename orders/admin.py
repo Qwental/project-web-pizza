@@ -50,6 +50,7 @@ class OrderTabulareAdmin(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
+        '__str__',
         "id",
         "user",
         "requires_delivery",
@@ -57,7 +58,9 @@ class OrderAdmin(admin.ModelAdmin):
         "payment_on_get",
         "is_paid",
         "created_timestamp",
+        'status'
     )
+
 
     search_fields = (
         "id",
