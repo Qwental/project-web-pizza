@@ -41,14 +41,15 @@ class Order(models.Model):
     CREATED = 0
     PAID = 1
     ON_WAY = 2
-    DELIVERED = 3
-    WAITING = 4
+    WAITING = 3
+    DELIVERED = 4
+
     STATUSES = (
         (CREATED, 'Создан'),
         (PAID, 'Оплачен'),
         (ON_WAY, 'В пути'),
-        (DELIVERED, 'Доставлен'),
         (WAITING, 'Ожидает'),
+        (DELIVERED, 'Доставлен'),
     )
     status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
 
