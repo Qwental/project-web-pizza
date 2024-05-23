@@ -127,7 +127,8 @@
                                                         {% if options.adds %}
                                                             <p>{{ options.adds|join:", "|lower }}</p>
                                                         {% endif %}
-                                                        {% for option in item.options.params %}
+
+                                                        {% for option in options.params %}
                                                             <p>{{ option.0 }} - {{ option.1 }}</p>
                                                         {% endfor %}
                                                 </td>
