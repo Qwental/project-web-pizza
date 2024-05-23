@@ -37,8 +37,12 @@ def create_order(request):
                             user=user,
                             requires_delivery=form.cleaned_data['requires_delivery'],
                             delivery_address=form.cleaned_data['delivery_address'],
-                            payment_on_get=form.cleaned_data['payment_on_get'],
+                            is_paid=1,
+                            status=1,
                         )
+
+                        # print('requires_delivery',form.cleaned_data['requires_delivery'])
+
                         # Создать заказанные товары
                         for cart_item in cartContent:
                             product = cart_item.product
@@ -47,7 +51,6 @@ def create_order(request):
                             quantity = cart_item.quantity
 
                             options = cart_item.options
-
 
                             OrderItem.objects.create(
                                 order=order,
@@ -61,6 +64,13 @@ def create_order(request):
 
                         # Очистить корзину пользователя после создания заказа
                         cartContent.delete()
+
+
+
+
+
+
+
 
                         messages.success(request, 'Заказ оформлен!')
                         return redirect('orders:success')
