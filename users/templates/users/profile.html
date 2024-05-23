@@ -97,10 +97,18 @@
                                         </thead>
                                         <tbody>
 
-                                        <tr class="table-info">
+                                        {#Покраска таблицы по статусу#}
+                                        <tr class="
+                                        {% if order.status == 0 %}table-info
+                                        {% elif order.status == 1 %}table-primary
+                                        {% elif order.status == 2 %}table-danger
+                                        {% elif order.status == 3 %}table-warning
+                                        {% elif order.status == 4 %}table-success
+                                        {% endif %}
+                                        ">
                                             <th scope="row">{{ order.id }}</th>
                                             <td>
-                                                {{order.get_status_display}}
+                                                {{ order.get_status_display }}
 
                                             </td>
                                             <td>{{ order.created_timestamp }} </td>
