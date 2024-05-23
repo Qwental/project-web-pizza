@@ -49,7 +49,7 @@ class Order(models.Model):
         (PAID, 'Оплачен'),
         (ON_WAY, 'В пути'),
         (WAITING, 'Ожидает'),
-        (DELIVERED, 'Доставлен'),
+        (DELIVERED, 'Получен'),
     )
     status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
 
