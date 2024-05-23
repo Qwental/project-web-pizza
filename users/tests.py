@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate
-from django.contrib.messages import get_messages
-from django.contrib.messages.storage.fallback import FallbackStorage
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from django.contrib.auth.models import User
 from django.urls import reverse
+
+from orders.models import OrderItem
+from orders.tests import OrderTestCase
 
 
 class UsersTestCase(TestCase):
@@ -40,6 +41,8 @@ class UsersTestCase(TestCase):
 
 class ProfileTestCase(TestCase):
     def setUp(self):
+        self.order_test_case = OrderTestCase()
+
         self.valid_email = 'email@test.lemito'
         self.user = User.objects.create_user(username='test', password='ONLYFORTEST', email=self.valid_email)
         self.user.save()
@@ -62,3 +65,28 @@ class ProfileTestCase(TestCase):
 
         self.assertContains(response, "Заказы")
 
+    def test_profile_with_order(self):
+        user = authenticate(username='test', password='ONLYFORTEST')
+
+        self.client.force_login(user)
+        self.order_test_case.setUp()
+        order, order_items = self.order_test_case.create_order_with_items()
+        self.assertIsNotNone(order)
+        self.assertIsNotNone(order_items)
+
+        print("-")
+        print(order_items)
+
+        first_item = order_items[0]
+        print(first_item)
+
+        response = self.client.get(reverse('user:profile'))
+
+        self.assertContains(response, "Заказы")
+
+        # print(first_item.name)
+        # print(response.content)
+        # self.assertContains(response, first_item.product.name)
+
+
+        # self.assertContains(response, order_items.)
