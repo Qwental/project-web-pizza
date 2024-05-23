@@ -3756,7 +3756,7 @@ body {
 }
 
 .forgot_pass_form{
-  width: 80%;
+  width: 25%;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -3786,4 +3786,8 @@ body {
 
 .not_blue{
   text-decoration: none;
+}
+
+.sent_pass_btn{
+  margin-top: -7px;
 }
