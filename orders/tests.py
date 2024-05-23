@@ -51,6 +51,7 @@ class OrderTestCase(TestCase):
             requires_delivery=True,
             delivery_address="qwert",
             payment_on_get=True,
+            status=0  # CREATED == 'Создан'
         )
 
         for cart_item in [self.cart_item1, self.cart_item2]:
@@ -85,11 +86,15 @@ class OrderTestCase(TestCase):
         self.assertEqual(len(order_items), 2)
 
         first_item = order_items[0]
+        print(first_item)
         self.assertEqual(first_item.product, self.testProduct)
         self.assertEqual(first_item.quantity, 1)
         self.assertEqual(first_item.options, self.cart_item1.options)
 
         second_item = order_items[1]
+        print(first_item)
         self.assertEqual(second_item.product, self.testProduct2)
         self.assertEqual(second_item.quantity, 1)
         self.assertEqual(second_item.options, self.cart_item2.options)
+
+        self.assertEqual(order.status, 0)
