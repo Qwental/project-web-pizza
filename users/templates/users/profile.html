@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load carts_tags %}
 {% load humanize %}
 
 {% block css %}
@@ -9,6 +10,7 @@
 
 {% block content %}
     <div>
+
         <div class="col-md-5">
             <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
                 <h3 class="text-center mb-4">Профиль пользователя</h3>
@@ -119,9 +121,16 @@
                                         <tbody class="table-info">
                                         {% for item in order.orderitem_set.all %}
                                             <tr>
-                                                {#                                                <td><a class="text-white" href="{% url 'goods:product' item.product.slug %}">{{ item.product.name }}</a></td>#}
                                                 <td>{{ item.name }}</td>
-                                                <td>{{ item.options }}</td>
+                                                <td>
+                                                    {% product_options item as options %}
+                                                        {% if options.adds %}
+                                                            <p>{{ options.adds|join:", "|lower }}</p>
+                                                        {% endif %}
+                                                        {% for option in item.options.params %}
+                                                            <p>{{ option.0 }} - {{ option.1 }}</p>
+                                                        {% endfor %}
+                                                </td>
                                                 <td>{{ item.quantity }}</td>
                                                 <td>{{ item.price }}</td>
                                                 <td>{{ item.products_price }}</td>
