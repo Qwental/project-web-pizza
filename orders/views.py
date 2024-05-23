@@ -46,6 +46,8 @@ def create_order(request):
                             price = cart_item.final_price
                             quantity = cart_item.quantity
 
+                            options = cart_item.options
+
 
                             OrderItem.objects.create(
                                 order=order,
@@ -53,6 +55,7 @@ def create_order(request):
                                 name=name,
                                 price=price,
                                 quantity=quantity,
+                                options=options,
                             )
                             product.save()
 

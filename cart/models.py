@@ -45,6 +45,7 @@ class Cart(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
     session_key = models.CharField(max_length=32, null=True, blank=True)
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+
     options = JSONField(verbose_name='Дополнительные параметры', schema=OPTIONS_SCHEMA)
 
     class Meta:

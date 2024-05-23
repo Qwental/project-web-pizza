@@ -9,7 +9,6 @@
 
 {% block content %}
     <div>
-
         <div class="col-md-5">
             <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
                 <h3 class="text-center mb-4">Профиль пользователя</h3>
@@ -110,6 +109,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col">Название</th>
+                                            <th scope="col">Описание</th>
                                             <th scope="col">Кол-во</th>
                                             <th scope="col">Цена за единицу, руб</th>
                                             <th scope="col">Суммарная цена, руб</th>
@@ -121,6 +121,7 @@
                                             <tr>
                                                 {#                                                <td><a class="text-white" href="{% url 'goods:product' item.product.slug %}">{{ item.product.name }}</a></td>#}
                                                 <td>{{ item.name }}</td>
+                                                <td>{{ item.options }}</td>
                                                 <td>{{ item.quantity }}</td>
                                                 <td>{{ item.price }}</td>
                                                 <td>{{ item.products_price }}</td>

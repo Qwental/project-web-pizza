@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 from cart.models import *
 
 
-
 class OrderitemQueryset(models.QuerySet):
 
     def total_price(self):
@@ -36,8 +35,8 @@ class Order(models.Model):
     # Думаю телефон нам не нужен
     # phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
 
-   # email = models.EmailField(max_length=256, blank=True, null=True,
-   #                            verbose_name="Почтовый ящик")
+    # email = models.EmailField(max_length=256, blank=True, null=True,
+    #                            verbose_name="Почтовый ящик")
 
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
@@ -67,6 +66,9 @@ class OrderItem(models.Model):
 
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
 
+    options = JSONField(verbose_name='Дополнительные параметры', schema=OPTIONS_SCHEMA,
+                        default=dict)
+
     class Meta:
         db_table = "order_item"
         verbose_name = "Проданный товар"
@@ -79,7 +81,6 @@ class OrderItem(models.Model):
 
     def original_price(self):
         return round(self.product.sell_price() * self.quantity, 2)
-
 
     def __str__(self):
         return f"Товар {self.name} | Заказ № {self.order.pk}"
