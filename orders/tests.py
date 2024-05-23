@@ -74,6 +74,13 @@ class OrderTestCase(TestCase):
 
         return order
 
+    def create_order_with_items(self):
+        order = self.create_order()
+
+        order_items = OrderItem.objects.filter(order=order)
+
+        return order, order_items
+
     def test_create_order_with_items(self):
         order = self.create_order()
 
