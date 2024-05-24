@@ -21,6 +21,14 @@
 
 
 <script>
+    let mapboxAccessToken = "pk.eyJ1IjoibGVtaXQiLCJhIjoiY2twY2ZpZDU1MWQ5cjJ2bmxrbmc2YjFpYSJ9.jXef86wp0mQLiKY0UHgiyw";
+
+    /**
+     * Из координат в адрес
+     * @param lat
+     * @param lng
+     * @returns {Promise<*|string>}
+     */
     async function getAddress(lat, lng) {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
         try {
@@ -39,9 +47,27 @@
         }
     }
 
+    /**
+     * Из адреса в координаты
+     * @param address
+     * @returns {Promise<[*,*]>}
+     */
+    function geocodeAddress(address) {
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxAccessToken}`;
+        return fetch(url)
+           .then(response => response.json())
+           .then(data => {
+                if (data.features.length > 0) {
+                    const feature = data.features[0];
+                    return [feature.center[1], feature.center[0]];
+                } else {
+                    throw new Error('Адрес не найден');
+                }
+            });
+    }
+
     const map = L.map('map').setView([55.810343, 37.498345], 18);
 
-    let mapboxAccessToken = "pk.eyJ1IjoibGVtaXQiLCJhIjoiY2twY2ZpZDU1MWQ5cjJ2bmxrbmc2YjFpYSJ9.jXef86wp0mQLiKY0UHgiyw";
     const tiles = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 19,
@@ -50,26 +76,70 @@
     // TODO: время должно быть из какой-то базы по выбору пользователя
     let time = '10:00';
 
-    map.on('click', async function (e) {
-        let lat = e.latlng.lat;
-        let lng = e.latlng.lng;
+    let delivery_addressDOM = document.getElementById('id_delivery_address');
 
+    /**
+     * Чистка всех маркеров с карты
+     */
+    function clearMarkers(){
         map.eachLayer(function (layer) {
             if (layer instanceof L.Marker) {
                 map.removeLayer(layer);
             }
         });
+    }
 
-        var marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
+    /**
+     * Создает пин на карте
+     * @param lat
+     * @param lng
+     */
+    function createMarker(lat, lng){
+        const marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
+    }
+
+    /**
+     * Выбор адреса через карту (и отображение адреса в поле ввода)
+     */
+    map.on('click', async function (e) {
+        let lat = e.latlng.lat;
+        let lng = e.latlng.lng;
+
+        clearMarkers()
+
+        createMarker(lat, lng)
 
         console.log(`Ширина: ${lat} | Долгота: ${lng}`);
 
         let addr = await getAddress(lat, lng);
 
         if (addr && addr!== 'Адрес не найден' &&!addr.startsWith('Ошибка')) {
-            let delivery_addressDOM = document.getElementById('id_delivery_address');
             delivery_addressDOM.value = addr;
             console.log(delivery_addressDOM.value);
+        }
+        else {
+            console.error("Произошла непредвиденная ошибка " + addr);
+        }
+    });
+
+    /**
+     * Выбор адреса вводом в поле (и отображение адреса на карте)
+     */
+    delivery_addressDOM.addEventListener('input', function() {
+        let address = this.value.trim();
+        console.log(address);
+        if (address) {
+            geocodeAddress(address)
+               .then(([lat, lng]) => {
+                    clearMarkers()
+
+                    map.setView([lat, lng], 18);
+
+                    createMarker(lat, lng)
+               })
+               .catch(error => {
+                    console.error('Ошибка при определении адреса:', error);
+                });
         }
     });
 </script>
