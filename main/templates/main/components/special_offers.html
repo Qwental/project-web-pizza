@@ -14,7 +14,7 @@
 
 <div
   id="carouselExampleCaptions"
-  class="carousel slide"
+  class="carousel carousel-dark slide"
   data-bs-ride="carousel"
 >
   <div class="carousel-indicators">
@@ -28,10 +28,19 @@
       aria-current="true"
       {% endif %}
 
-      aria-label="Slide {{cnt|add:"1"}}"
+      aria-label="Slide {{cnt|add:"1"}}">
     </button>
     {% endfor %}
   </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
   <div class="carousel-inner">
     {% for offer in special_offers %}
     <div class="carousel-item active">
@@ -44,7 +53,7 @@
         {% if product.image %}
         <img src="{{ offer.image.url }}" alt="{{ offer.product.name }}" />
         {% else %}
-        <img src="{% static 'img/pizza1.jpg'%}" class="block-special-offers_img" />
+        <img src="{% static 'img/pizza1.jpg'%}" class="block-special-offers_img"  alt=""/>
         {% endif %}
 
         <div class="block-special-offers_content carousel-caption d-none d-md-block">
@@ -69,15 +78,6 @@
     </div>
     {% endfor %}
   </div>
-  <button
-    class="carousel-control-prev"
-    type="button"
-    data-bs-target="#carouselExampleCaptions"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
   <button
     class="carousel-control-next"
     type="button"
@@ -150,6 +150,14 @@ body {
 
 .btn-block:hover {
     background-color: #388cfa;
+}
+
+.carousel-control-prev {
+    left: calc(50% - 500px) !important;
+}
+
+.carousel-control-next {
+    right: calc(50% - 500px)!important;
 }
 </style>
 {% block js_footer %}
