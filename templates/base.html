@@ -5,22 +5,15 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Skibidi Pizza | {% block head_title %}{% endblock %}</title>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-
     <link rel="shortcut icon" href="{% static 'img/icon.png' %}"/>
-
     <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
     <link href="{% static 'styles/style.css' %}" rel="stylesheet"/>
     {#Тут подрубается класс a class="a-about" и все, больше ничего#}
     <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}"/>
-
     <link href="{% static 'styles/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
     {% block css %}
     {% endblock %}
