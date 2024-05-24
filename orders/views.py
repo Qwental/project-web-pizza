@@ -65,13 +65,6 @@ def create_order(request):
                         # Очистить корзину пользователя после создания заказа
                         cartContent.delete()
 
-
-
-
-
-
-
-
                         messages.success(request, 'Заказ оформлен!')
                         return redirect('orders:success')
 

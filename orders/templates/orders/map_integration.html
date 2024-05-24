@@ -21,29 +21,25 @@
 
 
 <script>
-    function getAddress(lat, lng) {
+    async function getAddress(lat, lng) {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.address) {
-                    console.log('Адрес: ', data.display_name);
-                    return data.display_name;
-                } else {
-                    console.log('Адрес не найден');
-                    return 'Адрес не найден';
-                }
-            })
-            .catch(error => console.error('Ошибка при получении адреса:', error));
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.address) {
+                console.log('Адрес: ', data.display_name);
+                return data.display_name;
+            } else {
+                console.log('Адрес не найден');
+                return 'Адрес не найден';
+            }
+        } catch (error) {
+            console.error('Ошибка при получении адреса:', error);
+            return `Ошибка при получении адреса: ${error.message}`;
+        }
     }
 
-    const map = L.map('map').setView([55.810343, 37.498345], 13);
-
-    // const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //     maxZoom: 19,
-    //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    // }).addTo(map);
+    const map = L.map('map').setView([55.810343, 37.498345], 18);
 
     let mapboxAccessToken = "pk.eyJ1IjoibGVtaXQiLCJhIjoiY2twY2ZpZDU1MWQ5cjJ2bmxrbmc2YjFpYSJ9.jXef86wp0mQLiKY0UHgiyw";
     const tiles = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
@@ -51,11 +47,10 @@
         maxZoom: 19,
     }).addTo(map);
 
+    // TODO: время должно быть из какой-то базы по выбору пользователя
+    let time = '10:00';
 
-    const marker = L.marker([55.810343, 37.498345]).addTo(map)
-        .bindPopup('<b>Hello world!</b><br />МАИ - это я!').openPopup();
-
-    map.on('click', function (e) {
+    map.on('click', async function (e) {
         let lat = e.latlng.lat;
         let lng = e.latlng.lng;
 
@@ -65,25 +60,18 @@
             }
         });
 
-        let time = 10;
+        var marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
 
-        var marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда через ${time} минут`).openPopup();
+        console.log(`Ширина: ${lat} | Долгота: ${lng}`);
 
-        console.log(`Ширина: ${lat} | Долгота: ${lng}`)
-        getAddress(lat, lng);
+        let addr = await getAddress(lat, lng);
 
-
-        fetch('', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ latitude: lat, longitude: lng })
-        }).then(response => response.json())
-            .then(data => alert('Координаты обновлены'))
-            .catch((e) => console.log("Ошибка отправки координат: ", e))
+        if (addr && addr!== 'Адрес не найден' &&!addr.startsWith('Ошибка')) {
+            let delivery_addressDOM = document.getElementById('id_delivery_address');
+            delivery_addressDOM.value = addr;
+            console.log(delivery_addressDOM.value);
+        }
     });
-
 </script>
 </body>
 
