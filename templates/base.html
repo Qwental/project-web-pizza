@@ -6,8 +6,8 @@
     <meta charset="UTF-8"/>
     <title>Skibidi Pizza | {% block head_title %}{% endblock %}</title>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>#}
+{#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>#}
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -43,10 +43,11 @@
       </div>
       <div class="modal-body" id="easterEggBody">
         <p>Тут можно всё - даже слушать музыку!</p><br><p>Или... подписаться на лучший телеграм-канальчик: <a href="https://t.me/lemtooo" target="_blank">https://t.me/lemtooo</a></p>
-        <iframe frameborder="0" style="border:none;width:100%;height:450px;" width="100%" height="450" src="https://music.yandex.ru/iframe/playlist/Mihtrop2005/3">Слушайте <a href='https://music.yandex.ru/users/Mihtrop2005/playlists/3'></iframe>
+        <iframe frameborder="0" style="border:none;width:100%;height:450px;" width="100%" height="450" src="https://music.yandex.ru/iframe/playlist/Mihtrop2005/3"></iframe>
 
       </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -114,20 +115,18 @@
                 <div class="child"></div>
                 <div class="div1">Выйти</div>
             </a>
-            </div>
 
         {% else %}
             <a href="{% url 'user:login' %}" id="loginBtn" class="a-about button1">
                 <div class="child"></div>
                 <div class="div1">Войти</div>
             </a>
-            </div>
+            
         {% endif %}
-    </button>
     </div>
-</header>
-
-{% block content %}
+    </header>
+{#    </div>#}
+  {% block content %}
     {# сюда вставиться то, что будет в таком же блоке, но другом .html #}
 {% endblock %}
 
