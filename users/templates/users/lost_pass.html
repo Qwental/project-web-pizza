@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <h2 class="text-center mb-4">Восстановление пароля</h2>
+    <form class="forgot_pass_form" style="height:52vh" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="id_email" class="form-label">Введите ваш Email</label>
+                <input type="email" class="form-control" id="id_email"
+                    name="email"
+                    placeholder="Введите ваш email *youremail@example.com" value="{{ form.email.value }}" required>
+                    {% if form.email.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.email.errors}}</div>
+                    {% endif %}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark btn-block sent_pass_btn">Отправить</button>
+    </form>
+</main>
+
+    <script>
+        $(document).ready(function() {
+            // Создание модального окошка с соо
+            function showModal(message) {
+                const modal = document.createElement('div');
+                modal.className = "modal fade show";
+                modal.id = "forgotPassMsg";
+                modal.role = "dialog";
+                modal.innerHTML = `
+                <div class="modalBackdrop hidden"></div>
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="btn-close close" type="button" data-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+                        <div class="modal-body">
+                            <p>${message}</p>
+                            <p>Не забудь проверить папку спам</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            
+                document.body.appendChild(modal);
+                
+                // окно закрывается при клике вне окна
+                window.onclick = function(event) {
+                    if (event.target !== modal) {
+                        modal.remove();
+                    }
+                };
+                
+                // кнопка закрыть -- закрывает
+                var span = modal.querySelector('.close');
+                span.onclick = function() {
+                    modal.remove();
+                };
+            }
+            
+    
+            // работа с формой
+            $('.forgot_pass_form').on('submit', function(e) {
+                e.preventDefault();
+    
+                // отправляем запрос с содержимым формы на сервер
+                $.ajax({
+                    url: "{% url "user:lost_pass" %}",
+                    type: 'POST',
+                    // преобразовываем в форму в json штатными средствами jquery
+                    data: $(this).serialize(),
+                    // если все получилось
+                    success: function(response) {
+                        showModal(response.message);
+                    },
+                    // обработка ошибки
+                    error: function(xhr, status, error) {
+                        console.error(`Статус: ${status} | Ошибка: ${error}`);
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .show{
+            display: block;
+        }
+        /* окно распологается по центру экрана [исправить(?)] */
+        .modal.show .modal-dialog {
+            justify-content: center!important;
+        }
+        .modalBackdrop{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.62);
+        }
+    </style>
+  </div>
+{% endblock %}

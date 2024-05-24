@@ -3699,4 +3699,99 @@ body {
   fill: #292929;
 }
 
+.forgottenPass{
+  margin:0 auto;
+}
 
+.sent_button{
+  color: #fff;
+  text-decoration: none;
+  user-select: none;
+  background: rgb(0, 0, 0);
+  padding: .3em 0.5em;
+  outline: none;
+}
+
+.form_reg{
+  width: 35%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+.form_profile{
+  width: 35%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+.form_login{
+  width: 35%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+.regBtn{
+  margin-top: 5px;
+  margin-left: -5px;
+}
+
+.Btn_reg{
+  margin-left: -4px;
+}
+
+.login_btn{
+  margin-left: -4px;
+  width: 103%;
+  margin-bottom: 5px;
+}
+
+.btn_confirm{
+  margin-top: -7px;
+}
+
+.forgot_pass_form{
+  width: 25%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+.lost_pass_link{
+  display: flex;
+  align-items: flex-start;
+  white-space: nowrap;
+}
+
+.lost_pass_link .need_align{
+  margin-left: auto;
+}
+
+.registration_link{
+  border: var(--bs-border-width) solid #03070a;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 103%;
+  margin-left: -4px;
+}
+
+.not_blue{
+  text-decoration: none;
+}
+
+.sent_pass_btn{
+  margin-top: -7px;
+}
+
+.my_tg{
+  color: black;
+}

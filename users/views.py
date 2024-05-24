@@ -1,9 +1,11 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from traitlets import Instance
+from django.contrib.auth.forms import PasswordResetForm
+
 
 from cart.models import Cart
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
@@ -95,3 +97,18 @@ def profile_design(request):
 
     }
     return render(request, 'users/profile_new.html', context=context)
+
+def lost_pass(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(data=request.POST)
+        if form.is_valid():
+            response_data = {'message': 'Письмо отправлено'}
+            return JsonResponse(response_data)
+    else:
+        form = PasswordResetForm()
+
+    context = {
+        'title': 'aboba',
+        'form': form,
+    }
+    return render(request, 'users/lost_pass.html', context)
