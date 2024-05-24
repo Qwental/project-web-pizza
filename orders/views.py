@@ -69,6 +69,7 @@ def create_order(request):
                         return redirect('orders:success')
 
             except ValidationError as e:
+                print(str(e))
                 messages.success(request, str(e))
                 return redirect('cart:cart_view')
     else:
