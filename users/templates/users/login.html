@@ -1,21 +1,47 @@
+
   {% extends 'base.html' %}
   {% load static %}
 
- 
     {% block content %}
+    <main>
+      <h2 class="text-center mb-4">Авторизация</h2>
+      <form class="form-label form_login" style="height:52vh" action="{% url "user:login" %}" method="post">
+        {% csrf_token %}
+        <div class="row">
 
-    <form style="height:52vh"; action="{% url "user:login" %}" method="post">
-      {% csrf_token %}
-      {{form}}
+          <div class="reg_label p-1 mb-1 mx-1">
+            <label for="id_username" class="form-label">Имя пользователя*</label>
+            <input type="text" class="form-control" id="id_username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" name="username" placeholder="Введите ваше имя пользователя" required />
+            {% if form.errors %}
+              <div class="alert alert-danger alert-dismissible fade show">        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}</div>
+            {% endif %}
+          </div>
+          <div class="reg_label p-1 mb-1 mx-1">
+            <div class="lost_pass_link">
+                <label for="id_password" class="form-label">Пароль*</label>
+              <div class="need_align"><a class="not_blue" href="{% url "user:lost_pass" %}">Забыли пароль?</a></div>
+            </div>
+            <input type="password" class="form-control" id="id_password" value="{% if form.password.value %}{{ form.password.value }}{% endif %}" name="password" placeholder="Введите пароль" required />
+          {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}</div>
+          {% endif %}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-dark btn-block login_btn">Войти</button>
+        <br>
 
-      <button type="submit" class="btn btn-dark btn-block">Войти</button>
-      <br>
-      <button id="regBtn" type="button" class="btn btn-dark btn-block">Нет аакаунта? Зарегистрироваться! </button>
-    </form>
-    
-  </main>
-  
-
+        <p align="center"> Впервые у нас? 
+          <a class="not_blue" href="{% url "user:registration" %}">Зарегистрируйся прямо сейчас! 
+          </a> 
+        </p>
+        
+      </form>
+<br> <br> <br> <br> <br>
+    </main>
 
   <script>
 
@@ -25,8 +51,20 @@
       e.preventDefault();
       setTimeout(() => {
         window.location.href = "/user/registration";
-      }, 500);
+      }, 50);
     });
   </script>
+
+<script>
+
+  const lost_PassBtn = document.querySelector("#lost_PassBtn");
+
+    lost_PassBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      window.location.href = "/user/lost_pass";
+    }, 50);
+  });
+</script>
 
 {% endblock %}

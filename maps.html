@@ -1,0 +1,90 @@
+<!-- https://docs.mapbox.com/mapbox-gl-js/example/ -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+
+    <style>
+        #map {
+            height: 520px;
+        }
+    </style>
+
+
+    <script>
+        function getAddress(lat, lng) {
+            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.address) {
+                        console.log('Адрес: ', data.display_name);
+                        return data.display_name;
+                    } else {
+                        console.log('Адрес не найден');
+                        return 'Адрес не найден';
+                    }
+                })
+                .catch(error => console.error('Ошибка при получении адреса:', error));
+        }
+
+        const map = L.map('map').setView([55.810343, 37.498345], 13);
+
+        // const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     maxZoom: 19,
+        //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        // }).addTo(map);
+
+        let mapboxAccessToken = "pk.eyJ1IjoibGVtaXQiLCJhIjoiY2twY2ZpZDU1MWQ5cjJ2bmxrbmc2YjFpYSJ9.jXef86wp0mQLiKY0UHgiyw";
+        const tiles = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 19,
+        }).addTo(map);
+
+
+        const marker = L.marker([55.810343, 37.498345]).addTo(map)
+            .bindPopup('<b>Hello world!</b><br />МАИ - это я!').openPopup();
+
+        map.on('click', function (e) {
+            let lat = e.latlng.lat;
+            let lng = e.latlng.lng;
+
+            map.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            let time = 10;
+
+            var marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда через ${time} минут`).openPopup();
+
+            console.log(`Ширина: ${lat} | Долгота: ${lng}`)
+            getAddress(lat, lng);
+
+
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ latitude: lat, longitude: lng })
+            }).then(response => response.json())
+                .then(data => alert('Координаты обновлены'))
+                .catch((e) => console.log("Ошибка отправки координат: ", e))
+        });
+
+    </script>
+</body>
+
+</html>

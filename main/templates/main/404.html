@@ -1,22 +1,39 @@
-
-{#Теперь наследуется от общего base шаблона#}
-{% extends 'base.html' %}
-{% load static %}
-
-{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
-{% block head_title %}Страница не найдена!{% endblock %}
-
-{% block css_additionl %}
-    <meta name="viewport" content="initial-scale=1, width=device-width"/>
-
-    <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400&display=swap"
-    />
-{% endblock %}
-
-{% block content %}
-<div class="notFound">
-    Страница не найдена!
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <style>
+        /* Your custom CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+        }
+        .container {
+            text-align: center;
+            padding: 100px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #ff5733;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .backToHomeImg{
+            height: auto;
+            width: 667px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Опаньки... Страница не найдена</h1>
+        <p>Ты зашел не в ту дверь, но у тебя есть возможность выйти:</p>
+        <a href="/"><img class="backToHomeImg"  src="https://ucarecdn.com/31eecb8c-0863-485d-a639-ecdf13b146f5/-/preview/1000x1000/" alt="backToHomeImg"/></a><br>
+        <a href="/" style="text-decoration: none; color: #d7cac5;">Или просто вернись домой</a>
+    </div>
+</body>
+</html>
