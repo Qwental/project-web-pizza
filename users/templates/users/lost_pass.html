@@ -26,10 +26,12 @@
         $(document).ready(function() {
             // Создание модального окошка с соо
             function showModal(message) {
-                var modal = document.createElement('div');
+                const modal = document.createElement('div');
                 modal.className = "modal fade show";
-                modal.id = "forgotPassMsg",
+                modal.id = "forgotPassMsg";
+                modal.role = "dialog";
                 modal.innerHTML = `
+                <div class="modalBackdrop hidden"></div>
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -38,6 +40,7 @@
                           </div>
                         <div class="modal-body">
                             <p>${message}</p>
+                            <p>Не забудь проверить папку спам</p>
                         </div>
                     </div>
                 </div>
@@ -47,7 +50,7 @@
                 
                 // окно закрывается при клике вне окна
                 window.onclick = function(event) {
-                    if (event.target == modal) {
+                    if (event.target !== modal) {
                         modal.remove();
                     }
                 };
@@ -61,7 +64,7 @@
             
     
             // работа с формой
-            $('.forgottenPass_form').on('submit', function(e) {
+            $('.forgot_pass_form').on('submit', function(e) {
                 e.preventDefault();
     
                 // отправляем запрос с содержимым формы на сервер
@@ -88,7 +91,15 @@
         }
         /* окно распологается по центру экрана [исправить(?)] */
         .modal.show .modal-dialog {
-        justify-content: center!important;
+            justify-content: center!important;
+        }
+        .modalBackdrop{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.62);
         }
     </style>
   </div>
