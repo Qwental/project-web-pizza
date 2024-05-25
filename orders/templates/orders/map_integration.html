@@ -103,10 +103,8 @@
     }).addTo(map);
 
 
-
-    // TODO: время должно быть из какой-то базы по выбору пользователя
-    let time = '10:00';
-
+    const timeInput = document.getElementById('id_time_pickup_delivery');
+    let time = '';
     let delivery_addressDOM = document.getElementById('id_delivery_address');
 
     /**
@@ -120,14 +118,27 @@
         });
     }
 
+    function updateTimeInPopup() {
+            const timeInput = document.getElementById('id_time_pickup_delivery');
+            time = timeInput.value;
+            clearMarkers();
+            console.log(time)
+            locale();
+    }
+
+    document.getElementById('id_time_pickup_delivery').addEventListener('change', updateTimeInPopup);
+
     /**
      * Создает пин на карте
      * @param lat
      * @param lng
      */
-    function createMarker(lat, lng){
-        const marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
+    function createMarker(lat, lng) {
+        const marker = L.marker([lat, lng]).addTo(map);
+        console.log(time);
+        marker.bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
     }
+
 
     /**
      * Выбор адреса через карту (и отображение адреса в поле ввода)
@@ -190,19 +201,14 @@
     const locateButton = document.getElementsByClassName('leaflet-bar-part-single')[0];
 
     console.log(locateButton);
- /* вапрорпавапртрпавы
-/**
- * Тригер для определения местоположение пользователя
- */
-locateButton.addEventListener('click', function () {
-    console.log("lat, lng");
+ function locale(){
+     console.log("lat, lng");
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 console.log(lat, lng);
-                // Убедитесь, что функция clearMarkers() корректно очищает все предыдущие маркеры
                 clearMarkers();
 
                 // Создание маркера
@@ -210,10 +216,8 @@ locateButton.addEventListener('click', function () {
                 // Установка вида карты
                 myMap.setView([lat, lng], 18);
 
-                // Получение адреса
                 getAddress(lat, lng).then(addr => {
                     console.log(addr);
-                    // Убедитесь, что delivery_addressDOM является корректным DOM элементом
                     delivery_addressDOM.value = addr;
                     console.log(delivery_addressDOM.value);
                 }).catch(error => {
@@ -228,54 +232,11 @@ locateButton.addEventListener('click', function () {
     } else {
         console.error("Геолокация не поддерживается браузером.");
     }
-});
-    {#    var lc = L.control.locate({#}
-    {#    drawCircle: true,#}
-    {#    setView: true,#}
-    {#    position: 'topright',#}
-    {#    icon: 'leaflet-control-locate-location-arrow',#}
-    {#    iconLoading: 'icon-spinner animate-spin',#}
-    {#    strings: {#}
-    {#        title: "Моё местоположение"#}
-    {#}#}
-    {#}).addTo(myMap);#}
-    {##}
-    {#const locateButton = document.querySelector('.leaflet-control-locate');#}
-    {##}
-    {##}
-    {#/**#}
-    {# * Тригер для определения местоположение пользователя#}
-    {# */#}
-    {#locateButton.addEventListener('click', function () {#}
-    {#    if ("geolocation" in navigator) {#}
-    {#    navigator.geolocation.getCurrentPosition(#}
-    {#        (position) => {#}
-    {#            const lat = position.coords.latitude;#}
-    {#            const lng = position.coords.longitude;#}
-    {##}
-    {#            clearMarkers();#}
-    {##}
-    {#            createMarker(lat, lng);#}
-    {##}
-    {#            mapSetView(lat, lng, 18);#}
-    {##}
-    {#            getAddress(lat, lng).then(addr => {#}
-    {#                console.log(addr);#}
-    {#               delivery_addressDOM.value = addr;#}
-    {#               console.log(delivery_addressDOM.value);#}
-    {#            }).catch(error => {#}
-    {#                console.error('Ошибка при определении адреса:', error);#}
-    {#            });#}
-    {#        },#}
-    {#        (error) => {#}
-    {#            console.error("Ошибка получения местоположения:", error);#}
-    {#        },#}
-    {#        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }#}
-    {#    );#}
-    {#} else {#}
-    {#    console.error("Геолокация не поддерживается браузером.");#}
-    {#}#}
-    {#});#}
+ }
+/**
+ * Тригер для определения местоположение пользователя
+ */
+locateButton.addEventListener('click', locale);
 </script>
 </body>
 
