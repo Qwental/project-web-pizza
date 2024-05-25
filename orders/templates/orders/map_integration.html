@@ -10,6 +10,8 @@
 
 <body>
 
+  <button type="button" id="my_position">My Position</button>
+
 <div id="map"></div>
 
 
@@ -67,7 +69,11 @@
             });
     }
 
-    const map = L.map('map').setView([55.810343, 37.498345], 18);
+    function mapSetView(lat, lng, zoom) {
+        return L.map('map').setView([lat, lng], zoom);
+    }
+
+    const map = mapSetView(55.810343, 37.498345, 18);
 
     const tiles = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -142,6 +148,38 @@
                     console.error('Ошибка при определении адреса:', error);
                 });
         }
+    });
+
+    /**
+     * Тригер для определения местоположение пользователя
+     */
+    document.getElementById('my_position').addEventListener('click', function () {
+        if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                clearMarkers();
+
+                createMarker(lat, lng);
+
+                mapSetView(lat, lng, 18);
+
+                getAddress(lat, lng).then(addr => {
+                   delivery_addressDOM.value = addr;
+                }).catch(error => {
+                    console.error('Ошибка при определении адреса:', error);
+                });
+            },
+            (error) => {
+                console.error("Ошибка получения местоположения:", error);
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+    } else {
+        console.error("Геолокация не поддерживается браузером.");
+    }
     });
 </script>
 </body>
