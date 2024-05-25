@@ -57,7 +57,7 @@
                                 <label for="id_first_name" class="form-label">Имя*:</label>
                                 <input type="text" class="form-control" id="id_first_name"
                                        value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
-                                       name="first_name" required>
+                                       name="first_name" placeholder="Иван" required>
                                 {% if form.first_name.errors %}
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
                                 {% endif %}
@@ -67,6 +67,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="id_last_name" class="form-label">Фамилия*:</label>
                                 <input type="text" class="form-control" id="id_last_name" name="last_name"
+                                       placeholder="Иванов"
                                        value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
                                        required>
                                 {% if form.last_name.errors %}
@@ -74,20 +75,6 @@
                                 {% endif %}
                             </div>
 
-                            {# email #}
-                            {#                            <div class="col-sm-6">#}
-                            {#                                <label for="id_email" class="form-label">Адрес электронной почты*</label>#}
-                            {#                                <input type="email" class="form-control" id="email" placeholder="you@example.com"#}
-                            {#                                       required>#}
-                            {#                                <input type="email" class="form-control" id="id_email" name="last_name"#}
-                            {#                                       placeholder="you@example.com"#}
-                            {#                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}"#}
-                            {#                                       required>#}
-                            {#                                {% if form.email.errors %}#}
-                            {#                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>#}
-                            {#                                {% endif %}#}
-                            {##}
-                            {#                            </div>#}
 
                             <div class="col-md-12 mb-3">
                                 <label for="delivery" class="form-label">Способ доставки: </label>
@@ -106,12 +93,35 @@
                                 </div>
                             </div>
 
+                            {# time_pickup_delivery #}
+                            <div class="col-md-6 mb-3">
+                                <label for="id_time_pickup_delivery" class="form-label">Время доставки/Время
+                                    самовывоза</label>
+                                <input type="time" class="form-control" id="id_time_pickup_delivery"
+                                       name="time_pickup_delivery">
+                                {% if form.time_pickup_delivery.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.time_pickup_delivery.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            {# email #}
+                            <div class="col-md-6 mb-3">
+                                <label for="id_email" class="form-label">Почта</label>
+                                <input type="email" class="form-control" id="id_time_pickup_delivery" name="email"
+                                       placeholder="vasya.pupkin@example.com"
+                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+
+
                             <div class="mb-3" id="deliveryAddressField">
                                 <label for="id_delivery_address" class="form-label">Адрес
                                     доставки*:</label>
                                 <textarea class="form-control" id="id_delivery_address"
+                                          placeholder="Выберете адрес на карте или начинайте вводить свою адрес в поле"
                                           value="
-
 
                                                   {% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
                                           name="delivery_address" rows="2"></textarea>
