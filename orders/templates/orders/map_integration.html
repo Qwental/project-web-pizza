@@ -82,8 +82,11 @@
             });
     }
 
+
+    const myMap = L.map('map');
+
     function mapSetView(lat, lng, zoom) {
-        return L.map('map').setView([lat, lng], zoom);
+        return myMap.setView([lat, lng], zoom);
     }
 
     const map = mapSetView(55.810343, 37.498345, 18);
@@ -180,7 +183,9 @@
                 mapSetView(lat, lng, 18);
 
                 getAddress(lat, lng).then(addr => {
+                    console.log(addr);
                    delivery_addressDOM.value = addr;
+                   console.log(delivery_addressDOM.value);
                 }).catch(error => {
                     console.error('Ошибка при определении адреса:', error);
                 });
