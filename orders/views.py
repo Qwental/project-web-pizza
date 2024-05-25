@@ -32,11 +32,13 @@ def create_order(request):
 
                     if cartContent.exists():
                         # Создать заказ
-                        # email=form.cleaned_data['email'],
+                        #
                         order = Order.objects.create(
                             user=user,
                             requires_delivery=form.cleaned_data['requires_delivery'],
                             delivery_address=form.cleaned_data['delivery_address'],
+                            time_pickup_delivery=form.clean_my_time(),
+                            email=form.cleaned_data['email'],
                             is_paid=1,
                             status=1,
                         )
@@ -71,7 +73,7 @@ def create_order(request):
             except ValidationError as e:
                 print(str(e))
                 messages.success(request, str(e))
-                return redirect('cart:cart_view')
+                return redirect('orders:create_order')
     else:
         initial = {
             'first_name': request.user.first_name,

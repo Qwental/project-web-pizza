@@ -243,9 +243,9 @@ function addToCartp(id) {
           if (previousCheckedRadios.has(radioGroupName)) {
             const previousRadio = previousCheckedRadios.get(radioGroupName);
             const previousRadioValue = parseFloat(previousRadio.getAttribute('data-value-radio'));
-            price /= previousRadioValue;
+            price -= previousRadioValue;
           }
-          price *= radioValue;
+          price += radioValue;
           updateFinalPriceInput(price);
 
           previousCheckedRadios.set(radioGroupName, checkedRadio);

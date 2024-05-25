@@ -10,6 +10,14 @@ from main.models import Products
 from django.contrib.auth.models import User
 from cart.models import *
 
+from datetime import datetime, timedelta
+
+
+def default_start_time():
+    now = datetime.now()
+    start = now.replace(hour=13, minute=37, second=0, microsecond=0)
+    return start if start > now else start + timedelta(days=1)
+
 
 class OrderitemQueryset(models.QuerySet):
 
@@ -35,9 +43,6 @@ class Order(models.Model):
     # Думаю телефон нам не нужен
     # phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
 
-    # email = models.EmailField(max_length=256, blank=True, null=True,
-    #                            verbose_name="Почтовый ящик")
-
     CREATED = 0
     PAID = 1
     ON_WAY = 2
@@ -57,9 +62,13 @@ class Order(models.Model):
 
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки",
                                         default='Пользователь выбрал самовывоз', )
-    #payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
+    # payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    # status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
+
+    time_pickup_delivery = models.TimeField(default=default_start_time, verbose_name="Время доставки/самовывоза")
+
+    email = models.EmailField(max_length=256, blank=True, null=True,
+                              verbose_name="Почтовый ящик", default='default@example.com')
 
     class Meta:
         db_table = "order"
