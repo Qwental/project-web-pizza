@@ -10,17 +10,10 @@ from main.models import Products
 from django.contrib.auth.models import User
 from cart.models import *
 
-from datetime import datetime, timedelta
-
-
-def default_start_time():
-    now = datetime.now()
-    start = now.replace(hour=13, minute=37, second=0, microsecond=0)
-    return start if start > now else start + timedelta(days=1)
+from orders.utils import default_start_time
 
 
 class OrderitemQueryset(models.QuerySet):
-
     def total_price(self):
         return sum(cart.products_price() for cart in self)
 

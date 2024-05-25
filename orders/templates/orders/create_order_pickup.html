@@ -48,7 +48,7 @@
 
 
                     <!-- ФОРМА-->
-                    <form action="{% url 'orders:create_order' %}" method="post">
+                    <form action="{% url 'orders:create_order_pickup' %}" method="post">
 
                         {% csrf_token %}
                         <div class="row g-3">
@@ -75,44 +75,11 @@
                                 {% endif %}
                             </div>
 
-
-                            {#                            <div class="col-md-12 mb-3">#}
-                            {#                                <label for="delivery" class="form-label">Способ доставки: </label>#}
-                            {#                                <div class="form-check form-check-inline">#}
-                            {#                                    <input class="form-check-input" type="radio" name="requires_delivery"#}
-                            {#                                           id="id_requires_delivery" value="1" checked>#}
-                            {#                                    <label class="form-check-label" for="id_requires_delivery">Нужна#}
-                            {#                                        доставка</label>#}
-                            {#                                </div>#}
-                            {##}
-                            {##}
-                            {#                                <div class="form-check form-check-inline">#}
-                            {#                                    <input class="form-check-input" type="radio" name="requires_delivery"#}
-                            {#                                           id="id_requires_delivery" value="0">#}
-                            {#                                    <label class="form-check-label" for="id_requires_delivery">Самовывоз</label>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
-                            {#                        #}
-
                             {#ТУТ ВЫВОЖУ КАКОЙ ИНТЕРВАЛ ПО ВРЕМЕНИ ДОСТУПЕН И ПОЧЕМУ#}
-
-
-                            {#Интервалы доставки#}
-                            <span class="text-primary">Доступные интервалы доставки</span>
-                            <ul class="list-group mb-3">
-                                {% for interval in valid_intervals_arr %}
-                                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                                        <div>
-                                            <h6 class="my-0">{{ interval }}</h6>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
 
                             {# time_pickup_delivery #}
                             <div class="col-md-6 mb-3">
-                                <label for="id_time_pickup_delivery" class="form-label">Время
-                                    доставки</label>
+                                <label for="id_time_pickup_delivery" class="form-label">Время самовывоза</label>
                                 <input type="time" class="form-control" id="id_time_pickup_delivery"
                                        name="time_pickup_delivery">
                                 {% if form.time_pickup_delivery.errors %}
@@ -130,52 +97,25 @@
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
                                 {% endif %}
                             </div>
-
-
-                            <div class="mb-3" id="deliveryAddressField">
-                                <label for="id_delivery_address" class="form-label">Адрес
-                                    доставки*:</label>
-                                <textarea class="form-control" id="id_delivery_address"
-                                          placeholder="Выберете адрес на карте или начинайте вводить свою адрес в поле"
-                                          value="
-
-
-
-                                                  {% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
-                                          name="delivery_address" rows="2"></textarea>
-                                {% if form.delivery_address.errors %}
-                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
-                                {% endif %}
-                            </div>
-
-
-                            {# phone #}
-                            {#                            Убрал телефон#}
-                            {#                            <div class="col-12 mt-3">#}
-                            {#                                <label for="address" class="form-label">Номер телефона</label>#}
-                            {#                                <input type="text" class="form-control" id="number"#}
-                            {#                                       placeholder="XXX-XXX-XX-XX" required>#}
-                            {#                            </div>#}
-
-                            {# special_offer #}
-
-                            {#                            <div class="col-12 mt-3">#}
-                            {#                                <label for="special_offer" class="form-label">Промокод</label>#}
-                            {#                                <input type="text" class="form-control" id="special_offer" placeholder="SALE2024">#}
-                            {#                            </div>#}
-
-                            {# payment_on_get #}
-                            {# requires_delivery #}
-                            {# delivery_address #}
-
                         </div>
 
-                        <h3>Карта</h3>
-                        {#Уже не заглушка#}
+                        {#Интервалы доставки#}
+                        <ul class="list-group mb-3">
+                            {% for interval in valid_intervals_arr %}
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">{{ interval }}</h6>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h4>Самовывоз: Дубосековская улица, 4с1, Москва, 125080</h4>
+                        <h4>Карта:</h4>
+                        {#Адрес пиццерии#}
                         <div class="col-12 mt-3">
-
-                            {% include 'orders/map_integration.html' %}
-
+                            <script type="text/javascript" charset="utf-8" async
+                                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A481b285872e44f909f96dfe10a4ef1041bbcf62def9c8d8142df6b437052bc24&amp;width=100%25&amp;height=428&amp;lang=ru_RU&amp;scroll=true"></script>
                         </div>
 
 
