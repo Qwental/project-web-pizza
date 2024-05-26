@@ -114,17 +114,36 @@
                         </div>
 
                         {#Интервалы доставки#}
-                        <h4>Доступные интервалы доставки</h4>
-                        <div class="row">
-                            <ul class="list-group mb-3">
-                                {% for interval in valid_intervals_arr %}
-                                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                                        <div>
-                                            <h6 class="my-0">{{ interval }}</h6>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                        <style>
+                            .intervalListBtn {
+                                background-color: #1dda96;
+                            }
+
+                            .card {
+                                width: 100%;
+                            }
+
+                            .list-group-item {
+                                font-size: 15pt;
+                            }
+                        </style>
+
+                        {# Кнопка "Показать интервалы" #}
+                        <button class="intervalListBtn btn btn-secondary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Доступные интервалы для доставки
+                        </button>
+                        {# Собственно сами интервалы #}
+                        <div class="collapse" id="collapseExample">
+                            <div class="container-lg">
+                                <div class="row">
+                                    {% for interval in valid_intervals_arr %}
+                                    <div class="col-xl-4">
+                                        <p class="list-group-item">{{ interval }}</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
 
                         <h4>Самовывоз: Дубосековская улица, 4с1, Москва, 125080</h4>
