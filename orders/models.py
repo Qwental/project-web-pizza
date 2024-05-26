@@ -41,7 +41,6 @@ class Order(models.Model):
     ON_WAY = 2
     WAITING = 3
     DELIVERED = 4
-
     STATUSES = (
         (CREATED, 'Создан'),
         (PAID, 'Оплачен'),
