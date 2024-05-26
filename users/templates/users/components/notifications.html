@@ -1,16 +1,24 @@
 {% load orders_tags %}
 
 {% get_notifications user as notifications%}
-{% for notification in notifications %}
 <div class="notificationContainer">
-    <div id="orderStatusAlert" class="created alert alert-info alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Статус заказа обновлён.</h4>
-        <p>{{notification}}</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% for notification in notifications %}
+    <div class="notificationContainer">
+        <div id="orderStatusAlert" class="created alert alert-info alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading">Статус заказа обновлён.</h4>
+            <p>{{notification}}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     </div>
 </div>
 {% endfor %}
 <style>
+    .notificationContainer{
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+
+    }
     .created {
     background-color: #d4edda;
     border-color: #c3e6cb;
