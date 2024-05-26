@@ -3,8 +3,7 @@ from django.db import models
 from django_jsonform.models.fields import JSONField
 from django.conf import settings
 from main.models import Addition, Products
-
-User = settings.AUTH_USER_MODEL
+from users.models import User
 
 class CartQueryset(models.QuerySet):
 
