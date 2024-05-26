@@ -38,6 +38,10 @@
     .leaflet-control-locate-location{
         display: none;
     }
+
+    .leaflet-attribution-flag{
+        display: none!important;
+    }
 </style>
 
 
@@ -121,14 +125,12 @@
     function updateTimeInPopup() {
             const timeInput = document.getElementById('id_time_pickup_delivery');
             time = timeInput.value;
-            clearMarkers();
+
             console.log(time)
             locale();
     }
 
-    document.getElementById('id_time_pickup_delivery').addEventListener('change', updateTimeInPopup);
-
-    /**
+        /**
      * Создает пин на карте
      * @param lat
      * @param lng
@@ -138,6 +140,10 @@
         console.log(time);
         marker.bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
     }
+
+    document.getElementById('id_time_pickup_delivery').addEventListener('change', updateTimeInPopup);
+
+
 
 
     /**
@@ -193,8 +199,11 @@
         iconLoading: 'icon-spinner animate-spin',
         strings: {
             title: "Моё местоположение"
-        }
+        },
+        autoStart: false
     }).addTo(myMap);
+
+
 
     lc.id = "btn-btn"
 
