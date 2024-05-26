@@ -1,167 +1,61 @@
 {% extends 'base.html' %}
-
 {% load static %}
-{% load carts_tags %}
-{% load humanize %}
-
-{% block css %}
-
-{% endblock %}
-
-{% block content %}
-    <div>
-
-        <div class="col-md-5">
-            <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-                <h3 class="text-center mb-4">Профиль пользователя</h3>
-                <form action="{% url "users:profile" %}" method="post">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label for="id_first_name" class="form-label">Имя*</label>
-                            <input type="text" class="form-control" id="id_first_name"
-                                   name="first_name"
-                                   placeholder="Введите ваше имя" value="{{ form.first_name.value }}" required>
-                            {% if form.first_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="id_last_name" class="form-label">Фамилия*</label>
-                            <input type="text" class="form-control" id="id_last_name"
-                                   name="last_name"
-                                   placeholder="Введите вашу фамилию" value="{{ form.last_name.value }}" required>
-                            {% if form.last_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="id_username" class="form-label">Имя пользователя*</label>
-                            <input type="text" class="form-control" id="id_username"
-                                   name="username"
-                                   placeholder="Введите ваше имя пользователя" value="{{ form.username.value }}"
-                                   required>
-                            {% if form.username.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="id_email" class="form-label">Email*</label>
-                            <input type="email" class="form-control" id="id_email"
-                                   name="email"
-                                   placeholder="Введите ваш email *youremail@example.com" value="{{ form.email.value }}"
-                                   required>
-                            {% if form.email.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-dark btn_confirm">Сохранить</button>
-                </form>
-            </div>
-        </div>
 
 
+    {% block content %}
+
+    <div class="col-md-5">
         <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-            <h3 class="text-center mb-4">Заказы</h3>
-            <!-- Разметка заказов -->
-            <div>
-                <div class="accordion" id="accordionExample">
-                    {% for order in orders %}
-                        <div class="accordion-item">
-
-                        <h2 class="accordion-header" id="heading{{ order.id }}">
-                            <button class="accordion-button {% if order != orders.0 %}
-                            collapsed{% endif %}"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}"
-                                    aria-expanded="false" aria-controls="collapse{{ order.id }}">
-                                <strong> Заказ от {{ order.created_timestamp }}</strong>
-                            </button>
-                        </h2>
-
-                        <div id="collapse{{ order.id }}"
-                             class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}"
-                             aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {#Внутри инфа о заказе#}
-                                <div>
-                                    <table class="table table-dark table-hover">
-
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Статус</th>
-                                            <th scope="col">Создан</th>
-                                            <th scope="col">Итого, руб</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        {#Покраска таблицы по статусу#}
-                                        <tr class="
-                                        {% if order.status == 0 %}table-info
-                                        {% elif order.status == 1 %}table-primary
-                                        {% elif order.status == 2 %}table-danger
-                                        {% elif order.status == 3 %}table-warning
-                                        {% elif order.status == 4 %}table-success
-                                        {% endif %}
-                                        ">
-                                            <th scope="row">{{ order.id }}</th>
-                                            <td>
-                                                {{ order.get_status_display }}
-
-                                            </td>
-                                            <td>{{ order.created_timestamp }} </td>
-                                            <td>{{ order.orderitem_set.total_price|intcomma }} </td>
-                                        </tr>
-                                        </tbody>
-
-
-                                    </table>
-                                    <table class="table table-dark table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Название</th>
-                                            <th scope="col">Описание</th>
-                                            <th scope="col">Кол-во</th>
-                                            <th scope="col">Цена за единицу, руб</th>
-                                            <th scope="col">Суммарная цена, руб</th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody class="table-info">
-                                        {% for item in order.orderitem_set.all %}
-                                            <tr>
-                                                <td>{{ item.name }}</td>
-                                                <td>
-                                                    {% product_options item as options %}
-                                                    {% if options.adds %}
-                                                        <p>Добавки: {{ options.adds|join:", "|lower }}</p>
-                                                    {% endif %}
-
-                                                    {% for option in options.params %}
-                                                        <p>{{ option.0 }} - {{ option.1 }}</p>
-                                                    {% endfor %}
-                                                </td>
-                                                <td>{{ item.quantity }}</td>
-                                                <td>{{ item.price }}</td>
-                                                <td>{{ item.products_price }}</td>
-                                            </tr>
-                                        {% endfor %}
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+            <h3 class="text-center mb-4">Профиль пользователя</h3>
+            <form action="{% url "users:profile" %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="id_first_name" class="form-label">Имя*</label>
+                        <input type="text" class="form-control" id="id_first_name"
+                            name="first_name"
+                            placeholder="Введите ваше имя" value="{{ form.first_name.value }}" required>
+                            {% if form.first_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                            {% endif %}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="id_last_name" class="form-label">Фамилия*</label>
+                        <input type="text" class="form-control" id="id_last_name"
+                            name="last_name"
+                            placeholder="Введите вашу фамилию" value="{{ form.last_name.value }}" required>
+                            {% if form.last_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{form.last_name.errors}}</div>
+                            {% endif %}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="id_username" class="form-label">Имя пользователя*</label>
+                        <input type="text" class="form-control" id="id_username"
+                            name="username"
+                            placeholder="Введите ваше имя пользователя" value="{{ form.username.value }}" required>
+                            {% if form.username.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{form.username.errors}}</div>
+                            {% endif %}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="id_email" class="form-label">Email*</label>
+                        <input type="email" class="form-control" id="id_email"
+                            name="email"
+                            placeholder="Введите ваш email *youremail@example.com" value="{{ form.email.value }}" required>
+                            {% if form.email.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{form.email.errors}}</div>
+                            {% endif %}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="pay-type" class="form-label">Выберите вид оплаты по умолчанию*</label>    
+                        <select class="form-control" name="types" size="1">
+                            <option selected="selected" value="first">Карта</option>
+                            <option value="second">Наличные</option>
+                        </select>
                     </div>
                 </div>
-
-                <!-- Закончилась разметка заказов -->
-            </div>
+                <button type="submit" class="btn btn-dark btn_confirm">Сохранить</button>
+            </form>
         </div>
     </div>
-
-
 {% endblock %}

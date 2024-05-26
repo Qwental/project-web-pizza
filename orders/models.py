@@ -7,7 +7,7 @@ from django.db import models
 
 from main.models import Products
 
-from django.contrib.auth.models import User
+from users.models import User
 from cart.models import *
 
 
