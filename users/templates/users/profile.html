@@ -107,8 +107,6 @@
                     alertToShow.style.display = 'block';
                 }
             }
-
-
         </script>
 
         <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
@@ -141,6 +139,7 @@
                                             <th scope="col">Статус</th>
                                             <th scope="col">Создан</th>
                                             <th scope="col">Адрес доставки</th>
+                                            <th scope="col">Способ Оплаты</th>
                                             <th scope="col">Время доставки/самовывоза:</th>
                                             <th scope="col">Итого, руб</th>
                                         </tr>
@@ -163,6 +162,7 @@
                                             </td>
                                             <td>{{ order.created_timestamp }} </td>
                                             <td><p>{{ order.delivery_address }}</p></td>
+                                            <td><p>{{ order.get_cash_payment_display }}</p></td>
                                             <td>{{ order.time_pickup_delivery }} </td>
                                             <td>{{ order.orderitem_set.total_price|intcomma }} </td>
                                         </tr>

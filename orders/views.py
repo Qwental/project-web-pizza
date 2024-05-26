@@ -91,7 +91,7 @@ def create_order_pickup(request):
                             email=form.cleaned_data['email'],
                             cash_payment=form.cleaned_data['cash_payment'],
                             is_paid=form.clean_paid(),
-                            status=1,
+                            status=form.clean_paid(),
                         )
 
                         # Создать заказанные товары
@@ -167,7 +167,7 @@ def create_order(request):
                             email=form.cleaned_data['email'],
                             cash_payment=form.cleaned_data['cash_payment'],
                             is_paid=form.clean_paid(),
-                            status=1,
+                            status=form.clean_paid(),
                         )
                         print(order)
                         # Создать заказанные товары

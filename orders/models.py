@@ -55,7 +55,7 @@ class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки",
                                         default='Пользователь выбрал самовывоз', )
     # payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
-    is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
+    is_paid = models.BooleanField(default=False, verbose_name="Заказ оплачен")
 
     time_pickup_delivery = models.TimeField(default=default_start_time, verbose_name="Время доставки/самовывоза")
 
