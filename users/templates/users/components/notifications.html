@@ -4,7 +4,7 @@
 <div class="notificationContainer">
     {% for notification in notifications %}
     <div class="notificationContainer">
-        <div id="orderStatusAlert" class="created alert alert-info alert-dismissible fade show" role="alert">
+        <div id="orderStatusAlert" data-content="{{notification}}" class="created alert alert-info alert-dismissible fade show" role="alert">
             <h4 class="alert-heading">Статус заказа обновлён.</h4>
             <p>{{notification}}</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -49,9 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const alertElement = document.getElementById('orderStatusAlert');
 
     function onAlertClosed() {
-        if (alertElement) {
-            alertElement.remove();
-        }
+            this.parentElement.remove();
     }
 
     alertElement.addEventListener('hidden.bs.alert', onAlertClosed);
