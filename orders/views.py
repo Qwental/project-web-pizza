@@ -72,6 +72,7 @@ def valid_intervals():
 @login_required
 def create_order_pickup(request):
     temp_cartContent = get_user_carts(request)
+    form_errors = []
     if request.method == 'POST':
         form = CreateOrderForm(data=request.POST)
         print('create_order_pickup')
@@ -116,11 +117,11 @@ def create_order_pickup(request):
                         cartContent.delete()
                         messages.success(request, 'Заказ оформлен!')
                         return redirect('orders:success')
-
             except ValidationError as e:
                 print(str(e))
-                messages.success(request, str(e))
-                return redirect('orders:create_order_pickup')
+                form_errors = e.messages
+                # messages.success(request, str(e))
+                # return redirect('orders:create_order_pickup')
     else:
         initial = {
             'first_name': request.user.first_name,
@@ -137,6 +138,7 @@ def create_order_pickup(request):
         'user_email': request.user.email,
         'title': 'Оформление заказа',
         'form': form,
+        'form_errors': form_errors,
         'orders': True,
         "cartContent": temp_cartContent,
     }
@@ -147,6 +149,7 @@ def create_order_pickup(request):
 @login_required
 def create_order(request):
     temp_cartContent = get_user_carts(request)
+    form_errors = []
     print('create_order')
     if request.method == 'POST':
         form = CreateOrderForm(data=request.POST)
@@ -193,9 +196,10 @@ def create_order(request):
                         messages.success(request, 'Заказ оформлен!')
                         return redirect('orders:success')
             except ValidationError as e:
+                form_errors = e.messages
                 print(str(e), e.messages, 'mistake')
-                messages.success(request, str(e))
-                return redirect('orders:create_order')
+                #messages.success(request, str(e))
+                #return redirect('orders:create_order')
         else:
             print('form инвалид')
     else:
@@ -213,6 +217,7 @@ def create_order(request):
         'valid_intervals_arr': valid_intervals(),
         'user_email': request.user.email,
         'form': form,
+        'form_errors': form_errors,
         'orders': True,
         "cartContent": temp_cartContent,
     }

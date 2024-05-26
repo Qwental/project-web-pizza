@@ -71,7 +71,6 @@ class CreateOrderForm(forms.Form):
 
 
 
-
     # Валидация времени
     def clean_my_time(self, requires_delivery):
 
@@ -103,7 +102,7 @@ class CreateOrderForm(forms.Form):
         flag_current_service_load = current_service_load()
 
         # Временно!
-        flag_working_time = False
+        #flag_working_time = False
 
         if flag_working_time:
             time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")
@@ -115,7 +114,7 @@ class CreateOrderForm(forms.Form):
             time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")
             start = start.strftime("%H:%M")
             end = end.strftime("%H:%M")
-            raise forms.ValidationError(
+            raise ValidationError(
                 f'Выбранное вами время {time_pickup_delivery} не попадает в рабочее время '
                 f'Пиццерии, выберете между {start} и {end}')
         elif flag_current_service_load:
@@ -126,7 +125,7 @@ class CreateOrderForm(forms.Form):
                 time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")
                 start = start.strftime("%H:%M")
                 end = end.strftime("%H:%M")
-                raise forms.ValidationError(
+                raise ValidationError(
                     f'В данный момент сервис перегружен заказами и выбранное вами время {time_pickup_delivery} '
                     f'не попадает в доступные время '
                     f'Пиццерии, выберете между {start} и {end}')
