@@ -6,10 +6,10 @@ from users.models import User
 class UserLoginForm(AuthenticationForm):
     class Meta:
         model = User
-        fields = (
+        fields = [
             'username', 
             'password'
-        )
+        ]
 
     username = forms.CharField(label="Ник", widget=forms.TextInput(attrs={'class': 'form-control-username'}))
     password = forms.CharField(label="Пароль", widget=forms.PasswordInput(attrs={'class': 'form-control-pass'}))
