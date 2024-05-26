@@ -1,6 +1,8 @@
 import re
 from datetime import datetime, timedelta
 
+from django.core.exceptions import ValidationError
+
 # import datetime
 from orders.models import Order
 from django import forms
@@ -80,13 +82,14 @@ class CreateOrderForm(forms.Form):
             flag_pizza_close = True
 
         #Проверка времени на попадания в часы работы
-        if (time_pickup_delivery <= start) or (time_pickup_delivery >= end):
+        if (time_pickup_delivery <= start.replace(hour=9, minute=0, second=0)) or (time_pickup_delivery >= end):
             # Время невалидное, т.е. не попадает в рабочий интервал
-            flag_working_time = False
+            flag_working_time = True
         flag_current_service_load = current_service_load()
 
         if flag_working_time:
-            raise forms.ValidationError(
+            time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")
+            raise ValidationError(
                 f'Выбранное вами время {time_pickup_delivery} не попадает в рабочее время '
                 f'Пиццерии. Рабочее время с 9:00 до 23:00')
 

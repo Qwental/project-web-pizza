@@ -58,6 +58,11 @@ def valid_intervals():
         if current_time < start_interval and end_interval > current_time:
             if intervals_load[key] < 5:
                 valid_intervals_arr.append(key)
+
+    # temp = valid_intervals_arr[0]
+    # for interval in valid_intervals_arr:
+    #     if temp == interval:
+
     return valid_intervals_arr
 
 

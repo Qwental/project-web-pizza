@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block css %}
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 {% endblock %}
@@ -45,13 +45,27 @@
                 {# КОНЕЦ Корзины#}
 
                 <div class="col-md-7 col-lg-8">
-
-
                     <!-- ФОРМА-->
                     <form action="{% url 'orders:create_order_pickup' %}" method="post">
-
                         {% csrf_token %}
+
+{#                        <h4>Ошибки</h4>#}
+{#                        <div class="row">#}
+{#                            <ul class="list-group mb-3">#}
+{#                                {% for error in form.errors %}#}
+{#                                    <li class="list-group-item d-flex justify-content-between lh-sm">#}
+{#                                        <div>#}
+{#                                            <h6 class="my-0">{{ error }}</h6>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        </div>#}
+
+{#                        ТУТ НАЧИНАЕТСЯ ФОРМА#}
                         <div class="row g-3">
+
+
                             {# first_name #}
                             <div class="col-md-6 mb-3">
                                 <label for="id_first_name" class="form-label">Имя*:</label>
@@ -100,15 +114,18 @@
                         </div>
 
                         {#Интервалы доставки#}
-                        <ul class="list-group mb-3">
-                            {% for interval in valid_intervals_arr %}
-                                <li class="list-group-item d-flex justify-content-between lh-sm">
-                                    <div>
-                                        <h6 class="my-0">{{ interval }}</h6>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                        <h4>Доступные интервалы доставки</h4>
+                        <div class="row">
+                            <ul class="list-group mb-3">
+                                {% for interval in valid_intervals_arr %}
+                                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                                        <div>
+                                            <h6 class="my-0">{{ interval }}</h6>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
 
                         <h4>Самовывоз: Дубосековская улица, 4с1, Москва, 125080</h4>
                         <h4>Карта:</h4>
