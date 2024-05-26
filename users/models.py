@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pay_type = models.CharField(verbose_name='Тип оплаты', max_length = 10)
+    pay_type = models.CharField(verbose_name='Тип оплаты', max_length=10)
 
     class Meta:
         db_table = 'user'
