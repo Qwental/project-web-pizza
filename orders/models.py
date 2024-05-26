@@ -62,6 +62,15 @@ class Order(models.Model):
     email = models.EmailField(max_length=256, blank=True, null=True,
                               verbose_name="Почтовый ящик", default='default@example.com')
 
+    # Добавлен способ оплаты в Заказе
+    CARD_PAYMENT = 0
+    CASH_PAYMENT = 1
+    PAYMENT_VARIATIONS = (
+        (CARD_PAYMENT, 'Оплата картой'),
+        (CASH_PAYMENT, 'Оплата наличными'),
+    )
+    cash_payment = models.SmallIntegerField(default=CARD_PAYMENT, choices=PAYMENT_VARIATIONS,verbose_name='Способ оплаты' )
+
     class Meta:
         db_table = "order"
         verbose_name = "Заказ"
@@ -73,17 +82,12 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ")
-
     product = models.ForeignKey(to=Products, on_delete=models.SET_DEFAULT, null=True, verbose_name="Продукт",
                                 default=None)
-
     name = models.CharField(max_length=150, verbose_name="Название")
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Цена")
-
     quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
-
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
-
     options = JSONField(verbose_name='Дополнительные параметры', schema=OPTIONS_SCHEMA,
                         default=dict)
 

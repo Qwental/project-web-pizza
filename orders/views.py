@@ -4,6 +4,8 @@ from django.shortcuts import render
 
 from cart.views import *
 
+from users.models import User
+
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
@@ -87,7 +89,8 @@ def create_order_pickup(request):
                             delivery_address='Самовывоз',
                             time_pickup_delivery=form.clean_my_time(0),
                             email=form.cleaned_data['email'],
-                            is_paid=1,
+                            cash_payment=form.cleaned_data['cash_payment'],
+                            is_paid=form.clean_paid(),
                             status=1,
                         )
 
@@ -125,8 +128,12 @@ def create_order_pickup(request):
         }
         form = CreateOrderForm(initial=initial)
 
+
+
+
     context = {
         'valid_intervals_arr': valid_intervals(),
+        'cash_payment': request.user.cash_payment,
         'title': 'Оформление заказа',
         'form': form,
         'orders': True,
@@ -158,7 +165,8 @@ def create_order(request):
                             delivery_address=form.cleaned_data['delivery_address'],
                             time_pickup_delivery=form.clean_my_time(1),
                             email=form.cleaned_data['email'],
-                            is_paid=1,
+                            cash_payment=form.cleaned_data['cash_payment'],
+                            is_paid=form.clean_paid(),
                             status=1,
                         )
                         print(order)
@@ -193,12 +201,14 @@ def create_order(request):
         initial = {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
+
         }
         form = CreateOrderForm(initial=initial)
         print('mistake2')
 
     context = {
         'title': 'Оформление заказа',
+        'cash_payment': request.user.cash_payment,
         'valid_intervals_arr': valid_intervals(),
         'form': form,
         'orders': True,

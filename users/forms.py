@@ -44,6 +44,7 @@ class UserRegistrationForm(UserCreationForm):
     )
 
 
+
 class ProfileForm(UserChangeForm):
     class Meta:
         model = User
@@ -52,12 +53,20 @@ class ProfileForm(UserChangeForm):
             "last_name",
             "username",
             "email",
+            "cash_payment",
         )
 
     first_name = forms.CharField()
     last_name = forms.CharField()
     username = forms.CharField()
     email = forms.CharField()
+    # выбор оплаты
+    cash_payment = forms.ChoiceField(
+        choices=[
+            ("0", False),  # безнал
+            ("1", True),  # налик
+        ], required=True, widget=forms.RadioSelect()
+    )
 
 class ProfileUpdateForm(forms.ModelForm):
     pass

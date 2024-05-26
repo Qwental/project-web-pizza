@@ -7,6 +7,8 @@ from django.core.exceptions import ValidationError
 from orders.models import Order
 from django import forms
 
+from users.models import User
+
 
 
 
@@ -51,10 +53,24 @@ def current_service_load():
 class CreateOrderForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
-
     time_pickup_delivery = forms.TimeField()
     email = forms.EmailField()
     delivery_address = forms.CharField(required=False)
+
+    cash_payment = forms.ChoiceField(
+        choices=[
+            ("0", False),  # безнал
+            ("1", True),  # налик
+        ]
+    )
+
+    def clean_paid(self):
+        if self.cleaned_data['cash_payment'] == '1':
+            return 0
+        return 1
+
+
+
 
     # Валидация времени
     def clean_my_time(self, requires_delivery):
@@ -85,6 +101,9 @@ class CreateOrderForm(forms.Form):
             # Время невалидное, т.е. не попадает в рабочий интервал
             flag_working_time = True
         flag_current_service_load = current_service_load()
+
+        # Временно!
+        flag_working_time = False
 
         if flag_working_time:
             time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")

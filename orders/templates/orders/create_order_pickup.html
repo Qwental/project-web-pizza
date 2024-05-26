@@ -49,20 +49,20 @@
                     <form action="{% url 'orders:create_order_pickup' %}" method="post">
                         {% csrf_token %}
 
-{#                        <h4>Ошибки</h4>#}
-{#                        <div class="row">#}
-{#                            <ul class="list-group mb-3">#}
-{#                                {% for error in form.errors %}#}
-{#                                    <li class="list-group-item d-flex justify-content-between lh-sm">#}
-{#                                        <div>#}
-{#                                            <h6 class="my-0">{{ error }}</h6>#}
-{#                                        </div>#}
-{#                                    </li>#}
-{#                                {% endfor %}#}
-{#                            </ul>#}
-{#                        </div>#}
+                        {#                        <h4>Ошибки</h4>#}
+                        {#                        <div class="row">#}
+                        {#                            <ul class="list-group mb-3">#}
+                        {#                                {% for error in form.errors %}#}
+                        {#                                    <li class="list-group-item d-flex justify-content-between lh-sm">#}
+                        {#                                        <div>#}
+                        {#                                            <h6 class="my-0">{{ error }}</h6>#}
+                        {#                                        </div>#}
+                        {#                                    </li>#}
+                        {#                                {% endfor %}#}
+                        {#                            </ul>#}
+                        {#                        </div>#}
 
-{#                        ТУТ НАЧИНАЕТСЯ ФОРМА#}
+                        {#                        ТУТ НАЧИНАЕТСЯ ФОРМА#}
                         <div class="row g-3">
 
 
@@ -130,7 +130,7 @@
 
                         {# Кнопка "Показать интервалы" #}
                         <button class="intervalListBtn btn btn-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             Доступные интервалы для доставки
                         </button>
                         {# Собственно сами интервалы #}
@@ -138,11 +138,30 @@
                             <div class="container-lg">
                                 <div class="row">
                                     {% for interval in valid_intervals_arr %}
-                                    <div class="col-xl-4">
-                                        <p class="list-group-item">{{ interval }}</p>
-                                    </div>
+                                        <div class="col-xl-4">
+                                            <p class="list-group-item">{{ interval }}</p>
+                                        </div>
                                     {% endfor %}
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <label for="id_cash_payment" class="form-label">Выберете удобный способ оплаты</label>
+                            <p></p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="cash_payment"
+                                       id="id_cash_payment" value="1" {% if cash_payment  == 1 %}checked{% endif %}>
+                                <label class="form-check-label" for="id_cash_payment">Оплата наличными</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+
+                                <input class="form-check-input" type="radio" name="cash_payment"
+                                       id="id_cash_payment" value="0"
+                                       {% if cash_payment  == 0 %}checked{% endif %}>
+                                <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
                             </div>
                         </div>
 
