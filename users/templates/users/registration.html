@@ -49,6 +49,15 @@
             <div class="alert alert-danger alert-dismissible fade show">{{ form.password2.errors }}</div>
           {% endif %}
         </div>
+
+        <div class="col-md-12 mb-3">
+          <label for="id_pay_type" class="form-label" name="types">Выберите вид оплаты по умолчанию*</label>    
+          <select class="form-control" name="types" size="1">
+              <option selected="selected" value="first">Карта</option>
+              <option value="second">Наличные</option>
+          </select>
+        </div>
+
       </div>
       <button type="submit" class="btn btn-dark btn-block Btn_reg">Зарегистрироваться</button>
     </form>

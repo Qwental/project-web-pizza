@@ -3,7 +3,16 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pay_type = models.CharField(verbose_name='Тип оплаты', max_length=10)
+
+    CARD = 0
+    CASH = 1
+
+    STATUSES = (
+        (CARD, 'Карта'),
+        (CASH, 'Наличные'),
+    )
+
+    status = models.SmallIntegerField(default=CARD, choices=STATUSES)
 
     class Meta:
         db_table = 'user'
