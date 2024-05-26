@@ -137,7 +137,7 @@
                                 <label for="id_email" class="form-label">Почта</label>
                                 <input type="email" class="form-control" id="id_time_pickup_delivery" name="email"
                                        placeholder="vasya.pupkin@example.com"
-                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
+                                       value="{{ user_email }}">
                                 {% if form.email.errors %}
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
                                 {% endif %}
