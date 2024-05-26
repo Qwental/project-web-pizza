@@ -1,9 +1,10 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django_jsonform.models.fields import JSONField
-from django.contrib.auth.models import User
+from django.conf import settings
 from main.models import Addition, Products
 
+User = settings.AUTH_USER_MODEL
 
 class CartQueryset(models.QuerySet):
 

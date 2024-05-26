@@ -51,7 +51,6 @@ def current_service_load():
 class CreateOrderForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
-    # phone_number = forms.CharField()
 
     time_pickup_delivery = forms.TimeField()
     email = forms.EmailField()
