@@ -10,7 +10,7 @@
 
 {% block content %}
     <div>
-        {% include 'users/components/notifications.html' %}
+    {% include 'users/components/notifications.html' %}
 
         <div class="col-md-5">
             <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
@@ -56,30 +56,6 @@
                                 <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
                             {% endif %}
                         </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label for="id_cash_payment" class="form-label">Выберете удобный способ оплаты</label>
-                            <p></p>
-                            <div class="form-check form-check-inline">
-
-                                <input class="form-check-input" type="radio" name="cash_payment"
-                                       id="id_cash_payment" value="1"
-                                       {% if form.cash_payment.value  == 1 %}checked{% endif %}>
-                                <label class="form-check-label" for="id_cash_payment">Оплата наличными</label>
-
-                            </div>
-                            <div class="form-check form-check-inline">
-
-                                <input class="form-check-input" type="radio" name="cash_payment"
-                                       id="id_cash_payment" value="0"
-                                       {% if form.cash_payment.value  == 0 %}checked{% endif %}>
-
-                                <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
-                            </div>
-
-                        </div>
-
-
                     </div>
                     <button type="submit" class="btn btn-dark btn_confirm">Сохранить</button>
                 </form>
@@ -87,33 +63,33 @@
         </div>
 
         {% if user.is_staff %}
-            <button onclick="showAlert('created')">create</button>
-            <button onclick="showAlert('paid')">paid</button>
-            <button onclick="showAlert('onWay')">onWay</button>
-            <button onclick="showAlert('waiting')">wait</button>
-            <button onclick="showAlert('delivered')">delivered</button>
+        <button onclick="showAlert('created')">create</button>
+        <button onclick="showAlert('paid')">paid</button>
+        <button onclick="showAlert('onWay')">onWay</button>
+        <button onclick="showAlert('waiting')">wait</button>
+        <button onclick="showAlert('delivered')">delivered</button>
         {% endif %}
-        <script>
-            function showAlert(status) {
-                // Сначала скрыть все уведомления
-                document.querySelectorAll('.alert').forEach(alert => {
-                    alert.style.display = 'none';
-                    document.querySelectorAll('.btn-close').forEach(function (button) {
-                        button.addEventListener('click', function () {
-                            this.parentElement.style.display = 'none';
-                        });
-                    });
-                });
+    <script>
+function showAlert(status) {
+    // Сначала скрыть все уведомления
+    document.querySelectorAll('.alert').forEach(alert => {
+        alert.style.display = 'none';
+        document.querySelectorAll('.btn-close').forEach(function(button) {
+            button.addEventListener('click', function() {
+            this.parentElement.style.display = 'none';
+    });
+});
+    });
 
-                // Затем показать нужное уведомление
-                const alertToShow = document.querySelector(`.${status}`);
-                if (alertToShow) {
-                    alertToShow.style.display = 'block';
-                }
-            }
+    // Затем показать нужное уведомление
+    const alertToShow = document.querySelector(`.${status}`);
+    if (alertToShow) {
+        alertToShow.style.display = 'block';
+    }
+}
 
 
-        </script>
+</script>
 
         <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
             <h3 class="text-center mb-4">Заказы</h3>
@@ -145,7 +121,6 @@
                                             <th scope="col">Статус</th>
                                             <th scope="col">Создан</th>
                                             <th scope="col">Адрес доставки</th>
-                                            <th scope="col">Способ оплаты</th>
                                             <th scope="col">Время доставки/самовывоза:</th>
                                             <th scope="col">Итого, руб</th>
                                         </tr>
@@ -167,8 +142,7 @@
 
                                             </td>
                                             <td>{{ order.created_timestamp }} </td>
-                                            <td><p>{{ order.delivery_address }}</p></td>
-                                            <td><p>{{ order.get_cash_payment_display }}</p></td>
+                                            <td><p>{{ order.delivery_address }}</p> </td>
                                             <td>{{ order.time_pickup_delivery }} </td>
                                             <td>{{ order.orderitem_set.total_price|intcomma }} </td>
                                         </tr>

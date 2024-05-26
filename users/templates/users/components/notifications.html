@@ -1,58 +1,20 @@
-<div class="notificationContainer">
-    <div class="paid alert alert-info alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Заказ оплачен</h4>
-        <p>Спасибо за оплату. Наши повара уже взялись за работу.</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <div class="created alert alert-success alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Заказ создан</h4>
-        <p>Ваш заказ успешно создан.</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+{% load orders_tags %}
 
-    <div class="onWay alert alert-warning alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Заказ в пути</h4>
-        <p>Курьер уже спешит к Вам.</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <div class="waiting alert alert-secondary alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Заказ ожидает</h4>
-        <p>Ваш заказ готов к выдаче</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <div class="delivered alert alert-primary alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Заказ получен</h4>
-        <p>Заказ доставлен. Спасибо за покупку!</p>
+{% get_notifications user as notifications%}
+{% for notification in notifications %}
+<div class="notificationContainer">
+    <div id="orderStatusAlert" class="created alert alert-info alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Статус заказа обновлён.</h4>
+        <p>{{notification}}</p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
-
+{% endfor %}
 <style>
     .created {
     background-color: #d4edda;
     border-color: #c3e6cb;
 }
-
-.paid {
-    background-color: #cce5ff;
-    border-color: #b8daff;
-}
-
-.onWay {
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-}
-
-.waiting {
-    background-color: #f8f9fa;
-    border-color: #fdfd96;
-}
-
-.delivered {
-    background-color: #a3bffa;
-    border-color: #9f7aea;
-}
-
    .notificationContainer{
         display: flex;
         z-index: 1;
@@ -64,7 +26,7 @@
    .alert{
         width: auto;
        animation: ani 2.5s forwards;
-       display: none;
+       {#display: none;#}
 
     }
     @keyframes ani {
@@ -73,14 +35,16 @@
     }
 </style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alertElement = document.getElementById('orderStatusAlert');
 
+    function onAlertClosed() {
+        if (alertElement) {
+            alertElement.remove();
+        }
+    }
 
-<!--
-    STATUSES = (
-        (CREATED, 'Создан'),
-        (PAID, 'Оплачен'),
-        (ON_WAY, 'В пути'),
-        (WAITING, 'Ожидает'),
-        (DELIVERED, 'Получен'),
-    )
--->
+    alertElement.addEventListener('hidden.bs.alert', onAlertClosed);
+});
+</script>
