@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load carts_tags %}
+{% load orders_tags %}
 {% load humanize %}
 
 {% block css %}
@@ -61,7 +62,6 @@
                 </form>
             </div>
         </div>
-
         {% if user.is_staff %}
         <button onclick="showAlert('created')">create</button>
         <button onclick="showAlert('paid')">paid</button>
@@ -189,6 +189,15 @@ function showAlert(status) {
                     {% endfor %}
                     </div>
                 </div>
+        {% get_notifications user as notifications%}
+        {% for notification in notifications %}
+        {{notification}}
+        <div class="delivered alert alert-primary alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading">{{ notification }}</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>  
+        {% endfor %}
+
 
                 <!-- Закончилась разметка заказов -->
             </div>
