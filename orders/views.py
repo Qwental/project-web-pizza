@@ -134,6 +134,7 @@ def create_order_pickup(request):
     context = {
         'valid_intervals_arr': valid_intervals(),
         'cash_payment': request.user.cash_payment,
+        'user_email': request.user.email,
         'title': 'Оформление заказа',
         'form': form,
         'orders': True,
@@ -210,6 +211,7 @@ def create_order(request):
         'title': 'Оформление заказа',
         'cash_payment': request.user.cash_payment,
         'valid_intervals_arr': valid_intervals(),
+        'user_email': request.user.email,
         'form': form,
         'orders': True,
         "cartContent": temp_cartContent,
