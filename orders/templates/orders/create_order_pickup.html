@@ -15,9 +15,13 @@
             <div class="py-5 text-center">
                 <h1>Оформление заказа</h1>
             </div>
+            {% for error in form_errors %}
+                <div class="alert alert-warning text-center" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
 
             <div class="row g-5">
-            <h1>Ошибки {{ form_errors }}</h1>
 
                 {#  Корзина#}
                 <div class="col-md-5 col-lg-4 order-md-last">
