@@ -71,9 +71,8 @@
                                 placeholder="Иванов"
                                 value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" required>
                             {% if form.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show">{% for error in
-                                form.non_field_errors %}
-                                {{ error }}йцууу
+                            <div class="alert alert-danger alert-dismissible fade show">{% for error in form.non_field_errors %}
+                                {{ error }}
                                 {% endfor %}</div>
                             {% endif %}
                         </div>
