@@ -10,8 +10,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
 <style>
     .notificationContainer{
         margin-top: 150px;
@@ -54,5 +55,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     alertElement.addEventListener('hidden.bs.alert', onAlertClosed);
+});
+</script>
+<script>
+    /**
+     * Уведы красиво уходят по истечении времени
+     */
+    $(document).ready(function() {
+        let alerts = $('.alert').get();
+        const delay = 5000;
+
+        function removeNextAlert() {
+        if (alerts.length > 0) {
+            const nextAlert = $(alerts.pop());
+            nextAlert.fadeOut(delay, function() {
+                nextAlert.remove();
+                alerts = $('.alert').get();
+            });
+        }
+    }
+
+    removeNextAlert();
+    setInterval(removeNextAlert, delay);
 });
 </script>
