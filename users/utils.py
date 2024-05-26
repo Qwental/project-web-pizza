@@ -5,7 +5,9 @@ def show_notification(user: User):
     notifications = []
     orders = Order.objects.filter(user=user)
     for order in orders:
-        if order.get_status_display() == 'Оплачен':
+        if order.get_status_display() == 'Создан':
+            notifications.append(f'Заказ №{order.pk} cоздан')
+        elif order.get_status_display() == 'Оплачен':
             notifications.append(f'Заказ №{order.pk} оплачен')
         elif order.get_status_display() == 'В пути':
             notifications.append(f'Заказ №{order.pk} в пути')
