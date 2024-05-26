@@ -10,9 +10,10 @@ from main.models import Products
 from users.models import User
 from cart.models import *
 
+from orders.utils import default_start_time
+
 
 class OrderitemQueryset(models.QuerySet):
-
     def total_price(self):
         return sum(cart.products_price() for cart in self)
 
@@ -35,15 +36,11 @@ class Order(models.Model):
     # Думаю телефон нам не нужен
     # phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
 
-    # email = models.EmailField(max_length=256, blank=True, null=True,
-    #                            verbose_name="Почтовый ящик")
-
     CREATED = 0
     PAID = 1
     ON_WAY = 2
     WAITING = 3
     DELIVERED = 4
-
     STATUSES = (
         (CREATED, 'Создан'),
         (PAID, 'Оплачен'),
@@ -57,9 +54,13 @@ class Order(models.Model):
 
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки",
                                         default='Пользователь выбрал самовывоз', )
-    #payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
+    # payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    # status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
+
+    time_pickup_delivery = models.TimeField(default=default_start_time, verbose_name="Время доставки/самовывоза")
+
+    email = models.EmailField(max_length=256, blank=True, null=True,
+                              verbose_name="Почтовый ящик", default='default@example.com')
 
     class Meta:
         db_table = "order"

@@ -82,7 +82,7 @@
             {# кнопка оформления заказа не кнопка "submit" #}
 
             {#        РЕДИРЕКТ НА СТРАНИЦУ С ЗАКАЗОМ !#}
-            <a href="{% url 'orders:create_order' %}">
+            <a href="{% url 'orders:delivery_or_pickup' %}">
                 <button class="go btn btn-warning" type="button">Перейти к оформлению</button>
             </a>
         </div>

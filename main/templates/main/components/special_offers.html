@@ -3,7 +3,6 @@
     <span>Скидка 10% по студенческому билету на пиццу Пепперони</span>
     <button data-cart type="button" class="btn btn-block btn-outline-warning"> заказать </button>
 </div> -->
-<!-- TODO: доделать Ире -->
 {% load static %} {% block css %}
 <link
   rel="stylesheet"
@@ -12,6 +11,7 @@
 />
 {% endblock %}
 
+{% if special_offers %}
 <div
   id="carouselExampleCaptions"
   class="carousel carousel-dark slide"
@@ -86,7 +86,7 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
+{% endif %}
 {% block js_footer %}
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

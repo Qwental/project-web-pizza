@@ -1,14 +1,22 @@
+{% load static %}
 <!-- https://docs.mapbox.com/mapbox-gl-js/example/ -->
 
 
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{% static 'scripts/L.Control.Locate.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.81.1/L.Control.Locate.min.css" integrity="sha512-IlIXbyZEmmeF+tke8OOZzxTAN+zU31Ye+CBvZR6wylo37OaqtdRMXYwPuwwV2cup5DE4gwEeWWv0SCBJsLW18g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
+{##}
+{#  <button type="button" id="my_position">#}
+{#      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-301q99-80 149.5-154T680-594q0-90-56-148t-144-58q-88 0-144 58t-56 148q0 65 50.5 139T480-301Zm0 101Q339-304 269.5-402T200-594q0-125 78-205.5T480-880q124 0 202 80.5T760-594q0 94-69.5 192T480-200Zm0-320q33 0 56.5-23.5T560-600q0-33-23.5-56.5T480-680q-33 0-56.5 23.5T400-600q0 33 23.5 56.5T480-520ZM200-80v-80h560v80H200Zm280-520Z"/></svg>#}
+{#      <div id="my_position_text">ГДЕ Я????</div>#}
+{#  </button>#}
 
 <div id="map"></div>
 
@@ -16,6 +24,23 @@
 <style>
     #map {
         height: 520px;
+    }
+    #my_position{
+        background-color: black;
+        border-radius: 12px;
+        width: 152px;
+        height: 52px;
+    }
+    #my_position_text{
+        color: antiquewhite;
+        font-size: small;
+    }
+    .leaflet-control-locate-location{
+        display: none;
+    }
+
+    .leaflet-attribution-flag{
+        display: none!important;
     }
 </style>
 
@@ -67,16 +92,23 @@
             });
     }
 
-    const map = L.map('map').setView([55.810343, 37.498345], 18);
+
+    const myMap = L.map('map');
+
+    function mapSetView(lat, lng, zoom) {
+        return myMap.setView([lat, lng], zoom);
+    }
+
+    const map = mapSetView(55.810343, 37.498345, 18);
 
     const tiles = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 19,
     }).addTo(map);
 
-    // TODO: время должно быть из какой-то базы по выбору пользователя
-    let time = '10:00';
 
+    const timeInput = document.getElementById('id_time_pickup_delivery');
+    let time = '';
     let delivery_addressDOM = document.getElementById('id_delivery_address');
 
     /**
@@ -90,14 +122,29 @@
         });
     }
 
-    /**
+    function updateTimeInPopup() {
+            const timeInput = document.getElementById('id_time_pickup_delivery');
+            time = timeInput.value;
+
+            console.log(time)
+            locale();
+    }
+
+        /**
      * Создает пин на карте
      * @param lat
      * @param lng
      */
-    function createMarker(lat, lng){
-        const marker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
+    function createMarker(lat, lng) {
+        const marker = L.marker([lat, lng]).addTo(map);
+        console.log(time);
+        marker.bindPopup(`<b>Адрес доставки!</b><br />Доставим сюда к ${time}`).openPopup();
     }
+
+    document.getElementById('id_time_pickup_delivery').addEventListener('change', updateTimeInPopup);
+
+
+
 
     /**
      * Выбор адреса через карту (и отображение адреса в поле ввода)
@@ -143,6 +190,62 @@
                 });
         }
     });
+    const lc = L.control.locate({
+        drawCircle: true,
+        setView: true,
+        position: 'topright',
+        stopFollowingOnDrag: true,
+        icon: 'leaflet-control-locate-location-arrow',
+        iconLoading: 'icon-spinner animate-spin',
+        strings: {
+            title: "Моё местоположение"
+        },
+        autoStart: false
+    }).addTo(myMap);
+
+
+
+    lc.id = "btn-btn"
+
+    const locateButton = document.getElementsByClassName('leaflet-bar-part-single')[0];
+
+    console.log(locateButton);
+ function locale(){
+     console.log("lat, lng");
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                console.log(lat, lng);
+                clearMarkers();
+
+                // Создание маркера
+                createMarker(lat, lng)
+                // Установка вида карты
+                myMap.setView([lat, lng], 18);
+
+                getAddress(lat, lng).then(addr => {
+                    console.log(addr);
+                    delivery_addressDOM.value = addr;
+                    console.log(delivery_addressDOM.value);
+                }).catch(error => {
+                    console.error('Ошибка при определении адреса:', error);
+                });
+            },
+            (error) => {
+                console.error("Ошибка получения местоположения:", error);
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+    } else {
+        console.error("Геолокация не поддерживается браузером.");
+    }
+ }
+/**
+ * Тригер для определения местоположение пользователя
+ */
+locateButton.addEventListener('click', locale);
 </script>
 </body>
 
