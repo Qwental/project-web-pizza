@@ -63,7 +63,7 @@
                             </div>
                             {% endif %}
                         </div>
-                        1234н
+
                         {# last_name #}
                         <div class="col-md-6 mb-3">
                             <label for="id_last_name" class="form-label">Фамилия*:</label>
@@ -77,24 +77,6 @@
                             {% endif %}
                         </div>
 
-
-                        {# <div class="col-md-12 mb-3">#}
-                            {# <label for="delivery" class="form-label">Способ доставки: </label>#}
-                            {# <div class="form-check form-check-inline">#}
-                                {# <input class="form-check-input" type="radio" name="requires_delivery" #} {#
-                                    id="id_requires_delivery" value="1" checked>#}
-                                {# <label class="form-check-label" for="id_requires_delivery">Нужна#}
-                                    {# доставка</label>#}
-                                {# </div>#}
-                            {##}
-                            {##}
-                            {# <div class="form-check form-check-inline">#}
-                                {# <input class="form-check-input" type="radio" name="requires_delivery" #} {#
-                                    id="id_requires_delivery" value="0">#}
-                                {# <label class="form-check-label" for="id_requires_delivery">Самовывоз</label>#}
-                                {# </div>#}
-                            {# </div>#}
-                        {# #}
 
                         {#ТУТ ВЫВОЖУ КАКОЙ ИНТЕРВАЛ ПО ВРЕМЕНИ ДОСТУПЕН И ПОЧЕМУ#}
 
@@ -158,40 +140,15 @@
 
 
                         <div class="mb-3" id="deliveryAddressField">
-                            <label for="id_delivery_address" class="form-label">Адрес
-                                доставки*:</label>
+                            <label for="id_delivery_address" class="form-label">Адрес доставки*:</label>
                             <textarea class="form-control" id="id_delivery_address"
                                 placeholder="Выберете адрес на карте или начинайте вводить свою адрес в поле"
-                                value="
-
-
-
-                                                  {% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}" name="delivery_address" rows="2"></textarea>
+                                value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}" name="delivery_address" rows="2"></textarea>
                             {% if form.delivery_address.errors %}
-                            <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors
-                                }}</div>
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors}}</div>
                             {% endif %}
                         </div>
 
-
-                        {# phone #}
-                        {# Убрал телефон#}
-                        {# <div class="col-12 mt-3">#}
-                            {# <label for="address" class="form-label">Номер телефона</label>#}
-                            {# <input type="text" class="form-control" id="number" #} {# placeholder="XXX-XXX-XX-XX"
-                                required>#}
-                            {# </div>#}
-
-                        {# special_offer #}
-
-                        {# <div class="col-12 mt-3">#}
-                            {# <label for="special_offer" class="form-label">Промокод</label>#}
-                            {# <input type="text" class="form-control" id="special_offer" placeholder="SALE2024">#}
-                            {# </div>#}
-
-                        {# payment_on_get #}
-                        {# requires_delivery #}
-                        {# delivery_address #}
 
                     </div>
 
