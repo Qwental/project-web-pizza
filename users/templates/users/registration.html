@@ -2,58 +2,150 @@
 {% load static %}
 
 {% block content %}
-  <main>
-    <h2 class="text-center mb-4">Регистрация</h2>
-    <form class="form_reg" action="{% url 'user:registration' %}" method="post">
-      {% csrf_token %}
-      <div class="row">
-        <div class="reg_label p-1 mb-1 mx-1">
-          <label for="id_first_name" class="form-label">Имя*</label>
-          <input type="text" class="form-control" id="id_first_name" value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}" name="first_name" placeholder="Введите ваше имя" required />
-          {% if form.first_name.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="reg_label p-1 mb-1 mx-1">
-          <label for="id_last_name" class="form-label">Фамилия*</label>
-          <input type="text" class="form-control" id="id_last_name" value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" name="last_name" placeholder="Введите вашу фамилию" required />
-          {% if form.last_name.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="reg_label p-1 mb-1 mx-1">
-          <label for="id_username" class="form-label">Имя пользователя*</label>
-          <input type="text" class="form-control" id="id_username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" name="username" placeholder="Введите ваше имя пользователя" required />
-          {% if form.username.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="reg_label p-1 mb-1 mx-1">
-          <label for="id_email" class="form-label">Email*</label>
-          <input type="email" class="form-control" id="id_email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}" name="email" placeholder="Введите ваш email" required />
-          {% if form.email.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="reg_label p-1 mb-1 mx-1">
-          <label for="id_password1" class="form-label">Пароль*</label>
-          <input type="password" class="form-control" id="id_password1" value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}" name="password1" placeholder="Введите пароль" required />
-          {% if form.password1.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{ form.password1.errors }}</div>
-          {% endif %}
-        </div>
-        <div class="reg_label p-1 mb-1 mx-1">
-          <label for="id_password2" class="form-label">Подтверждение пароля*</label>
-          <input type="password" class="form-control" id="id_password2" value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}" name="password2" placeholder="Подтвердите пароль" required />
-          {% if form.password2.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{ form.password2.errors }}</div>
-          {% endif %}
-        </div>
-      </div>
-      <button type="submit" class="btn btn-dark btn-block Btn_reg">Зарегистрироваться</button>
-    </form>
-  </main>
-  <br>
-  <br>
+    <main>
+        <h2 class="text-center mb-4">Регистрация</h2>
+        <form class="form_reg" action="{% url 'user:registration' %}" method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_first_name" class="form-label">Имя*</label>
+                    <input type="text" class="form-control" id="id_first_name"
+                           value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+                           name="first_name" placeholder="Введите ваше имя" required/>
+                    {% if form.first_name.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_last_name" class="form-label">Фамилия*</label>
+                    <input type="text" class="form-control" id="id_last_name"
+                           value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" name="last_name"
+                           placeholder="Введите вашу фамилию" required/>
+                    {% if form.last_name.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_username" class="form-label">Имя пользователя*</label>
+                    <input type="text" class="form-control" id="id_username"
+                           value="{% if form.username.value %}{{ form.username.value }}{% endif %}" name="username"
+                           placeholder="Введите ваше имя пользователя" required/>
+                    {% if form.username.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_email" class="form-label">Email*</label>
+                    <input type="email" class="form-control" id="id_email"
+                           value="{% if form.email.value %}{{ form.email.value }}{% endif %}" name="email"
+                           placeholder="Введите ваш email" required/>
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_password1" class="form-label">Пароль*</label>
+                    <input type="password" class="form-control" id="id_password1"
+                           value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}" name="password1"
+                           placeholder="Введите пароль" required/>
+                    {% if form.password1.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_password2" class="form-label">Подтверждение пароля*</label>
+                    <input type="password" class="form-control" id="id_password2"
+                           value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}" name="password2"
+                           placeholder="Подтвердите пароль" required/>
+                    {% if form.password2.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+
+
+                {#                 Выбор оплаты cash_payment#}
+
+                <div class="col-md-12 mb-3">
+                    <label for="cash_payment" class="form-label">Выберете способ оплаты: </label>
+                    <p></p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="cash_payment"
+                               id="id_cash_payment" value="1" checked>
+                        <label class="form-check-label" for="id_cash_payment">Оплата наличными</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="cash_payment"
+                               id="id_cash_payment" value="0">
+                        <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
+                    </div>
+                </div>
+
+                {# Выбор предпочтений favorite_products #}
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_favorite_products" class="form-label"> </label>
+                <br>
+                            <button class="intervalListBtn btn btn-secondary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                Выберете любимый продукт:
+                            </button>
+                            {# Собственно сами интервалы #}
+                            <div class="collapse" id="collapseExample">
+                                <div class="container-lg">
+                                    <div class="row">
+                                    <select id="id_favorite_products " name="favorite_products" multiple>
+                                        {% for product in products %}
+                                            <option value="{{ product.id }}">{{ product }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <style>
+                    #id_favorite_products:hover{
+                        background-color: antiquewhite;
+                    }
+                     #id_favorite_products:active{
+                        background-color: #f6e8d5;
+                    }
+                    </style>
+                    <script>
+                        $("select").mousedown(function(e){
+                        e.preventDefault();
+
+                        var select = this;
+                        var scroll = select.scrollTop;
+
+                        e.target.selected = !e.target.selected;
+
+                        setTimeout(function(){select.scrollTop = scroll;}, 0);
+
+                        $(select).focus();
+                    }).mousemove(function(e){e.preventDefault()});
+                    </script>
+                    {% if form.favorite_products.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.favorite_products.errors }}</div>
+                    {% endif %}
+                                    {#                        <div class="form-check form-check-inline">   {% if form.favorite_products.value %}{{ form.favorite_products.value}}{% endif %}#}
+                    {#                            <input class="form-check-input" type="radio" name="favorite_products"#}
+                    {#                                   id="id_favorite_products" value="{{ product }}">#}
+                    {#                            <label class="form-check-label" for="id_favorite_products">{{ product }}</label>#}
+                    {#                        </div>#}
+                </div>
+
+
+            </div>
+            <button type="submit" class="btn btn-dark btn-block Btn_reg">Зарегистрироваться</button>
+        </form>
+    </main>
+    <br>
+    <br>
 {% endblock %}
 

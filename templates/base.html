@@ -3,24 +3,31 @@
 <html ng-app="myApp">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Skibidi Pizza | {% block head_title %}{% endblock %}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link href="{% static 'styles/style.css' %}" rel="stylesheet" />
-  {#Тут подрубается класс a class="a-about" и все, больше ничего#}
-  <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}" />
-  <link href="{% static 'styles/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
-  {% block css %}
-  {% endblock %}
+    <meta charset="UTF-8"/>
+    <title>Skibidi Pizza | {% block head_title %}{% endblock %}</title>
 
-  {% block js_head %}
-  {% endblock %}
-  <script src="{% static "scripts/libs/jquery.min.js" %}"></script>
-  {% block css_additionl %} {% endblock %}
+{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>#}
+{#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>#}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+    <link rel="shortcut icon" href="{% static 'img/icon.png' %}"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link href="{% static 'styles/style.css' %}" rel="stylesheet"/>
+    {#Тут подрубается класс a class="a-about" и все, больше ничего#}
+    <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}"/>
+
+    <link href="{% static 'styles/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
+    {% block css %}
+    {% endblock %}
+
+    {% block js_head %}
+    {% endblock %}
+    <script src="{% static "scripts/libs/jquery.min.js" %}"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -36,93 +43,117 @@
       </div>
       <div class="modal-body" id="easterEggBody">
         <p>Тут можно всё - даже слушать музыку!</p><br><p>Или... подписаться на лучший телеграм-канальчик: <a href="https://t.me/lemtooo" target="_blank">https://t.me/lemtooo</a></p>
-        <iframe frameborder="0" style="border:none;width:100%;height:450px;" width="100%" height="450" src="https://music.yandex.ru/iframe/playlist/Mihtrop2005/3">Слушайте <a href='https://music.yandex.ru/users/Mihtrop2005/playlists/3'></iframe>
+        <iframe frameborder="0" style="border:none;width:100%;height:450px;" width="100%" height="450" src="https://music.yandex.ru/iframe/playlist/Mihtrop2005/3"></iframe>
 
       </div>
     </div>
-  </div>
-  </div>
+</div>
+</div>
 
 <script>
-  document.querySelector('.easterEgg_closeBtn').addEventListener('click', function () {
-    $('#easterEgg').modal('hide');
-  });
+    document.querySelector('.easterEgg_closeBtn').addEventListener('click', function () {
+        $('#easterEgg').modal('hide');
+    });
 </script>
 
-  <header class="mb-auto header">
+<header class="mb-auto header">
     <div class="list-item" id="title">
 
-      {#Добавил ссылку на главную /#}
-      <a class="a-about" href="/"><img class="icon" alt="Pizza logo" src="{% static 'img/Logo-pizza.png' %}" /></a>
-      {#Добавил ссылку на главную /#}
-      <a class="a-about" href="/">
-        <div class="skibidi-pizza">Skibidi Pizza</div>
-      </a>
+        {#Добавил ссылку на главную /#}
+        <a class="a-about" href="/"><img class="icon" alt="Pizza logo" src="{% static 'img/Logo-pizza.png' %}"/></a>
+        {#Добавил ссылку на главную /#}
+        <a class="a-about" href="/">
+            <div class="skibidi-pizza">Skibidi Pizza</div>
+        </a>
 
     </div>
     <nav class="button">
-      <h3 class="h3">г. Москва</h3>
+        <h3 class="h3">г. Москва</h3>
 
-      {#Добавил ссылку на страницу /about#}
-      <a class="a-about" href="{% url 'main:about' %}">
-        <h3 class="h31">О нас</h3>
-      </a>
+        {#Добавил ссылку на страницу /about#}
+        <a class="a-about" href="{% url 'main:about' %}">
+            <h3 class="h31">О нас</h3>
+        </a>
     </nav>
 
     <nav class="button">
 
-      {#Добавил ссылку на страницу /contacts#}
-      <a class="a-about" href="{% url 'main:contacts' %}">
-        <h3 class="h31">Контакты</h3>
-      </a>
+        {#Добавил ссылку на страницу /contacts#}
+        <a class="a-about" href="{% url 'main:contacts' %}">
+            <h3 class="h31">Контакты</h3>
+        </a>
+
+    </nav>
+
+
+    <nav class="button">
+
+        {#Добавил ссылку на страницу Профиль#}
+        {% if request.user.is_authenticated %}
+            <a class="a-about" href="{% url 'user:profile' %}">
+                <h3 class="h31">Профиль</h3>
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+    <nav class="button">
+
+        {#Добавил ссылку на страницу Админ-панель #}
+        {% if request.user_is_superuser or request.user.is_staff %}
+            <a class="a-about" href="{% url 'admin:index' %}">
+                <h3 class="h31">Админ-панель</h3>
+            </a>
+        {% endif %}
 
     </nav>
     <div class="wrapper">
-      {% if request.user.is_authenticated %}
-      <a href="/user/logout" id="logoutBtn" class="a-about button1">
-        <div class="child"></div>
-          <div class="div1">Выйти</div>
-      </a>
-    </div>
-    {% else %}
-    <a href="/user/login" id="loginBtn" class="a-about button1">
-      <div class="child"></div>
-        <div class="div1">Войти</div>
-    </a>
-    </div>
-    {% endif %}
-    </button>
-    </div>
-  </header>
 
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'user:logout' %}" id="logoutBtn" class="a-about button1">
+                <div class="child"></div>
+                <div class="div1">Выйти</div>
+            </a>
+
+        {% else %}
+            <a href="{% url 'user:login' %}" id="loginBtn" class="a-about button1">
+                <div class="child"></div>
+                <div class="div1">Войти</div>
+            </a>
+            
+        {% endif %}
+    </div>
+    </header>
+{#    </div>#}
   {% block content %}
-  {# сюда вставиться то, что будет в таком же блоке, но другом .html #}
-  {% endblock %}
+    {# сюда вставиться то, что будет в таком же блоке, но другом .html #}
+{% endblock %}
 
-  <footer class="mt-auto navbar-fixed-bottom footer">
+<footer class="mt-auto navbar-fixed-bottom footer">
     <div class="faq-container">
-      <p class="faq">FAQ</p>
-      <a class="a-about" href="{% url 'main:about' %}"><p class="p18">О нас</p></a>
-      <p class="p19">Адрес: город Москва, Дубосековская улица, 4Ас1</p>
-      <p id="easterEggStarter" ondblclick="$('#easterEgg').modal('show');" class="p20">© Все изображения без АП</p>
+        <p class="faq">FAQ</p>
+        <a class="a-about" href="{% url 'main:about' %}"><p class="p18">О нас</p></a>
+        <p class="p19">Адрес: город Москва, Дубосековская улица, 4Ас1</p>
+        <p id="easterEggStarter" ondblclick="$('#easterEgg').modal('show');" class="p20">© Все изображения без АП</p>
     </div>
     <div class="skibidi-pizzaramblerru">
-      <a class="a-base" href="tel:+79993337711"><p class="p21">Номер: +7 (999) 333-77-11</p></a>
-      <a class="a-base" href="mailto:skibidi-pizza@rambler.ru"><p class="skibidi-pizzaramblerru1">Почта: skibidi-pizza@rambler.ru</p></a>
+        <a class="a-base" href="tel:+79993337711"><p class="p21">Номер: +7 (999) 333-77-11</p></a>
+        <a class="a-base" href="mailto:skibidi-pizza@rambler.ru"><p class="skibidi-pizzaramblerru1">Почта:
+            skibidi-pizza@rambler.ru</p></a>
     </div>
     <div class="div61">
-      <p class="p22">Наши преимущества:</p>
-      <p class="p23">✦ Прямо из печи</p>
-      <p class="p24">✦ Натуральное тесто</p>
-      <p class="p25">✦ Бесплатная доставка</p>
+        <p class="p22">Наши преимущества:</p>
+        <p class="p23">✦ Прямо из печи</p>
+        <p class="p24">✦ Натуральное тесто</p>
+        <p class="p25">✦ Бесплатная доставка</p>
     </div>
-  </footer>
+</footer>
 
-  {% block js_footer %}
-  {% endblock %}
-  <script src="{% static "scripts/libs/bootstrap.bundle.min.js" %}"
-  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-  crossorigin="anonymous"></script>
+{% block js_footer %}
+{% endblock %}
+<script src="{% static "scripts/libs/bootstrap.bundle.min.js" %}"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

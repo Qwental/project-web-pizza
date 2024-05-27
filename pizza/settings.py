@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -23,7 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jes^hdm-6s*d6$qp9!y^s5svgh!&$3&6oqo4bgq^ejdhhy0_+c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = True
+# Переключил время на Московское
+USE_TZ = True
+TIME_ZONE = 'Europe/Moscow'
 
 ALLOWED_HOSTS = [
     "0.0.0.0",
@@ -40,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+
 
     "debug_toolbar",
     'django_jsonform',
@@ -47,6 +52,7 @@ INSTALLED_APPS = [
     'main',
     'users',
     'cart',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +68,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'pizza.urls'
-
 
 TEMPLATES = [
     {
@@ -82,7 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pizza.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -92,7 +96,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -112,18 +115,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
-USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -152,3 +149,5 @@ LOGIN_URL = '/user/login'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'

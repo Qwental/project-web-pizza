@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from traitlets import Instance
 from django.contrib.auth.forms import PasswordResetForm
 
-
 from cart.models import Cart
+from main.models import Category
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
+
+from users.models import Products
 
 
 def login(request):
@@ -33,52 +35,43 @@ def login(request):
         form = UserLoginForm()
 
     context = {
-        'title': 'aboba',
+        'title': 'Логин',
         'form': form
     }
     return render(request, 'users/login.html', context)
+
+
+from django.db import transaction
 
 
 def registration(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
-            form.save()
 
-            session_key = request.session.session_key
-
-            user = form.instance
-            auth.login(request, user)
-
-            if session_key:
-                Cart.objects.filter(session_key=session_key).update(user=user)
-
-            return HttpResponseRedirect(reverse('main:index'))
+            try:
+                with transaction.atomic():
+                    form.save()
+                    session_key = request.session.session_key
+                    user = form.instance
+                    auth.login(request, user)
+                    if session_key:
+                        Cart.objects.filter(session_key=session_key).update(user=user)
+                    return HttpResponseRedirect(reverse('main:index'))
+            except Exception as e:
+                print(str(e))
+        else:
+            print('form invalid')
+            print(form.errors)
     else:
         form = UserRegistrationForm()
 
     context = {
-        'title': 'aboba',
+        "categories": Category.objects.all(),
+        'title': 'Регистрация',
         'form': form
     }
     return render(request, 'users/registration.html', context)
-
-
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('user:profile'))
-    else:
-        form = ProfileForm(instance=request.user)
-
-    context = {
-        'title': 'aboba',
-        'form': form,
-    }
-    return render(request, 'users/profile.html', context)
 
 
 @login_required
@@ -108,7 +101,50 @@ def lost_pass(request):
         form = PasswordResetForm()
 
     context = {
-        'title': 'aboba',
+        'title': 'Потерял пароль',
         'form': form,
     }
     return render(request, 'users/lost_pass.html', context)
+
+
+from orders.models import Order, OrderItem
+from django.db.models import Prefetch
+from django.contrib import auth, messages
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        with transaction.atomic():
+            form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+            if form.is_valid():
+                try:
+                    with transaction.atomic():
+                        form.save()
+                        messages.success(request, "Профайл успешно обновлен")
+                        return HttpResponseRedirect(reverse('user:profile'))
+                except Exception as e:
+                    print(str(e))
+            else:
+                print('form is invalid', form.errors)
+    else:
+        form = ProfileForm(instance=request.user)
+
+    orders = Order.objects.filter(user=request.user).prefetch_related(
+        Prefetch(
+            "orderitem_set",
+            queryset=OrderItem.objects.select_related("product"),
+        )
+    ).order_by("-id")
+    products = request.user.favorite_products.all()
+
+    context = {
+        'title': 'Home - Кабинет',
+        'products': Products.objects.all(),
+        'form': form,
+        'orders': orders,
+        'products_favorite': products
+    }
+
+    return render(request, 'users/profile.html', context)
+
