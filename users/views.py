@@ -10,8 +10,9 @@ from django.contrib.auth.forms import PasswordResetForm
 from cart.models import Cart
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
+
 def login(request):
-    #Метод из документации обработки с кнопкой войти
+    # Метод из документации обработки с кнопкой войти
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
@@ -50,12 +51,11 @@ def registration(request):
             auth.login(request, user)
 
             if session_key:
-                    Cart.objects.filter(session_key=session_key).update(user=user)
-                    
+                Cart.objects.filter(session_key=session_key).update(user=user)
+
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm()
-
 
     context = {
         'title': 'aboba',
@@ -86,6 +86,17 @@ def logout(request):
     auth.logout(request)
     return redirect(reverse('main:index'))
 
+
+def profile_design(request):
+    """
+    Контроллер, отвечающий за страницу "о нас" (about_page.html),
+    та в свою очередь подгружает стили
+    из папки styles_for_about_page
+    """
+    context = {
+
+    }
+    return render(request, 'users/profile_new.html', context=context)
 
 def lost_pass(request):
     if request.method == 'POST':
