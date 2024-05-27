@@ -4,6 +4,9 @@ from cart.models import Cart
 
 
 def get_user_carts(request):
+    """
+    Функция, которая возвращает корзину пользователя
+    """
     if request.user.is_authenticated:
         return Cart.objects.filter(user=request.user).select_related('product')
     
@@ -13,6 +16,9 @@ def get_user_carts(request):
 
 
 def get_product_options(cart: Cart):
+    """
+    Функция, которая возвращает добавки продукта
+    """
     options = cart.options
     options_dict = {}
     options_dict['adds'] = [opt[:opt.find(':')] for opt in options.get('add')]

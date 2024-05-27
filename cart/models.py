@@ -6,7 +6,11 @@ from main.models import Addition, Products
 
 User = settings.AUTH_USER_MODEL
 
+
 class CartQueryset(models.QuerySet):
+    """
+    Класс нужный для нахождения суммарной цены total_price и количества товаров total_quantity с использованием QuerySet
+    """
 
     def total_price(self):
         return sum(cart.products_price() for cart in self)
@@ -18,6 +22,9 @@ class CartQueryset(models.QuerySet):
 
 
 def OPTIONS_SCHEMA():
+    """
+    Схема для продуктов в корзине
+    """
     schema = {
         "type": "dict",
         "title": "Дополнительные характеристики",
@@ -40,6 +47,9 @@ def OPTIONS_SCHEMA():
 
 
 class Cart(models.Model):
+    """
+    Класс Корзины
+    """
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
     product = models.ForeignKey(to=Products, on_delete=models.CASCADE, verbose_name='Товар')
     final_price = models.DecimalField(default=0.00, max_digits=7, decimal_places=2, verbose_name="Конечная цена")
@@ -57,6 +67,9 @@ class Cart(models.Model):
     objects = CartQueryset().as_manager()
 
     def products_price(self):
+        """
+        Функция для нахождения итоговой цены и округления ее
+        """
         return round(self.final_price * self.quantity, 2)
 
     def __str__(self):
@@ -67,6 +80,9 @@ class Cart(models.Model):
 
 
 class Coupon(models.Model):
+    """
+    Класс Промокод(Купон)
+    """
     code = models.CharField(max_length=50, unique=True, verbose_name='Промокод')
     valid_from = models.DateTimeField(verbose_name='Активен c')
     valid_to = models.DateTimeField(verbose_name='Активен до')

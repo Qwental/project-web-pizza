@@ -60,7 +60,6 @@
 
     {% else %}
         <div class="empty-cart">
-            {#      <img class="img" src="{% static 'img/empty-cart-img.jpeg' %}" alt="Корзина пуста | Милейший аниме-корги в пустой коробке из-под пиццы">#}
             <img class="img" src="{% static selected_image %}" alt="{{ selected_alt_text }}">
             <h2>Ой, пусто :(</h2>
             <p>Ваша корзина пуста, откройте <a class="goToMenuBtn" href="{% url "main:index" %}">«Меню»</a>
@@ -73,13 +72,6 @@
         <div class="form_content">
             <div>Итого {{ cartContent.total_quantity }} товаров на {{ cartContent.total_price }}₽</div>
 
-            {% comment %} <form >
-        <label for="inputPromo" class="form-label">Промокод:</label>
-        <input type="password" id="inputPromo" class="form-control" aria-describedby="promocode" />
-        <button onclick="alert('Смотрю у кого-то лапки шебушные...\nПотерпи, скоро тут будет что-то')" class="go btn btn-light" type="submit">Применить промокод</button>
-      </form> {% endcomment %}
-
-            {# кнопка оформления заказа не кнопка "submit" #}
 
             {#        РЕДИРЕКТ НА СТРАНИЦУ С ЗАКАЗОМ !#}
             <a href="{% url 'orders:delivery_or_pickup' %}">

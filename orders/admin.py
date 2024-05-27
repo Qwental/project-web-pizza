@@ -4,7 +4,7 @@ from orders.models import Order, OrderItem
 
 class OrderItemTabulareAdmin(admin.TabularInline):
     """
-    Класс OrderItemAdmin — это представление содержания заказа в интерфейсе админ-понели
+    Класс OrderItemAdmin — это представление содержания заказа в интерфейсе админ-панели
     """
     model = OrderItem
     fields = "product", "name", "price", "quantity", "options"
@@ -18,7 +18,7 @@ class OrderItemTabulareAdmin(admin.TabularInline):
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
     """
-    Класс OrderItemAdmin — это представление заказа в интерфейсе админ-понели
+    Класс OrderItemAdmin — это представление заказа в интерфейсе админ-панели
     """
 
     list_display = "order", "product", "name", "price", "quantity",
@@ -31,7 +31,7 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 class OrderTabulareAdmin(admin.TabularInline):
     """
-    Класс OrderTabulareAdmin — это представление полей и навигации в интерфейсе админ-понели
+    Класс OrderTabulareAdmin — это представление полей и навигации в интерфейсе админ-панели
     """
     model = Order
     fields = (
@@ -54,7 +54,7 @@ class OrderTabulareAdmin(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     """
-    Класс OrderAdmin — это представление модели в интерфейсе админ-понели.
+    Класс OrderAdmin — это представление модели в интерфейсе админ-панели.
     """
     list_display = (
         '__str__',

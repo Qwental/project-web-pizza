@@ -6,9 +6,6 @@
     <meta charset="UTF-8"/>
     <title>Skibidi Pizza | {% block head_title %}{% endblock %}</title>
 
-{#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>#}
-{#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>#}
-
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
@@ -32,22 +29,25 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-  <div class="modal fade hide" id="easterEgg" tabindex="-1" role="dialog" aria-labelledby="easterEggLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div id="added" class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="easterEggLabel">Ура</h5>
-        <button class="btn-close easterEgg_closeBtn" type="button" class="close" data-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="easterEggBody">
-        <p>Тут можно всё - даже слушать музыку!</p><br><p>Или... подписаться на лучший телеграм-канальчик: <a href="https://t.me/lemtooo" target="_blank">https://t.me/lemtooo</a></p>
-        <iframe frameborder="0" style="border:none;width:100%;height:450px;" width="100%" height="450" src="https://music.yandex.ru/iframe/playlist/Mihtrop2005/3"></iframe>
+<div class="modal fade hide" id="easterEgg" tabindex="-1" role="dialog" aria-labelledby="easterEggLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div id="added" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="easterEggLabel">Ура</h5>
+                <button class="btn-close easterEgg_closeBtn" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="easterEggBody">
+                <p>Тут можно всё - даже слушать музыку!</p><br>
+                <p>Или... подписаться на лучший телеграм-канальчик: <a href="https://t.me/lemtooo" target="_blank">https://t.me/lemtooo</a>
+                </p>
+                <iframe frameborder="0" style="border:none;width:100%;height:450px;" width="100%" height="450"
+                        src="https://music.yandex.ru/iframe/playlist/Mihtrop2005/3"></iframe>
 
-      </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 
 <script>
@@ -121,12 +121,11 @@
                 <div class="child"></div>
                 <div class="div1">Войти</div>
             </a>
-            
+
         {% endif %}
     </div>
-    </header>
-{#    </div>#}
-  {% block content %}
+</header>
+{% block content %}
     {# сюда вставиться то, что будет в таком же блоке, но другом .html #}
 {% endblock %}
 
