@@ -1,8 +1,3 @@
-<!-- <div class="block specialoffers" style=" background-color: #ff0000">
-    <img src="images/pizza1.jpeg" alt="pizza">
-    <span>Скидка 10% по студенческому билету на пиццу Пепперони</span>
-    <button data-cart type="button" class="btn btn-block btn-outline-warning"> заказать </button>
-</div> -->
 {% load static %} {% block css %}
 <link
         rel="stylesheet"
@@ -44,11 +39,6 @@
   <div class="carousel-inner">
     {% for offer in special_offers %}
     <div class="carousel-item active">
-<!--      <div class="block-special-offers">-->
-<!--  <span class="block-special-offers_content">Скидка 10% по студенческому билету на пиццу Пепперони</span>-->
-<!--  <button data-cart type="button" class="btn btn-block btn-outline-warning">Заказать</button>-->
-<!--</div>-->
-
       <div class="block-special-offers" >
         {% if product.image %}
         <img src="{{ offer.image.url }}" alt="{{ offer.product.name }}" />
