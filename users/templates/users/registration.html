@@ -118,12 +118,12 @@
         {% for category in categories %}
       <h4 id="simple-list-item-{{ category.id }}">{{ category }}</h4>
         {%   for product in category.get_products %}
-                            <div class="form-check" data-product-id="{{ product.id }}">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault" >
-                                {{ product }}
-                            </label>
-                          </div>
+            <div class="form-check" data-product-id="{{ product.id }}">
+                <input class="form-check-input" type="checkbox" value="{{ product.id }}" id="flexCheckDefault-{{ product.id }}" name="flexCheckDefault-{{ product.id }}">
+                <label class="form-check-label" for="flexCheckDefault-{{ product.id }}">
+                    {{ product }}
+                </label>
+            </div>
             {% endfor %}
         {% endfor %}
     </div>
