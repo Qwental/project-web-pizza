@@ -33,7 +33,7 @@
 
 						{# TODO: цикл карточек; данные подтягиваются с бэка #}
 						{% for product in category.get_products %}
-						<div class="div11">
+						<div id="{{product.id}}" class="div11">
 							{% if product.image %}
 							<img class="icon1" loading="lazy" alt="{{ product.name }}" src="{{ product.image.url }}" />
 							{% else %}

@@ -11,10 +11,11 @@
 {% block content %}
     <div>
         {% include 'users/components/notifications.html' %}
-
-        <div class="col-md-5">
+        <h3 class="text-center mb-4">Профиль пользователя</h3>
+ 
+        <div class="row">
+        <div class="col qwerty">
             <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-                <h3 class="text-center mb-4">Профиль пользователя</h3>
                 <form action="{% url "users:profile" %}" method="post">
                     {% csrf_token %}
                     <div class="row">
@@ -82,7 +83,29 @@
                 </form>
             </div>
         </div>
+        <style>
+            .favsCont{
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: column;
+            }
+            .qwerty{
+                width: 50%;
+            }
+        </style>
+        <div class="favsCont col">
+            <div><h5>Любимые товары</h5></div>
+            <br>
+            <div class="list-group">
+                {% for product in products_favorite %}
+                <a href="/#{{product.id}}" class="list-group-item list-group-item-action">{{product.name}}</a>
+                {% endfor %}
+            </div>
 
+
+
+            </div>
+    </div>
         {% if user.is_staff %}
             <button onclick="showAlert('created')">create</button>
             <button onclick="showAlert('paid')">paid</button>
