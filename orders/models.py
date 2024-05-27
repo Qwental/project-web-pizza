@@ -14,11 +14,13 @@ from orders.utils import default_start_time
 
 
 class OrderitemQueryset(models.QuerySet):
+    """
+    Данный класс нужен для того, чтобы мы могли получать
+    полную сумму total_price в заказе и количество продуктов total_quantity в заказе
+    """
+
     def total_price(self):
         return sum(cart.products_price() for cart in self)
-
-    # def total_price(self):
-    #     return sum(cart.final_price() for cart in self)
 
     def total_quantity(self):
         if self:
@@ -27,15 +29,15 @@ class OrderitemQueryset(models.QuerySet):
 
 
 class Order(models.Model):
+    """
+    Класс Заказа
+    """
+
     user = models.ForeignKey(to=User, on_delete=models.SET_DEFAULT, blank=True, null=True, verbose_name="Пользователь",
                              default=None)
-
     created_timestamp = models.DateTimeField(auto_now_add=True,
                                              verbose_name="Дата создания заказа")
-
-    # Думаю телефон нам не нужен
-    # phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
-
+    #Статусы заказа
     CREATED = 0
     PAID = 1
     ON_WAY = 2
@@ -49,16 +51,11 @@ class Order(models.Model):
         (DELIVERED, 'Получен'),
     )
     status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
-
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
-
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки",
                                         default='Пользователь выбрал самовывоз', )
-    # payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Заказ оплачен")
-
     time_pickup_delivery = models.TimeField(default=default_start_time, verbose_name="Время доставки/самовывоза")
-
     email = models.EmailField(max_length=256, blank=True, null=True,
                               verbose_name="Почтовый ящик", default='default@example.com')
 
@@ -69,7 +66,8 @@ class Order(models.Model):
         (CARD_PAYMENT, 'Оплата картой'),
         (CASH_PAYMENT, 'Оплата наличными'),
     )
-    cash_payment = models.SmallIntegerField(default=CARD_PAYMENT, choices=PAYMENT_VARIATIONS,verbose_name='Способ оплаты' )
+    cash_payment = models.SmallIntegerField(default=CARD_PAYMENT, choices=PAYMENT_VARIATIONS,
+                                            verbose_name='Способ оплаты')
 
     class Meta:
         db_table = "order"
@@ -81,6 +79,9 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    """
+    Класс продукта в Заказе
+    """
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ")
     product = models.ForeignKey(to=Products, on_delete=models.SET_DEFAULT, null=True, verbose_name="Продукт",
                                 default=None)

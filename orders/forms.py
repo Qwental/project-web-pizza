@@ -1,25 +1,19 @@
 import re
 from datetime import datetime, timedelta
-
 from django.core.exceptions import ValidationError
-
-# import datetime
 from orders.models import Order
 from django import forms
-
-from users.models import User
-
-
-
-
 
 
 # Та самая нагруженность
 def current_service_load():
+    """
+    Функция, которая определяет нагруженность сервиса(пиццерии) по статусам всех заказов
+    Возвращает True\False
+    """
     flag_load = False
     orders = Order.objects.all()
     # Создаем словарь, где ключ - интервал, значение - текущая нагруженность на интервал
-
     start_time = (datetime.now()).replace(hour=9, minute=0)
     intervals_load = {}
     for i in range(28):
@@ -27,30 +21,26 @@ def current_service_load():
         start_time = (start_time + timedelta(minutes=30))
         s += f'{start_time.strftime("%H:%M")}'
         intervals_load[s] = 0
-        s = ''
-
     for order in orders:
         if order.get_status_display() != 'Получен':
             time_order = order.time_pickup_delivery
-            #print(time_order)
-
             for key in intervals_load.keys():
                 start_interval = datetime.strptime((str(str(key).split('-')[0])), "%H:%M").time()
                 end_interval = datetime.strptime((str(str(key).split('-')[1])), "%H:%M").time()
-                #print(start_interval, time_order, end_interval)
-                if (start_interval<=time_order <=end_interval):
+                if (start_interval <= time_order <= end_interval):
                     intervals_load[key] += 1
                     if intervals_load[key] > 4:
                         flag_load = True
                     break
-
         if flag_load:
             break
-
     return flag_load
 
 
 class CreateOrderForm(forms.Form):
+    """
+    Форма для создания заказа
+    """
     first_name = forms.CharField()
     last_name = forms.CharField()
     time_pickup_delivery = forms.TimeField()
@@ -59,8 +49,8 @@ class CreateOrderForm(forms.Form):
 
     cash_payment = forms.ChoiceField(
         choices=[
-            ("0", False),  # безнал
-            ("1", True),  # налик
+            ("0", False),  # Безналичный расчет
+            ("1", True),  # Наличный расчет
         ]
     )
 
@@ -69,11 +59,8 @@ class CreateOrderForm(forms.Form):
             return 0
         return 1
 
-
-
-    # Валидация времени
+    # Валидация введеного времени доставки\самовывоза
     def clean_my_time(self, requires_delivery):
-
         print('requires_delivery', requires_delivery)
         time_pickup_delivery = self.cleaned_data['time_pickup_delivery']
         flag_working_time = True
@@ -95,14 +82,11 @@ class CreateOrderForm(forms.Form):
         if start > end:
             flag_pizza_close = True
 
-        #Проверка времени на попадания в часы работы
+        # Проверка времени на попадания в часы работы
         if (time_pickup_delivery <= start.replace(hour=9, minute=0, second=0)) or (time_pickup_delivery >= end):
             # Время невалидное, т.е. не попадает в рабочий интервал
             flag_working_time = True
         flag_current_service_load = current_service_load()
-
-        # Временно!
-        #flag_working_time = False
 
         if flag_working_time:
             time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")
@@ -110,7 +94,7 @@ class CreateOrderForm(forms.Form):
                 f'Выбранное вами время {time_pickup_delivery} не попадает в рабочее время '
                 f'Пиццерии. Рабочее время с 9:00 до 23:00')
 
-        elif flag_working_time: #если  flag_working_time == False
+        elif flag_working_time:  # если  flag_working_time == False
             time_pickup_delivery = time_pickup_delivery.strftime("%H:%M")
             start = start.strftime("%H:%M")
             end = end.strftime("%H:%M")
@@ -129,4 +113,5 @@ class CreateOrderForm(forms.Form):
                     f'В данный момент сервис перегружен заказами и выбранное вами время {time_pickup_delivery} '
                     f'не попадает в доступные время '
                     f'Пиццерии, выберете между {start} и {end}')
+        # Если выбранное время валидное, то мы его возвращаем
         return time_pickup_delivery

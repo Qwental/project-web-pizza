@@ -1,13 +1,11 @@
-# Register your models here.
 from django.contrib import admin
-
 from orders.models import Order, OrderItem
 
 
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
-
 class OrderItemTabulareAdmin(admin.TabularInline):
+    """
+    Класс OrderItemAdmin — это представление содержания заказа в интерфейсе админ-понели
+    """
     model = OrderItem
     fields = "product", "name", "price", "quantity", "options"
     search_fields = (
@@ -19,6 +17,10 @@ class OrderItemTabulareAdmin(admin.TabularInline):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
+    """
+    Класс OrderItemAdmin — это представление заказа в интерфейсе админ-понели
+    """
+
     list_display = "order", "product", "name", "price", "quantity",
     search_fields = (
         "order",
@@ -28,6 +30,9 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 
 class OrderTabulareAdmin(admin.TabularInline):
+    """
+    Класс OrderTabulareAdmin — это представление полей и навигации в интерфейсе админ-понели
+    """
     model = Order
     fields = (
         "requires_delivery",
@@ -48,6 +53,9 @@ class OrderTabulareAdmin(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    """
+    Класс OrderAdmin — это представление модели в интерфейсе админ-понели.
+    """
     list_display = (
         '__str__',
         "id",

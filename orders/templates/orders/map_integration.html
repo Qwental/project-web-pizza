@@ -8,15 +8,14 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="{% static 'scripts/L.Control.Locate.min.js' %}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.81.1/L.Control.Locate.min.css" integrity="sha512-IlIXbyZEmmeF+tke8OOZzxTAN+zU31Ye+CBvZR6wylo37OaqtdRMXYwPuwwV2cup5DE4gwEeWWv0SCBJsLW18g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.81.1/L.Control.Locate.min.css"
+          integrity="sha512-IlIXbyZEmmeF+tke8OOZzxTAN+zU31Ye+CBvZR6wylo37OaqtdRMXYwPuwwV2cup5DE4gwEeWWv0SCBJsLW18g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 
 <body>
-{##}
-{#  <button type="button" id="my_position">#}
-{#      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-301q99-80 149.5-154T680-594q0-90-56-148t-144-58q-88 0-144 58t-56 148q0 65 50.5 139T480-301Zm0 101Q339-304 269.5-402T200-594q0-125 78-205.5T480-880q124 0 202 80.5T760-594q0 94-69.5 192T480-200Zm0-320q33 0 56.5-23.5T560-600q0-33-23.5-56.5T480-680q-33 0-56.5 23.5T400-600q0 33 23.5 56.5T480-520ZM200-80v-80h560v80H200Zm280-520Z"/></svg>#}
-{#      <div id="my_position_text">ГДЕ Я????</div>#}
-{#  </button>#}
+
 
 <div id="map"></div>
 
@@ -25,22 +24,25 @@
     #map {
         height: 520px;
     }
-    #my_position{
+
+    #my_position {
         background-color: black;
         border-radius: 12px;
         width: 152px;
         height: 52px;
     }
-    #my_position_text{
+
+    #my_position_text {
         color: antiquewhite;
         font-size: small;
     }
-    .leaflet-control-locate-location{
+
+    .leaflet-control-locate-location {
         display: none;
     }
 
-    .leaflet-attribution-flag{
-        display: none!important;
+    .leaflet-attribution-flag {
+        display: none !important;
     }
 </style>
 
@@ -81,8 +83,8 @@
     function geocodeAddress(address) {
         const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxAccessToken}`;
         return fetch(url)
-           .then(response => response.json())
-           .then(data => {
+            .then(response => response.json())
+            .then(data => {
                 if (data.features.length > 0) {
                     const feature = data.features[0];
                     return [feature.center[1], feature.center[0]];
@@ -114,7 +116,7 @@
     /**
      * Чистка всех маркеров с карты
      */
-    function clearMarkers(){
+    function clearMarkers() {
         map.eachLayer(function (layer) {
             if (layer instanceof L.Marker) {
                 map.removeLayer(layer);
@@ -123,14 +125,14 @@
     }
 
     function updateTimeInPopup() {
-            const timeInput = document.getElementById('id_time_pickup_delivery');
-            time = timeInput.value;
+        const timeInput = document.getElementById('id_time_pickup_delivery');
+        time = timeInput.value;
 
-            console.log(time)
-            locale();
+        console.log(time)
+        locale();
     }
 
-        /**
+    /**
      * Создает пин на карте
      * @param lat
      * @param lng
@@ -142,8 +144,6 @@
     }
 
     document.getElementById('id_time_pickup_delivery').addEventListener('change', updateTimeInPopup);
-
-
 
 
     /**
@@ -161,11 +161,10 @@
 
         let addr = await getAddress(lat, lng);
 
-        if (addr && addr!== 'Адрес не найден' &&!addr.startsWith('Ошибка')) {
+        if (addr && addr !== 'Адрес не найден' && !addr.startsWith('Ошибка')) {
             delivery_addressDOM.value = addr;
             console.log(delivery_addressDOM.value);
-        }
-        else {
+        } else {
             console.error("Произошла непредвиденная ошибка " + addr);
         }
     });
@@ -173,19 +172,19 @@
     /**
      * Выбор адреса вводом в поле (и отображение адреса на карте)
      */
-    delivery_addressDOM.addEventListener('input', function() {
+    delivery_addressDOM.addEventListener('input', function () {
         let address = this.value.trim();
         console.log(address);
         if (address) {
             geocodeAddress(address)
-               .then(([lat, lng]) => {
+                .then(([lat, lng]) => {
                     clearMarkers()
 
                     map.setView([lat, lng], 18);
 
                     createMarker(lat, lng)
-               })
-               .catch(error => {
+                })
+                .catch(error => {
                     console.error('Ошибка при определении адреса:', error);
                 });
         }
@@ -204,49 +203,49 @@
     }).addTo(myMap);
 
 
-
     lc.id = "btn-btn"
 
     const locateButton = document.getElementsByClassName('leaflet-bar-part-single')[0];
 
     console.log(locateButton);
- function locale(){
-     console.log("lat, lng");
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                console.log(lat, lng);
-                clearMarkers();
 
-                // Создание маркера
-                createMarker(lat, lng)
-                // Установка вида карты
-                myMap.setView([lat, lng], 18);
+    function locale() {
+        console.log("lat, lng");
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    console.log(lat, lng);
+                    clearMarkers();
 
-                getAddress(lat, lng).then(addr => {
-                    console.log(addr);
-                    delivery_addressDOM.value = addr;
-                    console.log(delivery_addressDOM.value);
-                }).catch(error => {
-                    console.error('Ошибка при определении адреса:', error);
-                });
-            },
-            (error) => {
-                console.error("Ошибка получения местоположения:", error);
-            },
-            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-        );
-    } else {
-        console.error("Геолокация не поддерживается браузером.");
+                    // Создание маркера
+                    createMarker(lat, lng)
+                    // Установка вида карты
+                    myMap.setView([lat, lng], 18);
+
+                    getAddress(lat, lng).then(addr => {
+                        console.log(addr);
+                        delivery_addressDOM.value = addr;
+                        console.log(delivery_addressDOM.value);
+                    }).catch(error => {
+                        console.error('Ошибка при определении адреса:', error);
+                    });
+                },
+                (error) => {
+                    console.error("Ошибка получения местоположения:", error);
+                },
+                {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}
+            );
+        } else {
+            console.error("Геолокация не поддерживается браузером.");
+        }
     }
- }
-/**
- * Тригер для определения местоположение пользователя
- */
-locateButton.addEventListener('click', locale);
+
+    /**
+     * Тригер для определения местоположение пользователя
+     */
+    locateButton.addEventListener('click', locale);
 </script>
 </body>
-
 </html>

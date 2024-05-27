@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet"
@@ -13,11 +12,7 @@
 
 
 {% block content %}
-
-
-
     <section class="align-content-center">
-
         <div class="col-md-8 offset-md-2">
             <div>
                 <h4 class="align-content-center">
@@ -25,37 +20,32 @@
                 </h4>
             </div>
             <p></p>
-
-
             <div class="row g-3">
                 <div class="col-md-6 mb-3">
                     <a href="{% url 'orders:create_order' %}">
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">
-                        <p class="align-content-center">Доставка на дом</p>
-                        <p class="align-content-center"><span class="material-symbols-outlined">local_shipping</span>
-                        </p>
-                                                <p class="align-content-center">График работы доставки</p>
-                        <p class="align-content-center"> Ежедневно: 9:20 - 23:50</p>
-                    </button>
-                        </a>
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">
+                            <p class="align-content-center">Доставка на дом</p>
+                            <p class="align-content-center"><span
+                                    class="material-symbols-outlined">local_shipping</span>
+                            </p>
+                            <p class="align-content-center">График работы доставки</p>
+                            <p class="align-content-center"> Ежедневно: 9:20 - 23:50</p>
+                        </button>
+                    </a>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <a href="{% url 'orders:create_order_pickup' %}">
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">
-                        <p class="align-content-center">Самовывоз</p>
-                        <p class="align-content-center"><span class="material-symbols-outlined">room_service</span></p>
-                        <p class="align-content-center">График работы пиццерии</p>
-                        <p class="align-content-center"> Ежедневно: 9:00 - 23:00</p>
-                    </button>
-                         </a>
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">
+                            <p class="align-content-center">Самовывоз</p>
+                            <p class="align-content-center"><span class="material-symbols-outlined">room_service</span>
+                            </p>
+                            <p class="align-content-center">График работы пиццерии</p>
+                            <p class="align-content-center"> Ежедневно: 9:00 - 23:00</p>
+                        </button>
+                    </a>
                 </div>
-
             </div>
-
-
-            {#                    return redirect('orders:success') находится во views.py#}
-
         </div>
     </section>
 

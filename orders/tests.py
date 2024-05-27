@@ -1,7 +1,5 @@
 from django.test import TestCase
-
 from django.contrib.auth.models import User
-
 from cart.models import Cart
 from main.models import Products, Category
 from orders.models import Order, OrderItem
@@ -9,7 +7,7 @@ from orders.models import Order, OrderItem
 
 class OrderTestCase(TestCase):
     """
-    Тесты для корзины
+    Тесты для заказа
     """
 
     def setUp(self):

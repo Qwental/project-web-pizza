@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block css %}
 
+{% block css %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 {% endblock %}
-
-
 
 
 {% block content %}
@@ -22,7 +20,7 @@
             {% endfor %}
 
 
-
+            {# Страница с заказом #}
             <div class="row g-5">
 
                 {# Корзина#}
@@ -53,8 +51,7 @@
 
                 <div class="col-md-7 col-lg-8">
 
-
-                    <!-- ФОРМА-->
+                    {# Форма #}
                     <form action="{% url 'orders:create_order' %}" method="post">
 
                         {% csrf_token %}
@@ -86,6 +83,7 @@
                                         {% endfor %}</div>
                                 {% endif %}
                             </div>
+
                             {#ТУТ ВЫВОЖУ КАКОЙ ИНТЕРВАЛ ПО ВРЕМЕНИ ДОСТУПЕН И ПОЧЕМУ#}
                             {#Интервалы доставки#}
                             <style>
@@ -146,16 +144,13 @@
                                 <label for="id_delivery_address" class="form-label">Адрес доставки*:</label>
                                 <textarea class="form-control" id="id_delivery_address"
                                           placeholder="Выберете адрес на карте или начинайте вводить свою адрес в поле"
-                                          value="
-
-
-
-                                                  {% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
+                                          value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
                                           name="delivery_address" rows="2"></textarea>
                                 {% if form.delivery_address.errors %}
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
                                 {% endif %}
                             </div>
+                            {# Способ оплаты#}
                             <div class="col-md-12 mb-3">
                                 <label for="id_cash_payment" class="form-label">Выберете удобный способ оплаты</label>
                                 <p></p>
@@ -174,19 +169,18 @@
                             </div>
                         </div>
                         <h3>Карта</h3>
-                        {#Уже не заглушка#}
+
+                        {#Карта в котором можно выбирать место#}
                         <div class="col-12 mt-3">
                             {% include 'orders/map_integration.html' %}
                         </div>
-                        <p></p>
+                        <br>
                         {# return redirect('orders:success') находится во views.py#}
                         <button class="w-100 btn btn-primary btn-lg" type="submit">Продолжить</button>
-                        <p></p>
+                        <br>
                     </form>
                 </div>
             </div>
-
-
         </div>
     </section>
 {% endblock %}

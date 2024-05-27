@@ -20,9 +20,7 @@
                     {{ error }}
                 </div>
             {% endfor %}
-
             <div class="row g-5">
-
                 {#  Корзина#}
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -50,26 +48,10 @@
                 {# КОНЕЦ Корзины#}
 
                 <div class="col-md-7 col-lg-8">
-                    <!-- ФОРМА-->
+                    {# Форма #}
                     <form action="{% url 'orders:create_order_pickup' %}" method="post">
                         {% csrf_token %}
-
-                        {#                        <h4>Ошибки</h4>#}
-                        {#                        <div class="row">#}
-                        {#                            <ul class="list-group mb-3">#}
-                        {#                                {% for error in form.errors %}#}
-                        {#                                    <li class="list-group-item d-flex justify-content-between lh-sm">#}
-                        {#                                        <div>#}
-                        {#                                            <h6 class="my-0">{{ error }}</h6>#}
-                        {#                                        </div>#}
-                        {#                                    </li>#}
-                        {#                                {% endfor %}#}
-                        {#                            </ul>#}
-                        {#                        </div>#}
-
-                        {#                        ТУТ НАЧИНАЕТСЯ ФОРМА#}
                         <div class="row g-3">
-
 
                             {# first_name #}
                             <div class="col-md-6 mb-3">
@@ -151,7 +133,7 @@
                             </div>
                         </div>
 
-
+                        {#Способ оплаты#}
                         <div class="col-md-12 mb-3">
                             <label for="id_cash_payment" class="form-label">Выберете удобный способ оплаты</label>
                             <p></p>
@@ -169,27 +151,20 @@
                                 <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
                             </div>
                         </div>
-
                         <h4>Самовывоз: Дубосековская улица, 4с1, Москва, 125080</h4>
                         <h4>Карта:</h4>
-                        {#Адрес пиццерии#}
+                        {#Адрес пиццерии в виде динамеской карты#}
                         <div class="col-12 mt-3">
                             <script type="text/javascript" charset="utf-8" async
                                     src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A481b285872e44f909f96dfe10a4ef1041bbcf62def9c8d8142df6b437052bc24&amp;width=100%25&amp;height=428&amp;lang=ru_RU&amp;scroll=true"></script>
                         </div>
-
-
-                        <p></p>
-
-                        {#                    return redirect('orders:success') находится во views.py#}
-
+                        <br>
+                        {#     return redirect('orders:success') находится во views.py#}
                         <button class="w-100 btn btn-primary btn-lg" type="submit">Продолжить</button>
-                        <p></p>
+                        <br>
                     </form>
                 </div>
             </div>
-
-
         </div>
     </section>
 {% endblock %}
