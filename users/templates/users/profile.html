@@ -65,14 +65,30 @@
                             <p></p>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="cash_payment"
-                                       id="id_cash_payment" value="1" {% if form.cash_payment.value == 1 %}checked{% endif %}>
+                                       id="id_cash_payment" value="1"
+                                       {% if form.cash_payment.value == 1 %}checked{% endif %}>
                                 <label class="form-check-label" for="id_cash_payment">Оплата наличными</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="cash_payment"
-                                       id="id_cash_payment" value="0" {% if form.cash_payment.value == 0 %}checked{% endif %}>
+                                       id="id_cash_payment" value="0"
+                                       {% if form.cash_payment.value == 0 %}checked{% endif %}>
                                 <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
                             </div>
+                        </div>
+
+                        <div class="reg_label p-1 mb-1 mx-1">
+                            <label for="id_favorite_products" class="form-label">Выберете любимый продукт: </label>
+                            <p>Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
+                            <select id="id_favorite_products" name="favorite_products" multiple>
+                                {% for product in products %}
+                                    <option value="{{ product.id }}">{{ product }}</option>
+                                {% endfor %}
+                            </select>
+
+                            {% if form.favorite_products.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.favorite_products.errors }}</div>
+                            {% endif %}
                         </div>
 
 

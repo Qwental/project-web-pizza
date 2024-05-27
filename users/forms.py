@@ -46,19 +46,9 @@ class UserRegistrationForm(UserCreationForm):
         ], required=True, widget=forms.RadioSelect()
     )
 
-    # favorite_products = forms.ChoiceField(
-    #     choices=[(str(x),x) for x in Products.objects.all()], required=True, widget=forms.RadioSelect()
-    # )
-
-    # Выбор любимого продукта ManyToMany
-    # favorite_products = forms.ModelMultipleChoiceField(
-    #     label='Product',
-    #     queryset=Products.objects.all(),
-    #     widget=forms.CheckboxSelectMultiple()
-    # )
     try:
-        favorite_products = forms.ModelMultipleChoiceField(queryset=Products.objects.all())
-    except Exception as e: 
+        favorite_products = forms.CheckboxSelectMultiple(choices=[(str(x.id, x) for x in Products.objects.all())])
+    except Exception as e:
         print(str(e))
 
     class Meta:
@@ -94,6 +84,11 @@ class ProfileForm(UserChangeForm):
             ("1", True),  # налик
         ], required=True, widget=forms.RadioSelect()
     )
+
+    try:
+        favorite_products = forms.ModelMultipleChoiceField(queryset=Products.objects.all(), required=False)
+    except Exception as e:
+        print(str(e))
 
 
 class ProfileUpdateForm(forms.ModelForm):
