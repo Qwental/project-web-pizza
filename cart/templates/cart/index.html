@@ -1,0 +1,87 @@
+{# главная страница корзины, на ней отображается: список добавленных товаров, его добавки, количество, кнопка удалить, состав, цена продукта и итоговая цена #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+  Корзина
+{% endblock %}
+
+{% block css_additionl %}
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  {% comment %} <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/global.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}" /> {% endcomment %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400&display=swap" />
+{% endblock %}
+
+{% block content %}
+  <div class="cart_page" id="cart-items-container">
+    {# Тут происходит магия корзины #}
+    {% include 'cart/components/cart_dynamic.html' %}
+    {# ============================ #}
+  </div>
+  <style>
+    .form_content {
+      display: flex;
+      flex-direction: column;
+    }
+    .go {
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .cart_page {
+      position: relative;
+      width: 100%;
+    }
+    .form {
+      display: flex;
+      width: 30%;
+      margin-top: 5%;
+    }
+    .cart_index {
+      display: flex;
+      height: 50em;
+      width: 100%;
+      flex-direction: column;
+      height: max-content;
+    }
+    .cart_item {
+      display: flex;
+      width: 95%%;
+      height: fit-content;
+      justify-content: space-around;
+      padding-top: 1%;
+    }
+    .third_clmn {
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .second_clmn {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      width: 12vw;
+    }
+    .empty-cart{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .goToMenuBtn{
+      text-decoration: none;
+      color: black;
+    }
+    .empty-cart .img{
+      height: auto; 
+      width: 440px;
+    }
+  </style>
+{% endblock %}
+
+{% block js_footer %}
+  <script src="{% static 'scripts/cart.js' %}"></script>
+{% endblock %}

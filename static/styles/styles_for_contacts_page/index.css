@@ -1,0 +1,89 @@
+@import url('./global.css');
+
+.p-about {
+    margin: 0;
+    font-size: var(--font-size-5xl);
+}
+
+.email-about {
+    margin: 0;
+    font-weight: 300;
+}
+
+.email-skibidi-pizzarambler-about {
+    position: absolute;
+    top: 0;
+    left: 1px;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 855px;
+    height: 198px;
+}
+
+.div6-about {
+    /* position: absolute;
+    top: calc(50% + 279px);
+    left: calc(50% - 428px);
+    background-color: var(--color-white);
+    width: 855px;
+    height: 176px;
+    overflow: hidden; */
+}
+
+.content{
+    display: block;
+}
+
+.div8-about {
+    top: 0;
+    left: 0;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 855px;
+    height: 154px;
+}
+
+.div7-about,
+.div8-about {
+    position: absolute;
+}
+
+.div7-about {
+    top: calc(50% + 475px);
+    left: calc(50% - 427px);
+    background-color: var(--color-white);
+    width: 855px;
+    height: 154px;
+    overflow: hidden;
+}
+
+
+.skibidi-pizza-about {
+    margin: 0;
+}
+
+.skibidi-pizza-container-about {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    line-height: 144.69%;
+    display: inline-block;
+    width: 427px;
+    height: 104px;
+}
+
+
+.div-about {
+    width: 100%;
+    position: relative;
+    height: 1430px;
+    text-align: left;
+    font-size: var(--font-size-lg);
+    color: var(--color-black);
+    font-family: var(--font-helvetica);
+}
+
+.a-about {
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #2f2f2f;
+}

@@ -1,0 +1,59 @@
+{# Теперь наследуется от общего base шаблона #}
+{% extends 'base.html' %}
+{% load static %}
+
+{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
+{% block head_title %}
+  Контакты
+{% endblock %}
+
+{% block css_additionl %}
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="{% static 'styles/styles_for_contacts_page/global.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/styles_for_contacts_page/index.css' %}" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400&display=swap" />
+{% endblock %}
+
+{% block content %}
+<style>
+  .contacts_page{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .first, .second{
+    width: 50vw;
+  }
+</style>
+  <div class="contacts_page">
+    {# Контакты #}
+    <div class="first">
+      <div class="ff">
+        <p class="p-about">Контакты</p>
+        <p class="email-about">Если у вас возникнут вопросы или пожелания, вы можете связаться с нами любым удобным способом:</p>
+        <p class="email-about">Телефон:</p>
+        <p class="email-about">+7 (133) 713-37-13</p>
+        <p class="email-about">Email:</p>
+        <p class="email-about">skibidi-pizza@rambler.ru</p>
+      </div>
+    </div>
+    <div class="second">
+      <div class="ss">
+        <p class="p-about">Реквизиты</p>
+        <p class="email-about">Юридическое лицо: ООО "Скибиди Доп Доп Йес Йес"</p>
+        <p class="email-about">ИНН:13371337</p>
+        <p class="email-about">КПП:1337228</p>
+        <p class="email-about">ОГРН:133713371337</p>
+        <p class="email-about"> <a class="not_blue my_tg" href="https://t.me/b3b3shka" %}">Самый лучший прогер</a> </p>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}

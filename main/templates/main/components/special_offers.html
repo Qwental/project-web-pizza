@@ -1,0 +1,170 @@
+<!-- <div class="block specialoffers" style=" background-color: #ff0000">
+    <img src="images/pizza1.jpeg" alt="pizza">
+    <span>Скидка 10% по студенческому билету на пиццу Пепперони</span>
+    <button data-cart type="button" class="btn btn-block btn-outline-warning"> заказать </button>
+</div> -->
+{% load static %} {% block css %}
+<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        crossorigin="anonymous"
+        xmlns:1="http://www.w3.org/1999/xhtml" xmlns:1="http://www.w3.org/1999/xhtml"/>
+{% endblock %}
+
+{% if special_offers %}
+<div
+  id="carouselExampleCaptions"
+  class="carousel carousel-dark slide"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-indicators">
+    {% for cnt in count_offers %}
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="{{cnt}}"
+      {% if cnt == 0 %}
+      class="active"
+      aria-current="true"
+      {% endif %}
+
+      aria-label="Slide {{cnt|add:"1"}}">
+    </button>
+    {% endfor %}
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <div class="carousel-inner">
+    {% for offer in special_offers %}
+    <div class="carousel-item active">
+<!--      <div class="block-special-offers">-->
+<!--  <span class="block-special-offers_content">Скидка 10% по студенческому билету на пиццу Пепперони</span>-->
+<!--  <button data-cart type="button" class="btn btn-block btn-outline-warning">Заказать</button>-->
+<!--</div>-->
+
+      <div class="block-special-offers" >
+        {% if product.image %}
+        <img src="{{ offer.image.url }}" alt="{{ offer.product.name }}" />
+        {% else %}
+        <img src="{% static 'img/pizza1.jpg'%}" class="block-special-offers_img"  alt=""/>
+        {% endif %}
+
+        <div class="block-special-offers_content carousel-caption d-none d-md-block">
+          <span class="block-special-offers_content">{{ offer.description|truncatechars:200 }}</span>
+          <br>
+          <button
+            data-cart
+            type="button"
+            class="btn btn-block btn-outline-warning"
+            onclick="addToCartp({{ offer.product.id }})"
+          >
+            заказать
+          </button>
+        </div>
+      </div>
+
+<!--      <img-->
+<!--        src="{%static 'img/Logo-pizza.png' %}"-->
+<!--        class="d-block w-100"-->
+<!--        alt="..."-->
+<!--      />-->
+    </div>
+    {% endfor %}
+  </div>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endif %}
+<style>
+  * {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.block-special-offers {
+    width: 100%;
+    height: 200px;
+    border-radius: 20px;
+    background-size: cover;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.block-special-offers_img{
+  justify-content: center;
+    width: 600px;
+    height: 200px;
+}
+
+.block-special-offers_content{
+  color: #03b55f; !important
+}
+
+.block span {
+    font-size: 26px;
+    color: white;
+    margin: 10px 289px 0px 20px;
+    letter-spacing: 3px;
+}
+
+.btn-block {
+    width: 130px;
+    height: 45px;
+    border-radius: 12px;
+    filter: drop-shadow(0px 2px 2.5px rgba(33, 33, 33, 0.35));
+    background-color: #fd9824;
+    line-height: 45px;
+
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.btn-block:hover {
+    background-color: #388cfa;
+}
+
+.carousel-control-prev {
+    left: calc(50% - 500px) !important;
+}
+
+.carousel-control-next {
+    right: calc(50% - 500px)!important;
+}
+</style>
+{% block js_footer %}
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
+{% endblock %}

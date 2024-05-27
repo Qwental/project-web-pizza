@@ -1,0 +1,123 @@
+{#Теперь наследуется от общего base шаблона#}
+{% extends 'base.html' %}
+{% load static %}
+
+{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
+{% block head_title %}О нас{% endblock %}
+
+{% block css_additionl %}
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+
+    <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/global.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styles/styles_for_about_page/index.css' %}"/>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400&display=swap"
+    />
+{% endblock %}
+
+{% block content %}
+    {#ЦЕНТРИРОВАНИЕ #}
+    <div class="div-about">
+
+        {#кнопку убрал#}
+        {#        <div class="div1-about">#}
+        {#            <div class="div2-about">#}
+        {#                <a href="/">#}
+        {#                    <button type="button" class="btn btn-light btn-lg">Вернуться на главную страницу</button>#}
+        {#                </a>#}
+        {#            </div>#}
+        {#        </div>#}
+
+        {#Верхняя информация#}
+        {#График работы#}
+        <div class="div9-about">
+            <div class="div10-about">
+                <p class="skibidi-pizza-about">
+
+                    {# СИМВОЛ СЕРДЕЧКА#}
+
+                    <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                 fill="#000000"><path
+                                    d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                    </span>
+                    {#  Конец символа сердечка#}
+                    График работы
+                </p>
+
+                <p class="skibidi-pizza-about">Будни: 9:00 - 22:00</p>
+                <p class="skibidi-pizza-about">Выходные: 9:00 - 23:00</p>
+            </div>
+
+            {#Адрес пиццерии#}
+            <div class="skibidi-pizza-container-about">
+
+                <p class="skibidi-pizza-about">
+                    {# СИМВОЛ СЕРДЕЧКА#}
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                             fill="#000000"><path
+                                d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                    </span>
+                    {#  Конец символа сердечка#}
+                    Адрес пиццерии “Skibidi Pizza”:
+                </p>
+                <p class="skibidi-pizza-about">Дубосековская улица, 4с1, Москва, 125080</p>
+            </div>
+        </div>
+
+        {#Карта#}
+        <div class="map-about">
+            <script type="text/javascript" charset="utf-8" async
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A481b285872e44f909f96dfe10a4ef1041bbcf62def9c8d8142df6b437052bc24&amp;width=100%25&amp;height=428&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+
+        {#О компании#}
+        <div class="div4-about">
+            <div class="div5-about">
+                <p class="p-about">О компании</p>
+                <p class="email-about">
+                    Компания "Скибиди пицца" имеет многолетний опыт работы и знает, что
+                    нужно именно вам! Мы бесконечно развиваемся, и каждый новый сегмент в
+                    нашей системе позволяет стать еще интереснее и полезнее для
+                    вас. Доставка пиццы и готовых блюд — это удобный сервис, дающий
+                    возможность быстро и вкусно пообедать, провести вечер в кругу семьи,
+                    угостить друзей и просто расслабиться после работы! 
+                </p>
+                <p class="email-about">
+                    Мы учитываем каждый момент и всегда стараемся быть лучше!
+                </p>
+            </div>
+        </div>
+
+
+        {#Контакты#}
+        <div class="div6-about">
+            <div class="email-skibidi-pizzarambler-about">
+                <p class="p-about">Контакты</p>
+                <p class="email-about">
+                    Если у вас возникнут вопросы или пожелания, вы можете связаться с
+                    нами любым удобным способом:
+                </p>
+                <p class="email-about">Телефон: </p>
+                <p class="email-about">+7 (133) 713-37-13</p>
+                <p class="email-about">Email: </p>
+                <p class="email-about">skibidi-pizza@rambler.ru</p>
+            </div>
+        </div>
+        {#Реквизиты#}
+        <div class="div7-about">
+            <div class="div8-about">
+                <p class="p-about">Реквизиты</p>
+                <p class="email-about">Юридическое лицо: ООО "Скибиди Доп Доп Йес Йес"</p>
+                <p class="email-about">ИНН:13371337</p>
+                <p class="email-about">КПП:1337228</p>
+                <p class="email-about">ОГРН:133713371337</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

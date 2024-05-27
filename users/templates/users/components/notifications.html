@@ -1,0 +1,79 @@
+{% load orders_tags %}
+
+{% get_notifications user as notifications%}
+<div class="notificationContainer">
+    {% for notification in notifications %}
+    <div class="notificationContainer">
+        <div id="orderStatusAlert" data-content="{{notification}}" class="created alert alert-info alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading">Статус заказа обновлён.</h4>
+            <p>{{notification}}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .notificationContainer{
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+
+    }
+    .created {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+   .notificationContainer{
+        display: flex;
+        z-index: 1;
+        position: fixed;
+        justify-content: flex-end;
+        right: 5px;
+
+    }
+   .alert{
+        width: auto;
+       animation: ani 2.5s forwards;
+       {#display: none;#}
+
+    }
+    @keyframes ani {
+      0% {transform: translateX(100%);}
+      100% {transform: translateX(-5px);}
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alertElement = document.getElementById('orderStatusAlert');
+
+    function onAlertClosed() {
+            this.parentElement.remove();
+    }
+
+    alertElement.addEventListener('hidden.bs.alert', onAlertClosed);
+});
+</script>
+<script>
+    /**
+     * Уведы красиво уходят по истечении времени
+     */
+    $(document).ready(function() {
+        let alerts = $('.alert').get();
+        const delay = 5000;
+
+        function removeNextAlert() {
+        if (alerts.length > 0) {
+            const nextAlert = $(alerts.pop());
+            nextAlert.fadeOut(delay, function() {
+                nextAlert.remove();
+                alerts = $('.alert').get();
+            });
+        }
+    }
+
+    removeNextAlert();
+    setInterval(removeNextAlert, delay);
+});
+</script>

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{# Тут пишется название страницы с отображением в формате "Skibidi Pizza | <тут твой текст>" #}
+	{% block head_title %}Главная{% endblock %}
+
+	<!DOCTYPE html>
+	<html>
+
+	<body class="root">
+		{# TODO: починить шрифт Italiano в header #}
+		{# HEADER(шапка) #}
+		{% block header %}
+
+		{% endblock %}
+
+		{% block content %}
+		{% include 'main/components/special_offers.html' %}
+		{# nav bar для меню(мини-шапка) #}
+		{% include 'main/components/menu_navbar.html' %}
+
+		{% include 'main/components/product_options_menu.html' %}
+
+		{# TODO: починить скроллинг (не видно названий категорий в меню) #}
+		{# МЕНЮ #}
+		<div class="menu">
+			{# Заполнение товаров по категориям (сделал как это примерно должно работать) #}
+			{% for category in categories %}
+			<div id="{{ category.name }}" class="menu__section menu__section_{{ category.name }}">
+				<h5>{{ category.name }}</h5>
+				<div class="menu__section-content">
+					<div class="menu__section-content-cards">
+
+						{# TODO: цикл карточек; данные подтягиваются с бэка #}
+						{% for product in category.get_products %}
+						<div id="{{product.id}}" class="div11">
+							{% if product.image %}
+							<img class="icon1" loading="lazy" alt="{{ product.name }}" src="{{ product.image.url }}" />
+							{% else %}
+							<img src="https://placehold.co/600x400@2x.png" class="icon1">
+							{% endif %}
+
+							<div class="pen-tool">
+								<b class="b">{{ product.name }}</b>
+								<div class="parent">
+									<div class="div12">
+										<p class="p">
+											{{ product.description|truncatechars:100 }}
+										</p>
+										<p class="blank-line">
+											<b>&nbsp;</b>
+										</p>
+									</div>
+									<div class="wrapper-wrapper">
+										<div class="wrapper-">
+											<button onclick="addToCartp({{product.id}})"><span id="toggle{{product.id}}"
+													><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></span></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+			{% include 'main/components/cart.html' %}
+
+			{% endblock %}
+
+			{% block footer %}
+
+			{% endblock %}
+
+
+			{# Корзина отображается только на главной странице, ей не обязательно быть в base.html #}
+			{% block js_footer %}
+			<script src="{% static 'scripts/optionsMenu.js' %}"></script>
+			{% endblock %}
+	</body>
+
+	</html>
