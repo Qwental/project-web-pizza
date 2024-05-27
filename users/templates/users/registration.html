@@ -2,15 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <style>
-    .favs{
-        border-radius: 12px;
-        background-color: rgba(221, 214, 214, 0.94);
-    }
-    .intervalListBtn {
-                                    background-color: #1dda96;
-              }
-    </style>
     <main>
         <h2 class="text-center mb-4">Регистрация</h2>
         <form class="form_reg" action="{% url 'user:registration' %}" method="post">
@@ -96,41 +87,49 @@
                 </div>
 
                 {# Выбор предпочтений favorite_products #}
-            <button class="intervalListBtn btn btn-secondary" type="button" data-bs-toggle="collapse"
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_favorite_products" class="form-label"> </label>
+                <br>
+                            <button class="intervalListBtn btn btn-secondary" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseExample" aria-expanded="false"
                                     aria-controls="collapseExample">
-                                Доступные интервалы для доставки
+                                Выберете любимый продукт:
                             </button>
-            <div class="collapse" id="collapseExample">
-  <div class="card card-body">
-                <div class="favs reg_label p-1 mb-1 mx-1">
-            <div class="row">
-{#  <div class="col-4">#}
-{#    <div id="simple-list-example" class="d-flex flex-column gap-2 simple-list-example-scrollspy text-center">#}
-{#        {% for category in categories %}#}
-{#            <a class="p-1 rounded" href="#simple-list-item-{{ category.id }}">{{ category }}</a>#}
-{#        {% endfor %}#}
-{#    </div>#}
-{#  </div>#}
+                            {# Собственно сами интервалы #}
+                            <div class="collapse" id="collapseExample">
+                                <div class="container-lg">
+                                    <div class="row">
+                                    <select id="id_favorite_products " name="favorite_products" multiple>
+                                        {% for product in products %}
+                                            <option value="{{ product.id }}">{{ product }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
 
-  <div class="col-8">
-    <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
-        {% for category in categories %}
-      <h4 id="simple-list-item-{{ category.id }}">{{ category }}</h4>
-        {%   for product in category.get_products %}
-            <div class="form-check" data-product-id="{{ product.id }}">
-                <input class="form-check-input" type="checkbox" value="{{ product.id }}" id="flexCheckDefault-{{ product.id }}" name="flexCheckDefault-{{ product.id }}">
-                <label class="form-check-label" for="flexCheckDefault-{{ product.id }}">
-                    {{ product }}
-                </label>
-            </div>
-            {% endfor %}
-        {% endfor %}
-    </div>
-  </div>
-</div>
+                    <style>
+                    #id_favorite_products:hover{
+                        background-color: antiquewhite;
+                    }
+                     #id_favorite_products:active{
+                        background-color: #f6e8d5;
+                    }
+                    </style>
+                    <script>
+                        $("select").mousedown(function(e){
+                        e.preventDefault();
 
+                        var select = this;
+                        var scroll = select.scrollTop;
 
+                        e.target.selected = !e.target.selected;
+
+                        setTimeout(function(){select.scrollTop = scroll;}, 0);
+
+                        $(select).focus();
+                    }).mousemove(function(e){e.preventDefault()});
+                    </script>
                     {% if form.favorite_products.errors %}
                         <div class="alert alert-danger alert-dismissible fade show">{{ form.favorite_products.errors }}</div>
                     {% endif %}
@@ -143,10 +142,7 @@
 
 
             </div>
-            </div>
-</div>
-
-            <button style="margin-top: 5px" type="submit" class="btn btn-dark btn-block Btn_reg">Зарегистрироваться</button>
+            <button type="submit" class="btn btn-dark btn-block Btn_reg">Зарегистрироваться</button>
         </form>
     </main>
     <br>
