@@ -123,11 +123,13 @@ def profile(request):
             queryset=OrderItem.objects.select_related("product"),
         )
     ).order_by("-id")
+    products = request.user.favorite_products.all()
 
     context = {
         'title': 'Home - Кабинет',
         'products': Products.objects.all(),
         'form': form,
         'orders': orders,
+        'products_favorite': products
     }
     return render(request, 'users/profile.html', context)
