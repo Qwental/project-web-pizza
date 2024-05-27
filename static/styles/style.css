@@ -1083,11 +1083,11 @@ body {
   border-radius: var(--br-3xs);
   background-color: var(--color-gray-100);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
+  /*overflow: hidden;*/
   flex-direction: row;
   padding: var(--padding-smi) var(--padding-5xs) var(--padding-5xs) var(--padding-xs);
   gap: var(--gap-3xs);
-  max-width: 48vw;
+  /*max-width: 48vw;*/
   width: auto;
 }
 
