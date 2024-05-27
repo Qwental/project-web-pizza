@@ -76,9 +76,7 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'main/index.html')
         self.assertContains(response, "Test Category")
-        # Починить ближе к концу
         self.assertContains(response, "Test Offer")
-        # self.assertContains(response, "Test Addition")
 
     def test_about_view(self):
         response = self.client.get(reverse('main:about'))

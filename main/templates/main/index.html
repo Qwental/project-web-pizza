@@ -8,7 +8,6 @@
 	<html>
 
 	<body class="root">
-		{# TODO: починить шрифт Italiano в header #}
 		{# HEADER(шапка) #}
 		{% block header %}
 
@@ -21,7 +20,6 @@
 
 		{% include 'main/components/product_options_menu.html' %}
 
-		{# TODO: починить скроллинг (не видно названий категорий в меню) #}
 		{# МЕНЮ #}
 		<div class="menu">
 			{# Заполнение товаров по категориям (сделал как это примерно должно работать) #}
@@ -31,13 +29,12 @@
 				<div class="menu__section-content">
 					<div class="menu__section-content-cards">
 
-						{# TODO: цикл карточек; данные подтягиваются с бэка #}
 						{% for product in category.get_products %}
 						<div id="{{product.id}}" class="div11">
 							{% if product.image %}
 							<img class="icon1" loading="lazy" alt="{{ product.name }}" src="{{ product.image.url }}" />
 							{% else %}
-							<img src="https://placehold.co/600x400@2x.png" class="icon1">
+							<img src="https://placehold.co/600x400@2x.png" class="icon1" alt="" >
 							{% endif %}
 
 							<div class="pen-tool">
@@ -80,6 +77,7 @@
 			{% block js_footer %}
 			<script src="{% static 'scripts/optionsMenu.js' %}"></script>
 			{% endblock %}
+        </div>
 	</body>
 
 	</html>

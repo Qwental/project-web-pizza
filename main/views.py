@@ -1,13 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
-
-from django.http import HttpResponse, HttpRequest
-
 import json
 
+from django.http import HttpRequest
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.templatetags.static import static
+
 from main.models import Category, Products, SpecialOffers
-from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -86,6 +84,7 @@ def product(request):
     """
     Возвращает Json с характеристиками товара из бд
     """
+    context = {}
     if request.method == 'GET':
         product_id = request.GET.get('id')
 
@@ -97,8 +96,8 @@ def product(request):
             'img':  static('img/600x400.png')
         }
     
-    if cur_product.image:
-        context['img'] = str(cur_product.image.url)
+        if cur_product.image:
+            context['img'] = str(cur_product.image.url)
 
     return JsonResponse(context, safe=False, json_dumps_params={'ensure_ascii': False}, content_type='application/json; charset=utf-8')
     
