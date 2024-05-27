@@ -7,6 +7,7 @@ from traitlets import Instance
 from django.contrib.auth.forms import PasswordResetForm
 
 from cart.models import Cart
+from main.models import Category
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 from users.models import Products
@@ -62,7 +63,7 @@ def registration(request):
     else:
         form = UserRegistrationForm()
     context = {
-        'products': Products.objects.all(),
+        "categories": Category.objects.all(),
         'title': 'Регистрация',
         'form': form
     }
