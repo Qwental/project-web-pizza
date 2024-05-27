@@ -67,7 +67,7 @@ def registration(request):
         form = UserRegistrationForm()
 
     context = {
-        "categories": Category.objects.all(),
+        "products": Products.objects.all(),
         'title': 'Регистрация',
         'form': form
     }
