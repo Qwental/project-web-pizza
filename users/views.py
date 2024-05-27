@@ -48,6 +48,7 @@ def registration(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
+
             try:
                 with transaction.atomic():
                     form.save()
@@ -64,6 +65,7 @@ def registration(request):
             print(form.errors)
     else:
         form = UserRegistrationForm()
+
     context = {
         "categories": Category.objects.all(),
         'title': 'Регистрация',
@@ -77,6 +79,17 @@ def logout(request):
     auth.logout(request)
     return redirect(reverse('main:index'))
 
+
+def profile_design(request):
+    """
+    Контроллер, отвечающий за страницу "о нас" (about_page.html),
+    та в свою очередь подгружает стили
+    из папки styles_for_about_page
+    """
+    context = {
+
+    }
+    return render(request, 'users/profile_new.html', context=context)
 
 def lost_pass(request):
     if request.method == 'POST':
@@ -132,4 +145,6 @@ def profile(request):
         'orders': orders,
         'products_favorite': products
     }
+
     return render(request, 'users/profile.html', context)
+
