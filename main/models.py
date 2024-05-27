@@ -1,6 +1,7 @@
 from django.db import models
 from django_jsonform.models.fields import JSONField
 
+
 class Category(models.Model):
     name = models.CharField(
         max_length=150, unique=True, verbose_name="Название категории"
@@ -34,31 +35,31 @@ def OPTIONS_SCHEMA():
         "type": "dict",
         "title": "Дополнительные характеристики",
         "keys": {
-            "adds":{
-            "type": "array",
-            "title": "Добавки",
-            "items": {
-                "type": "string",
-                "choices": [{"title": x.name, "value": f'{x.name}:{x.price}'} for x in Addition.objects.all()],
-            "widget": "multiselect"
-            }
+            "adds": {
+                "type": "array",
+                "title": "Добавки",
+                "items": {
+                    "type": "string",
+                    "choices": [{"title": x.name, "value": f'{x.name}:{x.price}'} for x in Addition.objects.all()],
+                    "widget": "multiselect"
+                }
             }
         },
         "additionalProperties": {
             "type": "array",
             "items": {
-            "type": "dict",
-            "keys": {
-                "value": {
-                "title": "Значение",
-                "type": "string"
-                },
-                "price":{
-                "title": "Цена",
-                "type": "number",
-                "default": 1
+                "type": "dict",
+                "keys": {
+                    "value": {
+                        "title": "Значение",
+                        "type": "string"
+                    },
+                    "price": {
+                        "title": "Цена",
+                        "type": "number",
+                        "default": 1
+                    }
                 }
-            }
             }
         }
     }
@@ -66,11 +67,11 @@ def OPTIONS_SCHEMA():
 
 
 class Products(models.Model):
-    name = models.CharField(max_length=150, unique=True, verbose_name="Название")
+    name = models.CharField(max_length=150, unique=True, verbose_name="Название", default=None)
     slug = models.SlugField(
-        max_length=200, unique=True, blank=True, null=True, verbose_name="URL"
+        max_length=200, unique=True, blank=True, null=True, verbose_name="URL", default=None
     )
-    description = models.TextField(blank=True, null=True, verbose_name="Описание")
+    description = models.TextField(blank=True, null=True, verbose_name="Описание", default=None)
     price = models.DecimalField(
         default=0.00, max_digits=7, decimal_places=2, verbose_name="Цена"
     )
@@ -87,7 +88,7 @@ class Products(models.Model):
     image = models.ImageField(
         upload_to="product_images", blank=True, null=True, verbose_name="Изображение"
     )
-    options = JSONField(schema=OPTIONS_SCHEMA) 
+    options = JSONField(schema=OPTIONS_SCHEMA, default=dict, verbose_name="Опции")
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -109,7 +110,6 @@ class Products(models.Model):
         return self.price
 
 
-
 class Addition(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name="Название")
     slug = models.SlugField(
@@ -126,7 +126,6 @@ class Addition(models.Model):
         db_table = "addition"
         verbose_name = "Добавку"
         verbose_name_plural = "Добавки"
-
 
 
 class SpecialOffers(models.Model):
@@ -146,6 +145,3 @@ class SpecialOffers(models.Model):
     class Meta:
         db_table = 'special_offer'
         verbose_name = "Специальное предложение"
-        verbose_name = "Специальные предложения"
-
-

@@ -86,11 +86,7 @@
                                         {% endfor %}</div>
                                 {% endif %}
                             </div>
-
-
                             {#ТУТ ВЫВОЖУ КАКОЙ ИНТЕРВАЛ ПО ВРЕМЕНИ ДОСТУПЕН И ПОЧЕМУ#}
-
-
                             {#Интервалы доставки#}
                             <style>
                                 .intervalListBtn {
@@ -105,7 +101,6 @@
                                     font-size: 15pt;
                                 }
                             </style>
-
                             {# Кнопка "Показать интервалы" #}
                             <button class="intervalListBtn btn btn-secondary" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseExample" aria-expanded="false"
@@ -137,7 +132,6 @@
                                     </div>
                                 {% endif %}
                             </div>
-
                             {# email #}
                             <div class="col-md-6 mb-3">
                                 <label for="id_email" class="form-label">Почта</label>
@@ -148,8 +142,6 @@
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
                                 {% endif %}
                             </div>
-
-
                             <div class="mb-3" id="deliveryAddressField">
                                 <label for="id_delivery_address" class="form-label">Адрес доставки*:</label>
                                 <textarea class="form-control" id="id_delivery_address"
@@ -164,7 +156,6 @@
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
                                 {% endif %}
                             </div>
-
                             <div class="col-md-12 mb-3">
                                 <label for="id_cash_payment" class="form-label">Выберете удобный способ оплаты</label>
                                 <p></p>
@@ -173,7 +164,6 @@
                                            id="id_cash_payment" value="1" {% if cash_payment  == 1 %}checked{% endif %}>
                                     <label class="form-check-label" for="id_cash_payment">Оплата наличными</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
 
                                     <input class="form-check-input" type="radio" name="cash_payment"
@@ -182,23 +172,14 @@
                                     <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
                                 </div>
                             </div>
-
-
                         </div>
-
                         <h3>Карта</h3>
                         {#Уже не заглушка#}
                         <div class="col-12 mt-3">
-
                             {% include 'orders/map_integration.html' %}
-
                         </div>
-
-
                         <p></p>
-
                         {# return redirect('orders:success') находится во views.py#}
-
                         <button class="w-100 btn btn-primary btn-lg" type="submit">Продолжить</button>
                         <p></p>
                     </form>

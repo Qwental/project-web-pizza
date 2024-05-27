@@ -69,7 +69,7 @@
                 </div>
 
 
-{#                 Выбор оплаты cash_payment#}
+                {#                 Выбор оплаты cash_payment#}
 
                 <div class="col-md-12 mb-3">
                     <label for="cash_payment" class="form-label">Выберете способ оплаты: </label>
@@ -85,6 +85,27 @@
                         <label class="form-check-label" for="id_cash_payment">Оплата картой</label>
                     </div>
                 </div>
+
+                {# Выбор предпочтений favorite_products #}
+                <div class="reg_label p-1 mb-1 mx-1">
+                    <label for="id_favorite_products" class="form-label">Выберете любимый продукт: </label>
+                    <p>Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
+                    <select id="id_favorite_products" name="favorite_products" multiple required>
+                        {% for product in products %}
+                            <option value="{{ product.id }}">{{ product }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {% if form.favorite_products.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.favorite_products.errors }}</div>
+                    {% endif %}
+                                    {#                        <div class="form-check form-check-inline">   {% if form.favorite_products.value %}{{ form.favorite_products.value}}{% endif %}#}
+                    {#                            <input class="form-check-input" type="radio" name="favorite_products"#}
+                    {#                                   id="id_favorite_products" value="{{ product }}">#}
+                    {#                            <label class="form-check-label" for="id_favorite_products">{{ product }}</label>#}
+                    {#                        </div>#}
+                </div>
+
 
             </div>
             <button type="submit" class="btn btn-dark btn-block Btn_reg">Зарегистрироваться</button>

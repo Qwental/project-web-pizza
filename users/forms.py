@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordResetForm
 from users.models import User
 
+from main.models import *
+
 
 class UserLoginForm(AuthenticationForm):
     class Meta:
@@ -26,6 +28,7 @@ class UserRegistrationForm(UserCreationForm):
             "password1",
             "password2",
             "cash_payment",
+            "favorite_products",
         )
 
     first_name = forms.CharField()
@@ -35,7 +38,7 @@ class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField()
     password2 = forms.CharField()
 
-    # выбор типа оплаты при регистрации
+    # выбор оплаты при регистрации
     cash_payment = forms.ChoiceField(
         choices=[
             ("0", False),  # безнал
@@ -43,6 +46,29 @@ class UserRegistrationForm(UserCreationForm):
         ], required=True, widget=forms.RadioSelect()
     )
 
+    # favorite_products = forms.ChoiceField(
+    #     choices=[(str(x),x) for x in Products.objects.all()], required=True, widget=forms.RadioSelect()
+    # )
+
+    # Выбор любимого продукта ManyToMany
+    # favorite_products = forms.ModelMultipleChoiceField(
+    #     label='Product',
+    #     queryset=Products.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple()
+    # )
+
+    favorite_products = forms.MultipleChoiceField(choices=[(x.id, x)
+                                                           for x in Products.objects.all()],required=True)
+
+    class Meta:
+        model = User
+        fields = [
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "favorite_products",
+        ]
 
 
 class ProfileForm(UserChangeForm):
@@ -67,6 +93,7 @@ class ProfileForm(UserChangeForm):
             ("1", True),  # налик
         ], required=True, widget=forms.RadioSelect()
     )
+
 
 class ProfileUpdateForm(forms.ModelForm):
     pass

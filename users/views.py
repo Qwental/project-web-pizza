@@ -9,6 +9,8 @@ from django.contrib.auth.forms import PasswordResetForm
 from cart.models import Cart
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
+from users.models import Products
+
 
 def login(request):
     # Метод из документации обработки с кнопкой войти
@@ -37,21 +39,30 @@ def login(request):
     }
     return render(request, 'users/login.html', context)
 
+from django.db import transaction
 
 def registration(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
-            form.save()
-            session_key = request.session.session_key
-            user = form.instance
-            auth.login(request, user)
-            if session_key:
-                Cart.objects.filter(session_key=session_key).update(user=user)
-            return HttpResponseRedirect(reverse('main:index'))
+            try:
+                with transaction.atomic():
+                    form.save()
+                    session_key = request.session.session_key
+                    user = form.instance
+                    auth.login(request, user)
+                    if session_key:
+                        Cart.objects.filter(session_key=session_key).update(user=user)
+                    return HttpResponseRedirect(reverse('main:index'))
+            except Exception as e:
+                print(str(e))
+        else:
+            print('form invalid')
+            print(form.errors)
     else:
         form = UserRegistrationForm()
     context = {
+        'products': Products.objects.all(),
         'title': 'Регистрация',
         'form': form
     }
