@@ -90,7 +90,7 @@
                 <div class="reg_label p-1 mb-1 mx-1">
                     <label for="id_favorite_products" class="form-label">Выберете любимый продукт: </label>
                     <p>Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
-                    <select id="id_favorite_products" name="favorite_products" multiple required>
+                    <select id="id_favorite_products" name="favorite_products" multiple>
                         {% for product in products %}
                             <option value="{{ product.id }}">{{ product }}</option>
                         {% endfor %}

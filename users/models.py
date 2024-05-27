@@ -14,10 +14,7 @@ class User(AbstractUser):
     cash_payment = models.SmallIntegerField(default=CARD_PAYMENT, choices=PAYMENT_VARIATIONS,
                                             verbose_name='Способ оплаты')
 
-    favorite_products = models.ManyToManyField(Products, verbose_name='Любимые продукты', blank=True, null=True,
-                                               default=dict)
-
-    # ЭТА ИЗ-ЗА ЧЕГО НЕ РАБОТАЛО У МАКСИМА ВСЕ...... какая мета...
+    favorite_products = models.ManyToManyField(Products, verbose_name='Любимые продукты', blank=True)
     class Meta:
         db_table = 'user'
         verbose_name = 'Пользователя'
