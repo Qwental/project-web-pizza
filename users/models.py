@@ -5,6 +5,9 @@ from main.models import Products
 
 
 class User(AbstractUser):
+    """
+    Класс User, который наследуется от стандартного джанго AbstractUser
+    """
     CARD_PAYMENT = 0
     CASH_PAYMENT = 1
     PAYMENT_VARIATIONS = (
@@ -15,6 +18,7 @@ class User(AbstractUser):
                                             verbose_name='Способ оплаты')
 
     favorite_products = models.ManyToManyField(Products, verbose_name='Любимые продукты', blank=True)
+
     class Meta:
         db_table = 'user'
         verbose_name = 'Пользователя'

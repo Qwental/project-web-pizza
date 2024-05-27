@@ -6,6 +6,10 @@ from main.models import *
 
 
 class UserLoginForm(AuthenticationForm):
+    """
+    Класс формы для авторизации
+    """
+
     class Meta:
         model = User
         fields = (
@@ -18,6 +22,10 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserRegistrationForm(UserCreationForm):
+    """
+    Класс формы для регистрации
+    """
+
     class Meta:
         model = User
         fields = (
@@ -46,6 +54,7 @@ class UserRegistrationForm(UserCreationForm):
         ], required=True, widget=forms.RadioSelect()
     )
 
+    # выбор любимых продуктов
     try:
         favorite_products = forms.ModelMultipleChoiceField(queryset=Products.objects.all(), required=False)
     except Exception as e:
@@ -63,6 +72,10 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class ProfileForm(UserChangeForm):
+    """
+    Класс формы для изменения данных пользователя в личном кабинете
+    """
+
     class Meta:
         model = User
         fields = (
@@ -89,7 +102,3 @@ class ProfileForm(UserChangeForm):
         favorite_products = forms.ModelMultipleChoiceField(queryset=Products.objects.all(), required=False)
     except Exception as e:
         print(str(e))
-
-
-class ProfileUpdateForm(forms.ModelForm):
-    pass

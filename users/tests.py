@@ -9,6 +9,10 @@ from orders.tests import OrderTestCase
 
 
 class UsersTestCase(TestCase):
+    """
+    Тесты для пользователя
+    """
+
     def setUp(self):
         self.valid_email = 'email@test.lemito'
         self.invalid_email = 'wrong_email.test.lemito'
@@ -87,6 +91,5 @@ class ProfileTestCase(TestCase):
         # print(first_item.name)
         # print(response.content)
         # self.assertContains(response, first_item.product.name)
-
 
         # self.assertContains(response, order_items.)

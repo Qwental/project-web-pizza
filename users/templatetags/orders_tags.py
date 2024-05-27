@@ -1,7 +1,6 @@
 from django import template
 from users.utils import show_notification
 
-
 register = template.Library()
 
 

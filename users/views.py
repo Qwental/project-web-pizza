@@ -1,20 +1,22 @@
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
-from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from traitlets import Instance
 from django.contrib.auth.forms import PasswordResetForm
-
+from django.db import transaction
 from cart.models import Cart
-from main.models import Category
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
-
 from users.models import Products
+from orders.models import Order, OrderItem
+from django.db.models import Prefetch
+from django.contrib import auth, messages
 
 
 def login(request):
-    # Метод из документации обработки с кнопкой войти
+    """
+    Контроллер отвечающий за  авторизацию пользователя
+    Сделан по документации
+    """
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
@@ -33,7 +35,6 @@ def login(request):
                 return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm()
-
     context = {
         'title': 'Логин',
         'form': form
@@ -41,14 +42,13 @@ def login(request):
     return render(request, 'users/login.html', context)
 
 
-from django.db import transaction
-
-
 def registration(request):
+    """
+    Контроллер отвечающий за регистрацию пользователя
+    """
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
-
             try:
                 with transaction.atomic():
                     form.save()
@@ -65,7 +65,6 @@ def registration(request):
             print(form.errors)
     else:
         form = UserRegistrationForm()
-
     context = {
         "products": Products.objects.all(),
         'title': 'Регистрация',
@@ -76,22 +75,17 @@ def registration(request):
 
 @login_required
 def logout(request):
+    """
+    Контроллер отвечающий за выход пользователя из аккаунта
+    """
     auth.logout(request)
     return redirect(reverse('main:index'))
 
 
-def profile_design(request):
-    """
-    Контроллер, отвечающий за страницу "о нас" (about_page.html),
-    та в свою очередь подгружает стили
-    из папки styles_for_about_page
-    """
-    context = {
-
-    }
-    return render(request, 'users/profile_new.html', context=context)
-
 def lost_pass(request):
+    """
+    Контроллер отвечающий за функционал восстановления пароля
+    """
     if request.method == 'POST':
         form = PasswordResetForm(data=request.POST)
         if form.is_valid():
@@ -107,13 +101,12 @@ def lost_pass(request):
     return render(request, 'users/lost_pass.html', context)
 
 
-from orders.models import Order, OrderItem
-from django.db.models import Prefetch
-from django.contrib import auth, messages
-
-
 @login_required
 def profile(request):
+    """
+    Контроллер отвечающий за страницу с личным кабинетом, редактированием информации,
+    просмотр истории заказов
+    """
     if request.method == 'POST':
         with transaction.atomic():
             form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
@@ -145,6 +138,4 @@ def profile(request):
         'orders': orders,
         'products_favorite': products
     }
-
     return render(request, 'users/profile.html', context)
-
