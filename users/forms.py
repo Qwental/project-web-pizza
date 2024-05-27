@@ -57,7 +57,7 @@ class UserRegistrationForm(UserCreationForm):
     #     widget=forms.CheckboxSelectMultiple()
     # )
     try:
-        favorite_products = forms.MultipleChoiceField(choices=[(x.pk, x) for x in Products.objects.all()])
+        favorite_products = forms.ModelMultipleChoiceField(queryset=Products.objects.all())
     except Exception as e: 
         print(str(e))
 
