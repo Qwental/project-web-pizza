@@ -42,7 +42,12 @@
 - Установите зависимости проекта, выполнив команду: ```pip install -r requirements.txt```.
 - Примените миграции базы данных: ```python manage.py migrate```.
 - Создайте аккаунт супер-пользователя: ```python manage.py createsuperuser```.
-- Загрузите тестовые данные в базу данных: ```python manage.py loaddata fixtures/new_all_data.json```.
+- Загрузите тестовые данные в базу данных: 
+- ```python manage.py loaddata fixtures/DumpDate/users.json```.
+- ```python manage.py loaddata fixtures/DumpDate/main.json```.
+- ```python manage.py loaddata fixtures/DumpDate/cart.json```.
+- ```python manage.py loaddata fixtures/DumpDate/orders.json```.
+-
 - - Настройка отладки в VSCode
 - - Для удобства отладки в Visual Studio Code выполните следующие действия:
 
